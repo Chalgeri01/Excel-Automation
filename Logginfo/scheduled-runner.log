@@ -1,0 +1,229 @@
+[2025-09-28 22:38:02] === Scheduled-Runner started ===
+[2025-09-28 22:38:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-28 22:38:02] Batches: 1
+[2025-09-28 22:38:02] ---- Batch 1 (23:00) ----
+[2025-09-28 22:38:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 11.00 PM.xlsx
+[2025-09-28 22:38:02] RunId : run-log_2025-09-29_Batch-1
+[2025-09-28 22:38:02] Local copy: C:\Temp\ExcelAutomation\01 Data Update - 11.00 PM.xlsx
+[2025-09-28 22:38:02] Invoking Run-Parallel.ps1 …
+[2025-09-29 05:31:05] Run-Parallel.ps1 finished.
+[2025-09-29 05:31:05] Exporting run_id 'run-log_2025-09-29_Batch-1' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-1.csv …
+[2025-09-29 05:31:05] Exported 301 rows.
+[2025-09-29 05:31:05] Batch 1 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-1.csv
+[2025-09-29 05:31:07] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-29 07:50:02] === Scheduled-Runner started ===
+[2025-09-29 07:50:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-29 07:50:02] Batches: 2
+[2025-09-29 07:50:02] ---- Batch 2 (05:00) ----
+[2025-09-29 07:50:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Data Update - 05.00 AM.xlsx
+[2025-09-29 07:50:02] RunId : run-log_2025-09-29_Batch-2
+[2025-09-29 07:50:02] Local copy: C:\Temp\ExcelAutomation\02 Data Update - 05.00 AM.xlsx
+[2025-09-29 07:50:02] Invoking Run-Parallel.ps1 …
+[2025-09-29 10:03:19] Run-Parallel.ps1 finished.
+[2025-09-29 10:03:19] Exporting run_id 'run-log_2025-09-29_Batch-2' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-2.csv …
+[2025-09-29 10:03:20] Exported 248 rows.
+[2025-09-29 10:03:20] Batch 2 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-2.csv
+[2025-09-29 10:03:22] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-29 11:00:02] === Scheduled-Runner started ===
+[2025-09-29 11:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-29 11:00:02] Batches: 3
+[2025-09-29 11:00:02] ---- Batch 3 (11:00) ----
+[2025-09-29 11:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx
+[2025-09-29 11:00:02] RunId : run-log_2025-09-29_Batch-3
+[2025-09-29 11:00:02] Local copy: C:\Temp\ExcelAutomation\03 Data Update - 11.00 AM.xlsx
+[2025-09-29 11:00:02] Invoking Run-Parallel.ps1 …
+[2025-09-29 11:00:22] Run-Parallel.ps1 finished.
+[2025-09-29 11:00:22] Exporting run_id 'run-log_2025-09-29_Batch-3' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-3.csv …
+[2025-09-29 11:00:22] Exported 2 rows.
+[2025-09-29 11:00:22] Batch 3 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-3.csv
+[2025-09-29 11:00:24] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-29 12:00:02] === Scheduled-Runner started ===
+[2025-09-29 12:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-29 12:00:02] Batches: 4
+[2025-09-29 12:00:02] ---- Batch 4 (12:00) ----
+[2025-09-29 12:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx
+[2025-09-29 12:00:02] RunId : run-log_2025-09-29_Batch-4
+[2025-09-29 12:00:02] Local copy: C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-09-29 12:00:02] Invoking Run-Parallel.ps1 …
+[2025-09-29 12:00:51] Run-Parallel.ps1 finished.
+[2025-09-29 12:00:52] Exporting run_id 'run-log_2025-09-29_Batch-4' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-4.csv …
+[2025-09-29 12:00:52] Exported 5 rows.
+[2025-09-29 12:00:52] Batch 4 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-4.csv
+[2025-09-29 12:00:54] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-29 13:30:02] === Scheduled-Runner started ===
+[2025-09-29 13:30:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-29 13:30:02] Batches: 5
+[2025-09-29 13:30:02] ---- Batch 5 (13:30) ----
+[2025-09-29 13:30:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx
+[2025-09-29 13:30:02] RunId : run-log_2025-09-29_Batch-5
+[2025-09-29 13:30:02] Local copy: C:\Temp\ExcelAutomation\05 Data Update - 01.30 PM.xlsx
+[2025-09-29 13:30:02] Invoking Run-Parallel.ps1 …
+[2025-09-29 13:42:09] Run-Parallel.ps1 finished.
+[2025-09-29 13:42:09] Exporting run_id 'run-log_2025-09-29_Batch-5' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-5.csv …
+[2025-09-29 13:42:09] Exported 11 rows.
+[2025-09-29 13:42:09] Batch 5 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-5.csv
+[2025-09-29 13:42:11] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-29 14:00:02] === Scheduled-Runner started ===
+[2025-09-29 14:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-29 14:00:02] Batches: 6
+[2025-09-29 14:00:02] ---- Batch 6 (14:00) ----
+[2025-09-29 14:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Data Update - 02.00 PM.xlsx
+[2025-09-29 14:00:02] RunId : run-log_2025-09-29_Batch-6
+[2025-09-29 14:00:02] Local copy: C:\Temp\ExcelAutomation\06 Data Update - 02.00 PM.xlsx
+[2025-09-29 14:00:02] Invoking Run-Parallel.ps1 …
+[2025-09-29 15:04:13] Run-Parallel.ps1 finished.
+[2025-09-29 15:04:13] Exporting run_id 'run-log_2025-09-29_Batch-6' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-6.csv …
+[2025-09-29 15:04:14] Exported 156 rows.
+[2025-09-29 15:04:14] Batch 6 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-29_Batch-6.csv
+[2025-09-29 15:04:16] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-29 22:38:02] === Scheduled-Runner started ===
+[2025-09-29 22:38:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-29 22:38:02] Batches: 1
+[2025-09-29 22:38:02] ---- Batch 1 (23:00) ----
+[2025-09-29 22:38:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 11.00 PM.xlsx
+[2025-09-29 22:38:02] RunId : run-log_2025-09-30_Batch-1
+[2025-09-29 22:38:02] Local copy: C:\Temp\ExcelAutomation\01 Data Update - 11.00 PM.xlsx
+[2025-09-29 22:38:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 05:56:37] Run-Parallel.ps1 finished.
+[2025-09-30 05:56:37] Exporting run_id 'run-log_2025-09-30_Batch-1' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-1.csv …
+[2025-09-30 05:56:38] Exported 301 rows.
+[2025-09-30 05:56:38] Batch 1 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-1.csv
+[2025-09-30 05:56:40] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-30 07:50:02] === Scheduled-Runner started ===
+[2025-09-30 07:50:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-30 07:50:02] Batches: 2
+[2025-09-30 07:50:02] ---- Batch 2 (05:00) ----
+[2025-09-30 07:50:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Data Update - 05.00 AM.xlsx
+[2025-09-30 07:50:02] RunId : run-log_2025-09-30_Batch-2
+[2025-09-30 07:50:02] Local copy: C:\Temp\ExcelAutomation\02 Data Update - 05.00 AM.xlsx
+[2025-09-30 07:50:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 10:05:51] Run-Parallel.ps1 finished.
+[2025-09-30 10:05:51] Exporting run_id 'run-log_2025-09-30_Batch-2' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-2.csv …
+[2025-09-30 10:05:51] Exported 248 rows.
+[2025-09-30 10:05:51] Batch 2 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-2.csv
+[2025-09-30 10:05:53] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-30 11:00:02] === Scheduled-Runner started ===
+[2025-09-30 11:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-30 11:00:02] Batches: 3
+[2025-09-30 11:00:02] ---- Batch 3 (11:00) ----
+[2025-09-30 11:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx
+[2025-09-30 11:00:02] RunId : run-log_2025-09-30_Batch-3
+[2025-09-30 11:00:02] Local copy: C:\Temp\ExcelAutomation\03 Data Update - 11.00 AM.xlsx
+[2025-09-30 11:00:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 11:00:10] Run-Parallel.ps1 finished.
+[2025-09-30 11:00:10] Exporting run_id 'run-log_2025-09-30_Batch-3' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-3.csv …
+[2025-09-30 11:00:10] Exported 2 rows.
+[2025-09-30 11:00:10] Batch 3 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-3.csv
+[2025-09-30 11:00:12] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-30 12:00:02] === Scheduled-Runner started ===
+[2025-09-30 12:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-30 12:00:02] Batches: 4
+[2025-09-30 12:00:02] ---- Batch 4 (12:00) ----
+[2025-09-30 12:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx
+[2025-09-30 12:00:02] RunId : run-log_2025-09-30_Batch-4
+[2025-09-30 12:00:02] Local copy: C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-09-30 12:00:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 12:00:17] Run-Parallel.ps1 finished.
+[2025-09-30 12:00:17] Exporting run_id 'run-log_2025-09-30_Batch-4' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-4.csv …
+[2025-09-30 12:00:17] Exported 5 rows.
+[2025-09-30 12:00:17] Batch 4 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-4.csv
+[2025-09-30 12:00:19] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-30 13:30:02] === Scheduled-Runner started ===
+[2025-09-30 13:30:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-30 13:30:02] Batches: 5
+[2025-09-30 13:30:02] ---- Batch 5 (13:30) ----
+[2025-09-30 13:30:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx
+[2025-09-30 13:30:02] RunId : run-log_2025-09-30_Batch-5
+[2025-09-30 13:30:02] Local copy: C:\Temp\ExcelAutomation\05 Data Update - 01.30 PM.xlsx
+[2025-09-30 13:30:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 13:30:31] Run-Parallel.ps1 finished.
+[2025-09-30 13:30:31] Exporting run_id 'run-log_2025-09-30_Batch-5' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-5.csv …
+[2025-09-30 13:30:31] Exported 11 rows.
+[2025-09-30 13:30:31] Batch 5 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-5.csv
+[2025-09-30 13:30:33] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-30 14:00:02] === Scheduled-Runner started ===
+[2025-09-30 14:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-30 14:00:02] Batches: 6
+[2025-09-30 14:00:02] ---- Batch 6 (14:00) ----
+[2025-09-30 14:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Data Update - 02.00 PM.xlsx
+[2025-09-30 14:00:02] RunId : run-log_2025-09-30_Batch-6
+[2025-09-30 14:00:02] Local copy: C:\Temp\ExcelAutomation\06 Data Update - 02.00 PM.xlsx
+[2025-09-30 14:00:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 14:05:55] Run-Parallel.ps1 finished.
+[2025-09-30 14:05:55] Exporting run_id 'run-log_2025-09-30_Batch-6' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-6.csv …
+[2025-09-30 14:05:55] Exported 156 rows.
+[2025-09-30 14:05:55] Batch 6 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-09-30_Batch-6.csv
+[2025-09-30 14:05:57] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-09-30 22:38:02] === Scheduled-Runner started ===
+[2025-09-30 22:38:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-09-30 22:38:02] Batches: 1
+[2025-09-30 22:38:02] ---- Batch 1 (23:00) ----
+[2025-09-30 22:38:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 11.00 PM.xlsx
+[2025-09-30 22:38:02] RunId : run-log_2025-10-01_Batch-1
+[2025-09-30 22:38:02] Local copy: C:\Temp\ExcelAutomation\01 Data Update - 11.00 PM.xlsx
+[2025-09-30 22:38:02] Invoking Run-Parallel.ps1 …
+[2025-09-30 22:53:04] Run-Parallel.ps1 finished.
+[2025-09-30 22:53:04] Exporting run_id 'run-log_2025-10-01_Batch-1' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-10-01_Batch-1.csv …
+[2025-09-30 22:53:04] Exported 301 rows.
+[2025-09-30 22:53:04] Batch 1 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-10-01_Batch-1.csv
+[2025-09-30 22:53:06] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-10-01 07:50:02] === Scheduled-Runner started ===
+[2025-10-01 07:50:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-10-01 07:50:02] Batches: 2
+[2025-10-01 07:50:02] ---- Batch 2 (05:00) ----
+[2025-10-01 07:50:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Data Update - 05.00 AM.xlsx
+[2025-10-01 07:50:02] RunId : run-log_2025-10-01_Batch-2
+[2025-10-01 07:50:02] Local copy: C:\Temp\ExcelAutomation\02 Data Update - 05.00 AM.xlsx
+[2025-10-01 07:50:02] Invoking Run-Parallel.ps1 …
+[2025-10-01 08:00:24] Run-Parallel.ps1 finished.
+[2025-10-01 08:00:24] Exporting run_id 'run-log_2025-10-01_Batch-2' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-10-01_Batch-2.csv …
+[2025-10-01 08:00:25] Exported 248 rows.
+[2025-10-01 08:00:25] Batch 2 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-10-01_Batch-2.csv
+[2025-10-01 08:00:27] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-10-01 11:00:02] === Scheduled-Runner started ===
+[2025-10-01 11:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-10-01 11:00:02] Batches: 3
+[2025-10-01 11:00:02] ---- Batch 3 (11:00) ----
+[2025-10-01 11:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx
+[2025-10-01 11:00:02] RunId : run-log_2025-10-01_Batch-3
+[2025-10-01 11:00:02] Local copy: C:\Temp\ExcelAutomation\03 Data Update - 11.00 AM.xlsx
+[2025-10-01 11:00:02] Invoking Run-Parallel.ps1 …
+[2025-10-01 11:00:20] Run-Parallel.ps1 finished.
+[2025-10-01 11:00:20] Exporting run_id 'run-log_2025-10-01_Batch-3' to C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-10-01_Batch-3.csv …
+[2025-10-01 11:00:20] Exported 2 rows.
+[2025-10-01 11:00:20] Batch 3 CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log_2025-10-01_Batch-3.csv
+[2025-10-01 11:00:22] === Summary: OK=1  FAIL=0  Total=1 ===
+[2025-10-01 11:37:57] === Scheduled-Runner started ===
+[2025-10-01 11:37:57] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-10-01 11:37:57] Batches: 3
+[2025-10-01 11:37:57] ---- Batch 3 (11:00) ----
+[2025-10-01 11:37:57] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx
+[2025-10-01 11:37:57] RunId : run-log_2025-10-01_Batch-3
+[2025-10-01 11:37:57] Local copy: C:\Temp\ExcelAutomation\03 Data Update - 11.00 AM.xlsx
+[2025-10-01 11:37:57] Invoking Run-Parallel.ps1 …
+[2025-10-01 11:38:01] ERROR batch 3 : Unable to get the Open property of the Workbooks class
+[2025-10-01 11:38:03] === Summary: OK=0  FAIL=1  Total=1 ===
+[2025-10-01 12:00:02] === Scheduled-Runner started ===
+[2025-10-01 12:00:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-10-01 12:00:02] Batches: 4
+[2025-10-01 12:00:02] ---- Batch 4 (12:00) ----
+[2025-10-01 12:00:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx
+[2025-10-01 12:00:02] RunId : run-log_2025-10-01_Batch-4
+[2025-10-01 12:00:02] Local copy: C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-10-01 12:00:02] Invoking Run-Parallel.ps1 …
+[2025-10-01 12:00:04] ERROR batch 4 : Unable to get the Open property of the Workbooks class
+[2025-10-01 12:00:06] === Summary: OK=0  FAIL=1  Total=1 ===
+[2025-10-01 13:30:02] === Scheduled-Runner started ===
+[2025-10-01 13:30:02] User=kapl  Computer=TEST-BI  FastMode=False
+[2025-10-01 13:30:02] Batches: 5
+[2025-10-01 13:30:02] ---- Batch 5 (13:30) ----
+[2025-10-01 13:30:02] Master: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx
+[2025-10-01 13:30:02] RunId : run-log_2025-10-01_Batch-5
+[2025-10-01 13:30:02] Local copy: C:\Temp\ExcelAutomation\05 Data Update - 01.30 PM.xlsx
+[2025-10-01 13:30:02] Invoking Run-Parallel.ps1 …
+[2025-10-01 13:30:05] ERROR batch 5 : Microsoft Excel cannot access the file 'C:\Temp\ExcelAutomation\05 Data Update - 01.30 PM.xlsx'. There are several possible reasons:
+
+• The file name or path does not exist.
+• The file is being used by another program.
+• The workbook you are trying to save has the same name as a currently open workbook.
+[2025-10-01 13:30:07] === Summary: OK=0  FAIL=1  Total=1 ===

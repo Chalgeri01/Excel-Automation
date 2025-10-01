@@ -1,0 +1,10 @@
+"C:\Program Files\PowerShell\7\pwsh.exe"
+-NoLogo -NoProfile -ExecutionPolicy Bypass -File "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "1,2"
+C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts
+
+
+C:\Users\kapl\AppData\Local\Programs\Python\Python313\python.exe
+
+send_reports_configured.py --batch 6 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
+
+C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts

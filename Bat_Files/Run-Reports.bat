@@ -1,0 +1,2 @@
+@echo off 
+"C:\Program Files\PowerShell\7\pwsh.exe" -NoLogo -NoProfile -ExecutionPolicy Bypass -File "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Run-Parallel.ps1" -MasterPath "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01_Data_Update-11.00PMV2.xlsx" -SheetName "C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\run-log.csv" -PathColumn "B" -StartRow 2 -LogPath "" -ThrottleLimit 3 -Batch "23:00"

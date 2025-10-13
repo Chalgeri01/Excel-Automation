@@ -2,48 +2,62 @@
 """
 send_reports_configured.py
 
-Updated to handle new column structure in email master file.
-Update on :- 20/09/2025
-Version :- 1.1
+Same behavior as your previous version, but:
+- Validates "refreshed OK" via MySQL (events table) instead of CSV
+- Logs Email OK/FAIL/SKIP into DB (events.stage='Email')
+- Exports a per-run email CSV from DB at the end
+- Added parallel execution to reduce processing time
+- Added force resend option to bypass all validations
 """
 
 # ============================== CONFIG ===============================
-
 CONFIG = {
-    # --- Paths (now relative or with placeholders) ---
     "LOG_DIR": r"C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo",
-    # Email list path will be passed as parameter
-    # --- Logging metadata ---
-    "BATCH": "EmailRun",  # This will be overridden by parameter
+
+    # Will be overridden by --batch at runtime (only used for log rows)
+    "BATCH": "EmailRun",
     "MASTER_PATH": r"C:\Users\kapl\Desktop\Project-Reporting-Automation\Master-sheet\03.00 PM Udyam Stock Report.xlsb",
-    # --- Gmail sender credentials (use an App Password) ---
+
+    # Gmail
     "FROM_USER": "report@kotharigroupindia.com",
-    "APP_PASSWORD": "ijzg vrgz qswn asjk",  # Example: abcd efgh ijkl mnop (no spaces)
-    # --- Behavior switches ---
-    "REQUIRE_METHOD_EMAIL": False,  # set True if you want to require Method="Email" on todays refresh rows
-    "DRY_RUN": False,  # set True to test without sending (logs Email/SKIP with Error=DRYRUN)
-    # --- SMTP transport (Gmail defaults) ---
-    "USE_SSL": True,  # True -> SSL/465 ; False -> STARTTLS/587
+    "APP_PASSWORD": "ijzg vrgz qswn asjk",
+
+    # Behavior
+    "REQUIRE_METHOD_EMAIL": False,
+    "DRY_RUN": False,
+
+    # SMTP
+    "USE_SSL": True,
     "SMTP_SERVER": "smtp.gmail.com",
     "SMTP_PORT_SSL": 465,
     "SMTP_PORT_STARTTLS": 587,
-}
 
+    # Parallel execution
+    "MAX_PARALLEL": 3,  # Default max parallel processes
+    
+    # Fallback email timing (hours)
+    "FALLBACK_HOURS": 18,  # Consider emails sent in last 18 hours as "already sent"
+    
+    # Force resend
+    "FORCE_RESEND": False,  # Bypass all validations and resend all emails
+}
 # ============================ END CONFIG =============================
 
+import os
 import csv
-from datetime import datetime, date, timedelta
+from datetime import datetime, date, timedelta, timezone
 from email.message import EmailMessage
 import mimetypes
 import smtplib
 import ssl
 from pathlib import Path
-import argparse  # NEW: For command line arguments
+import argparse
 import sys
 
 import pandas as pd
+import pymysql
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
-# Default email body used (no longer reads from "Body" sheet)
 DEFAULT_BODY = """{GREETING},
 
 Please find attached today's report.
@@ -61,34 +75,7 @@ If you are not the intended recipient, please notify us immediately and delete t
 🌱 Please consider the environment before printing this email.
 """
 
-
-
-# --------------------------- Helper funcs ---------------------------
-
-
-def today_str_local() -> str:
-    return date.today().strftime("%Y-%m-%d")
-
-def load_run_log(log_path: Path) -> pd.DataFrame:
-    if not log_path.exists():
-        # Create empty DataFrame with required columns
-        cols = [
-            "Timestamp","RunDate","Batch","Stage","Master","FilePath","Method",
-            "Status","Error","DurationS","RecipientsTo","Subject"
-        ]
-        return pd.DataFrame(columns=cols)
-
-    df = pd.read_csv(log_path, dtype=str, keep_default_na=False, na_values=[])
-
-    # Ensure expected columns exist
-    for col in [
-        "Timestamp","RunDate","Batch","Stage","Master","FilePath","Method",
-        "Status","Error","DurationS","RecipientsTo","Subject"
-    ]:
-        if col not in df.columns:
-            df[col] = ""
-
-    return df
+# --------------------------- Helpers (unchanged where possible) -----
 
 def normalize_addr_list(value: str) -> str:
     value = (value or "").strip()
@@ -106,212 +93,404 @@ def split_attachments(value: str) -> list[Path]:
     return [Path(p) for p in parts if p]
 
 def load_email_list(xlsx_path: Path) -> pd.DataFrame:
-    """Load only the List sheet - no longer reads Body sheet"""
     xl = pd.ExcelFile(xlsx_path)
-
-    # "List" sheet only
     df_list = pd.read_excel(xl, "List")
     df_list.columns = [str(c).strip() for c in df_list.columns]
-
     return df_list
 
-def most_recent_refresh_ok_today(runlog: pd.DataFrame, filepath: Path, email_run_date: date) -> bool:
-    """Check if file was refreshed on email_run_date OR the previous day"""
-    target = str(filepath)
-    
-    # Check for email_run_date (e.g., 2025-09-20)
-    mask1 = (
-        (runlog["Stage"].str.lower() == "refresh")
-        & (runlog["Status"].str.upper() == "OK")
-        & (runlog["RunDate"] == email_run_date.strftime("%Y-%m-%d"))
-        & (runlog["FilePath"].str.casefold() == target.casefold())
-    )
-    
-    # Also check for previous day (e.g., 2025-09-19)
-    prev_day = email_run_date - timedelta(days=1)
-    mask2 = (
-        (runlog["Stage"].str.lower() == "refresh")
-        & (runlog["Status"].str.upper() == "OK")
-        & (runlog["RunDate"] == prev_day.strftime("%Y-%m-%d"))
-        & (runlog["FilePath"].str.casefold() == target.casefold())
-    )
-    
-    return mask1.any() or mask2.any()
-
-def refresh_method_is_email_today(runlog: pd.DataFrame, filepath: Path, email_run_date: date) -> bool:
-    """Check if file was refreshed with Email method on email_run_date OR previous day"""
-    target = str(filepath)
-    
-    # Check both today and yesterday
-    dates_to_check = [
-        email_run_date.strftime("%Y-%m-%d"),
-        (email_run_date - timedelta(days=1)).strftime("%Y-%m-%d")
-    ]
-    
-    mask = (
-        (runlog["Stage"].str.lower() == "refresh")
-        & (runlog["Status"].str.upper() == "OK")
-        & (runlog["RunDate"].isin(dates_to_check))
-        & (runlog["FilePath"].str.casefold() == target.casefold())
-    )
-    
-    day_rows = runlog.loc[mask]
-    if day_rows.empty:
-        return False
-    return any(
-        (m or "").strip().lower() == "email" for m in day_rows["Method"].tolist()
-    )
-
-def already_emailed_today(runlog: pd.DataFrame, to_addrs: str, subject: str, email_run_date: date) -> bool:
-    """Check if email was already sent on email_run_date OR previous day"""
-    to_norm = normalize_addr_list(to_addrs)
-    subj = (subject or "").strip()
-    
-    dates_to_check = [
-        email_run_date.strftime("%Y-%m-%d"),
-        (email_run_date - timedelta(days=1)).strftime("%Y-%m-%d")
-    ]
-    
-    mask = (
-        (runlog["Stage"].str.lower() == "email")
-        & (runlog["Status"].str.upper() == "OK")
-        & (runlog["RunDate"].isin(dates_to_check))
-        & (
-            runlog["RecipientsTo"].fillna("").apply(normalize_addr_list).str.casefold()
-            == to_norm.casefold()
-        )
-        & (runlog["Subject"].fillna("").str.casefold() == subj.casefold())
-    )
-    return mask.any()
-
-def infer_mime(path: Path) -> tuple[str, str]:
-    typ, enc = mimetypes.guess_type(str(path))
-    if typ is None:
-        return ("application", "octet-stream")
-    major, minor = typ.split("/", 1)
-    return (major, minor)
-
-def send_via_gmail(
-    user: str,
-    app_password: str,
-    msg: EmailMessage,
-    use_ssl: bool,
-    server: str,
-    port_ssl: int,
-    port_starttls: int,
-):
-    """Send EmailMessage via Gmail SMTP using App Password."""
-    if use_ssl:
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL(server, port_ssl, context=context) as s:
-            s.login(user, app_password)
-            s.send_message(msg)
-    else:
-        with smtplib.SMTP(server, port_starttls) as s:
-            s.starttls()
-            s.login(user, app_password)
-            s.send_message(msg)
-
-def append_log_row(log_path: Path, row: dict):
-    file_exists = log_path.exists()
-    with open(log_path, "a", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(
-            f,
-            fieldnames=[
-                "Timestamp",
-                "RunDate",
-                "Batch",
-                "Stage",
-                "Master",
-                "FilePath",
-                "Method",
-                "Status",
-                "Error",
-                "DurationS",
-                "RecipientsTo",
-                "Subject",
-            ],
-        )
-        if not file_exists:
-            writer.writeheader()
-        writer.writerow(row)
-
 def cell_str(row, col_name: str) -> str:
-    """Return clean string from a dataframe cell; empty if missing/NaN."""
     if col_name not in row or pd.isna(row[col_name]):
         return ""
     return str(row[col_name]).strip()
 
 def get_greeting(to_addrs: str) -> str:
-    """Determine greeting based on number of recipients in To field"""
     recipients = [addr.strip() for addr in to_addrs.split(",") if addr.strip()]
-    if len(recipients) == 1:
-        return "Dear Sir"
+    return "Dear Sir" if len(recipients) == 1 else "Dear Team"
+
+def infer_mime(path: Path) -> tuple[str, str]:
+    typ, _ = mimetypes.guess_type(str(path))
+    if typ is None:
+        return ("application", "octet-stream")
+    major, minor = typ.split("/", 1)
+    return (major, minor)
+
+def send_via_gmail(user, app_password, msg, use_ssl, server, port_ssl, port_starttls, all_recipients):
+    if use_ssl:
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL(server, port_ssl, context=context) as s:
+            s.login(user, app_password)
+            s.send_message(msg, from_addr=user, to_addrs=all_recipients or [user])
     else:
-        return "Dear Team"
+        with smtplib.SMTP(server, port_starttls) as s:
+            s.starttls()
+            s.login(user, app_password)
+            s.send_message(msg, from_addr=user, to_addrs=all_recipients or [user])
 
-# NEW: Function to find the correct log file for a batch and date
-def find_batch_log_file(log_dir: Path, batch_number: int, email_run_date: date) -> Path:
-    """
-    Find the log file for a specific batch on the target date.
-    Email runs on day N, but looks for logs with date N (since batch ran on night of N-1)
-    """
-    expected_filename = f"run-log_{email_run_date.strftime('%Y-%m-%d')}_Batch-{batch_number}.csv"
-    log_path = log_dir / expected_filename
-    
-    if log_path.exists():
-        return log_path
-    
-    # If not found, try previous day (fallback)
-    prev_day = email_run_date - timedelta(days=1)
-    fallback_filename = f"run-log_{prev_day.strftime('%Y-%m-%d')}_Batch-{batch_number}.csv"
-    fallback_path = log_dir / fallback_filename
-    
-    if fallback_path.exists():
-        return fallback_path
-    
-    # If still not found, return the expected path (will create empty log)
-    return log_path
+# --------------------------- DB helpers -----------------------------
 
-# NEW: Parse command line arguments with optional date
+def parse_conn_env():
+    """
+    REPORTLOGS_CONN example:
+    Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=****;AllowPublicKeyRetrieval=True;SslMode=None
+    """
+    raw = os.environ.get("REPORTLOGS_CONN", "")
+    parts = [p for p in raw.split(";") if p.strip()]
+    kv = {}
+    for p in parts:
+        if "=" in p:
+            k, v = p.split("=", 1)
+            kv[k.strip().lower()] = v.strip()
+    host = kv.get("server", "127.0.0.1")
+    port = int(kv.get("port", 3306) or 3306)
+    db   = kv.get("database", "reportlogs")
+    user = kv.get("uid") or kv.get("user") or "root"
+    pwd  = kv.get("pwd") or kv.get("password") or ""
+    # For PyMySQL: allow public key retrieval and SSL off if SslMode=None
+    ssl_mode = (kv.get("sslmode") or "").lower()
+    ssl = None
+    if ssl_mode and ssl_mode not in ("none", "disabled"):
+        ssl = {"ssl": {}}  # use default SSL; adjust if you actually want TLS
+    return dict(host=host, port=port, user=user, password=pwd, database=db, charset="utf8mb4", autocommit=True, **({} if ssl is None else ssl))
+
+def db_connect():
+    params = parse_conn_env()
+    return pymysql.connect(**params)
+
+def db_get_latest_refresh_date(conn, file_path: str) -> date | None:
+    """
+    Get the most recent rundate when this file was successfully refreshed.
+    Returns None if no successful refresh found.
+    """
+    sql = """
+        SELECT rundate
+        FROM events
+        WHERE LOWER(file_path) COLLATE utf8mb4_unicode_ci = LOWER(%s) COLLATE utf8mb4_unicode_ci
+          AND stage='Refresh' AND status='OK'
+        ORDER BY rundate DESC, timestamp_utc DESC
+        LIMIT 1
+    """
+    with conn.cursor() as cur:
+        cur.execute(sql, (file_path,))
+        result = cur.fetchone()
+        return result[0] if result else None
+
+def db_refresh_ok_for_date(conn, file_path: str, check_date: date) -> bool:
+    """
+    Check if file was successfully refreshed on a specific date.
+    """
+    sql = """
+        SELECT 1
+        FROM events
+        WHERE LOWER(file_path) COLLATE utf8mb4_unicode_ci = LOWER(%s) COLLATE utf8mb4_unicode_ci
+          AND stage='Refresh' AND status='OK'
+          AND rundate = %s
+        LIMIT 1
+    """
+    with conn.cursor() as cur:
+        cur.execute(sql, (file_path, check_date))
+        return cur.fetchone() is not None
+
+def db_refresh_method_email_for_date(conn, file_path: str, check_date: date) -> bool:
+    """
+    Check if file was refreshed with method 'email' on a specific date.
+    """
+    sql = """
+        SELECT 1
+        FROM events
+        WHERE LOWER(file_path) COLLATE utf8mb4_unicode_ci = LOWER(%s) COLLATE utf8mb4_unicode_ci
+          AND stage='Refresh' AND status='OK'
+          AND rundate = %s
+          AND LOWER(COALESCE(method,'')) = 'email'
+        LIMIT 1
+    """
+    with conn.cursor() as cur:
+        cur.execute(sql, (file_path, check_date))
+        return cur.fetchone() is not None
+
+def db_already_emailed_ok(conn, to_norm: str, subject: str, fallback_hours: int = 18) -> bool:
+    """
+    Check if the same email (To+Subject) was already sent in the last X hours (fallback period).
+    This prevents sending duplicate emails within the fallback window.
+    """
+    cutoff_time = datetime.now(timezone.utc) - timedelta(hours=fallback_hours)
+    
+    sql = """
+        SELECT 1
+        FROM events
+        WHERE stage='Email' AND status='OK'
+          AND timestamp_utc >= %s
+          AND LOWER(recipients_to) = LOWER(%s)
+          AND LOWER(subject)       = LOWER(%s)
+        LIMIT 1
+    """
+    with conn.cursor() as cur:
+        cur.execute(sql, (cutoff_time, to_norm, subject))
+        return cur.fetchone() is not None
+
+def db_write_email_event(conn, run_id: str, batch: str, rundate: date,
+                         master_path: str, file_paths: list[Path],
+                         to_norm: str, subject: str,
+                         status: str, error_text: str = "", duration_s: int | None = None):
+    sql = """
+        INSERT INTO events
+        (run_id,batch,stage,timestamp_utc,rundate,master_path,file_path,method,status,error_text,duration_s,recipients_to,subject)
+        VALUES
+        (%s,%s,'Email',%s,%s,%s,%s,'Email',%s,%s,%s,%s,%s)
+    """
+    # store UTC in DB
+    ts_utc = datetime.now(timezone.utc).replace(tzinfo=None)
+    fp = ";".join(str(p) for p in file_paths) if file_paths else ""
+    with conn.cursor() as cur:
+        cur.execute(sql, (
+            run_id, batch, ts_utc, rundate,
+            master_path, fp, status, error_text or "",
+            duration_s if duration_s is not None else None,
+            to_norm, subject
+        ))
+
+def export_email_csv(conn, run_id: str, out_csv_path: Path):
+    sql = """
+        SELECT
+          DATE_FORMAT(CONVERT_TZ(timestamp_utc,'+00:00','+05:30'), '%%Y-%%m-%%d %%H:%%i:%%s') AS Timestamp,
+          DATE_FORMAT(rundate, '%%Y-%%m-%%d') AS RunDate,
+          batch        AS Batch,
+          stage        AS Stage,
+          master_path  AS Master,
+          file_path    AS FilePath,
+          method       AS Method,
+          status       AS Status,
+          error_text   AS Error,
+          duration_s   AS DurationS,
+          recipients_to AS RecipientsTo,
+          subject      AS Subject
+        FROM events
+        WHERE run_id = %s
+        ORDER BY timestamp_utc ASC, id ASC
+    """
+    with conn.cursor() as cur:
+        cur.execute(sql, (run_id,))
+        rows = cur.fetchall()
+        cols = [desc[0] for desc in cur.description]
+
+    out_csv_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_csv_path, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["Timestamp","RunDate","Batch","Stage","Master","FilePath","Method","Status","Error","DurationS","RecipientsTo","Subject"])
+        for r in rows:
+            # keep output column order stable
+            rec = dict(zip(cols, r))
+            w.writerow([rec.get(c,"") for c in ["Timestamp","RunDate","Batch","Stage","Master","FilePath","Method","Status","Error","DurationS","RecipientsTo","Subject"]])
+
+# --------------------------- Parallel Processing Functions ----------
+
+def process_single_email(row_data, config, email_run_id, batch, email_run_date, master_path, require_method_email, dry_run, fallback_hours, force_resend):
+    """
+    Process a single email row - this function runs in parallel
+    """
+    row, index = row_data
+    
+    # Create a new DB connection for this process
+    try:
+        conn = db_connect()
+    except Exception as e:
+        return {
+            'index': index,
+            'status': 'FAIL',
+            'error': f"DB connection failed: {e}",
+            'to_norm': "",
+            'subject': "",
+            'atts': []
+        }
+    
+    try:
+        to_addrs = normalize_addr_list(cell_str(row, "Receiver"))
+        cc_addrs = normalize_addr_list(cell_str(row, "CC"))
+        bcc_addrs = normalize_addr_list(cell_str(row, "BCC"))
+        subject = cell_str(row, "Subject")
+        atts = split_attachments(cell_str(row, "Attachement Path"))
+
+        # Build body
+        greeting = get_greeting(to_addrs)
+        body_text = DEFAULT_BODY.replace("{GREETING}", greeting)
+
+        # Validate fields
+        if not to_addrs:
+            db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, "", subject, "FAIL", "Missing Receiver")
+            return {
+                'index': index,
+                'status': 'FAIL',
+                'error': "Missing Receiver",
+                'to_norm': "",
+                'subject': subject,
+                'atts': atts
+            }
+
+        if not subject:
+            db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_addrs, "", "FAIL", "Missing Subject")
+            return {
+                'index': index,
+                'status': 'FAIL',
+                'error': "Missing Subject",
+                'to_norm': to_addrs,
+                'subject': "",
+                'atts': atts
+            }
+
+        # Skip all validations if force resend is enabled
+        if not force_resend:
+            # FIRST: Check if files are refreshed (this should take priority)
+            problems = []
+            for p in atts:
+                if not p.exists():
+                    problems.append(f"Missing file: {p}")
+                    continue
+                
+                fp_str = str(p)
+                
+                # Get the latest refresh date for this file from DB
+                latest_refresh_date = db_get_latest_refresh_date(conn, fp_str)
+                
+                if not latest_refresh_date:
+                    problems.append(f"No successful refresh found in database: {p}")
+                    continue
+                
+                # Check if the latest refresh is for today's email run date
+                if latest_refresh_date != email_run_date:
+                    problems.append(f"File not refreshed for today ({email_run_date}). Last refresh: {latest_refresh_date}: {p}")
+                    continue
+                
+                # If we require method email, check that too
+                if require_method_email and not db_refresh_method_email_for_date(conn, fp_str, email_run_date):
+                    problems.append(f"Method not 'Email' for today: {p}")
+
+            if problems:
+                db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_addrs, subject, "FAIL", "; ".join(problems))
+                return {
+                    'index': index,
+                    'status': 'FAIL',
+                    'error': "; ".join(problems),
+                    'to_norm': to_addrs,
+                    'subject': subject,
+                    'atts': atts
+                }
+
+            # SECOND: Check if already emailed in last X hours (only if files are fresh)
+            to_norm = to_addrs
+            if db_already_emailed_ok(conn, to_norm, subject, fallback_hours):
+                db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "SKIP", f"Already emailed in last {fallback_hours} hours")
+                return {
+                    'index': index,
+                    'status': 'SKIP',
+                    'error': f"Already emailed in last {fallback_hours} hours",
+                    'to_norm': to_norm,
+                    'subject': subject,
+                    'atts': atts
+                }
+        else:
+            # Force resend mode - skip all validations
+            to_norm = to_addrs
+            print(f"🔧 Email {index+1}: FORCE RESEND - Bypassing all validations")
+
+        # Build message + recipients
+        msg = EmailMessage()
+        msg["From"] = config["FROM_USER"]
+        msg["To"] = to_addrs
+        if cc_addrs:
+            msg["Cc"] = cc_addrs
+        msg["Subject"] = subject
+        msg.set_content(body_text)
+        msg.add_alternative(f"<pre style='font-family: inherit; white-space: pre-wrap'>{body_text}</pre>", subtype="html")
+        for p in atts:
+            maintype, subtype = infer_mime(p)
+            with open(p, "rb") as fh:
+                data = fh.read()
+            msg.add_attachment(data, maintype=maintype, subtype=subtype, filename=p.name)
+        all_recipients = []
+        for hdr in ["To","Cc"]:
+            val = msg.get(hdr)
+            if val:
+                all_recipients += [a.strip() for a in val.split(",") if a.strip()]
+        if bcc_addrs:
+            all_recipients += [a.strip() for a in bcc_addrs.split(",") if a.strip()]
+
+        if dry_run:
+            db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "SKIP", "DRYRUN")
+            return {
+                'index': index,
+                'status': 'SKIP',
+                'error': "DRYRUN",
+                'to_norm': to_norm,
+                'subject': subject,
+                'atts': atts
+            }
+
+        # Send email
+        try:
+            send_via_gmail(
+                config["FROM_USER"], config["APP_PASSWORD"], msg, 
+                config["USE_SSL"], config["SMTP_SERVER"], 
+                config["SMTP_PORT_SSL"], config["SMTP_PORT_STARTTLS"], 
+                all_recipients
+            )
+            status_msg = "OK (FORCED)" if force_resend else "OK"
+            db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "OK", status_msg)
+            return {
+                'index': index,
+                'status': 'OK',
+                'error': status_msg,
+                'to_norm': to_norm,
+                'subject': subject,
+                'atts': atts
+            }
+        except Exception as e:
+            db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "FAIL", str(e))
+            return {
+                'index': index,
+                'status': 'FAIL',
+                'error': str(e),
+                'to_norm': to_norm,
+                'subject': subject,
+                'atts': atts
+            }
+    
+    finally:
+        try:
+            conn.close()
+        except:
+            pass
+
+# --------------------------- Args -----------------------------------
+
 def parse_arguments():
-    parser = argparse.ArgumentParser(description='Send email reports for specific batch')
-    parser.add_argument('--batch', type=int, required=True, 
-                       help='Batch number (1, 2, etc.)')
-    parser.add_argument('--email-list', type=str, required=True,
-                       help='Path to Email_List.xlsx file for this batch')
-    parser.add_argument('--email-date', type=str, 
-                       default=None,
-                       help='Optional: Date for email run (YYYY-MM-DD). If not provided, uses today')
-    return parser.parse_args()
+    p = argparse.ArgumentParser(description="Send email reports for a batch (DB-backed).")
+    p.add_argument('--batch', type=int, required=True, help='Batch number (1..6 etc.)')
+    p.add_argument('--email-list', type=str, required=True, help='Path to Email_List.xlsx')
+    p.add_argument('--email-date', type=str, default=None, help='YYYY-MM-DD for email run; default=TODAY')
+    p.add_argument('--max-parallel', type=int, default=None, help='Max parallel processes (default: 3)')
+    p.add_argument('--fallback-hours', type=int, default=None, help='Hours to check for already sent emails (default: 18)')
+    p.add_argument('--force-resend', action='store_true', help='Force resend all emails regardless of refresh status or previous sends')
+    return p.parse_args()
 
-
-# ----------------------------- Main flow ----------------------------
-
+# --------------------------- Main -----------------------------------
 
 def main():
-    # Parse command line arguments
     args = parse_arguments()
-    
+
     BATCH_NUMBER = args.batch
     EMAIL_LIST_PATH = Path(args.email_list)
-    
-    # Handle date - use provided date or today
+
+    # Run date
     if args.email_date:
         try:
             EMAIL_RUN_DATE = date.fromisoformat(args.email_date)
         except ValueError:
-            print(f"ERROR: Invalid date format '{args.email_date}'. Use YYYY-MM-DD.")
+            print(f"ERROR: Invalid date '{args.email_date}'. Use YYYY-MM-DD.")
             return 2
     else:
         EMAIL_RUN_DATE = date.today()
-    
-    print(f"Processing Batch {BATCH_NUMBER} for date {EMAIL_RUN_DATE}")
-    print(f"Using email list: {EMAIL_LIST_PATH}")
-    
-    # Update config with batch-specific values
+
     LOG_DIR = Path(CONFIG["LOG_DIR"])
-    BATCH = f"EmailBatch{BATCH_NUMBER}"  # Dynamic batch name
+    BATCH = f"EmailBatch{BATCH_NUMBER}"
     MASTER_PATH = CONFIG["MASTER_PATH"]
     FROM_USER = CONFIG["FROM_USER"]
     APP_PASSWORD = CONFIG["APP_PASSWORD"]
@@ -321,253 +500,93 @@ def main():
     SMTP_SERVER = CONFIG["SMTP_SERVER"]
     SMTP_PORT_SSL = int(CONFIG["SMTP_PORT_SSL"])
     SMTP_PORT_STARTTLS = int(CONFIG["SMTP_PORT_STARTTLS"])
-
-    # Find the correct log file for this batch
-    LOG_PATH = find_batch_log_file(LOG_DIR, BATCH_NUMBER, EMAIL_RUN_DATE)
-    today_str = EMAIL_RUN_DATE.strftime("%Y-%m-%d")
-
-    print(f"Looking for log file: {LOG_PATH}")
     
-    if not LOG_PATH.exists():
-        print(f"WARNING: Log file not found: {LOG_PATH}")
-        print("Will create empty log for email tracking")
+    # Parallel execution config
+    MAX_PARALLEL = args.max_parallel if args.max_parallel is not None else CONFIG["MAX_PARALLEL"]
+    
+    # Fallback hours config
+    FALLBACK_HOURS = args.fallback_hours if args.fallback_hours is not None else CONFIG["FALLBACK_HOURS"]
+    
+    # Force resend config
+    FORCE_RESEND = args.force_resend if args.force_resend is not None else CONFIG["FORCE_RESEND"]
+
+    # New: run_id + output CSV for emails
+    email_run_id = f"email-log_{EMAIL_RUN_DATE:%Y-%m-%d}_Batch-{BATCH_NUMBER}"
+    email_csv_out = LOG_DIR / f"email-log_{EMAIL_RUN_DATE:%Y-%m-%d}_Batch-{BATCH_NUMBER}.csv"
 
     if not FROM_USER or not APP_PASSWORD:
-        print(
-            "ERROR: Please set FROM_USER and APP_PASSWORD in CONFIG at the top of this file."
-        )
+        print("ERROR: Please set FROM_USER and APP_PASSWORD in CONFIG.")
         return 2
 
-    # Load data
-    runlog = load_run_log(LOG_PATH)
-    df_list = load_email_list(EMAIL_LIST_PATH)  # No longer returns body_template
-
-    # Validate essential columns (updated for new structure)
-    required_columns = ["Receiver", "CC", "BCC", "Subject", "Attachement Path"]
-    for col in required_columns:
+    # Load email list
+    df_list = load_email_list(EMAIL_LIST_PATH)
+    for col in ["Receiver","CC","BCC","Subject","Attachement Path"]:
         if col not in df_list.columns:
-            print(f"ERROR: Column '{col}' missing in List sheet.", flush=True)
+            print(f"ERROR: Column '{col}' missing in List sheet.")
             return 2
 
-    # Iterate ALL rows (no longer checking for "Send" column)
-    for _, row in df_list.iterrows():
-        to_addrs = normalize_addr_list(cell_str(row, "Receiver"))
-        cc_addrs = normalize_addr_list(cell_str(row, "CC"))
-        bcc_addrs = normalize_addr_list(cell_str(row, "BCC"))
-        subject = cell_str(row, "Subject")
-        atts = split_attachments(cell_str(row, "Attachement Path"))
-        now_iso = datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
+    print(f"Processing Batch {BATCH_NUMBER} for {EMAIL_RUN_DATE} | email_run_id={email_run_id}")
+    print(f"Email list: {EMAIL_LIST_PATH}")
+    print(f"Parallel execution: {MAX_PARALLEL} processes")
+    print(f"Fallback hours: {FALLBACK_HOURS} hours")
+    print(f"Force resend: {FORCE_RESEND}")
 
-        # Determine greeting based on number of recipients
-        greeting = get_greeting(to_addrs)
-        body_text = DEFAULT_BODY.replace("{GREETING}", greeting)
+    # Prepare data for parallel processing
+    email_rows = [(row, idx) for idx, row in df_list.iterrows()]
+    
+    total_ok = total_fail = total_skip = 0
 
-        # Validate basic fields
-        if not to_addrs:
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": now_iso,
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": "",
-                    "Method": "Email",
-                    "Status": "FAIL",
-                    "Error": "Missing Receiver",
-                    "DurationS": "",
-                    "RecipientsTo": "",
-                    "Subject": subject,
-                },
-            )
-            continue
+    # Process emails in parallel
+    with ProcessPoolExecutor(max_workers=MAX_PARALLEL) as executor:
+        # Submit all tasks
+        future_to_index = {
+            executor.submit(
+                process_single_email, 
+                row_data, 
+                CONFIG, 
+                email_run_id, 
+                BATCH, 
+                EMAIL_RUN_DATE, 
+                MASTER_PATH, 
+                REQUIRE_METHOD_EMAIL, 
+                DRY_RUN,
+                FALLBACK_HOURS,
+                FORCE_RESEND
+            ): row_data[1] 
+            for row_data in email_rows
+        }
+        
+        # Process results as they complete
+        for future in as_completed(future_to_index):
+            try:
+                result = future.result()
+                if result['status'] == 'OK':
+                    total_ok += 1
+                    status_indicator = "🔧" if FORCE_RESEND else "✓"
+                    print(f"{status_indicator} Email {result['index']+1}: OK - To: {result['to_norm']}")
+                elif result['status'] == 'FAIL':
+                    total_fail += 1
+                    print(f"✗ Email {result['index']+1}: FAIL - {result['error']}")
+                elif result['status'] == 'SKIP':
+                    total_skip += 1
+                    print(f"- Email {result['index']+1}: SKIP - {result['error']}")
+                    
+            except Exception as e:
+                total_fail += 1
+                print(f"✗ Email {future_to_index[future]+1}: EXCEPTION - {str(e)}")
 
-        if not subject:
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": now_iso,
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": "",
-                    "Method": "Email",
-                    "Status": "FAIL",
-                    "Error": "Missing Subject",
-                    "DurationS": "",
-                    "RecipientsTo": to_addrs,
-                    "Subject": "",
-                },
-            )
-            continue
+    # Export this email run to CSV (IST timestamps)
+    try:
+        # Reconnect to export CSV (main process connection)
+        conn = db_connect()
+        export_email_csv(conn, email_run_id, email_csv_out)
+        print(f"Email CSV exported: {email_csv_out}")
+        conn.close()
+    except Exception as e:
+        print(f"WARNING: CSV export failed: {e}")
 
-        # Idempotence: To + Subject already emailed OK today?
-        if already_emailed_today(runlog, to_addrs, subject, EMAIL_RUN_DATE):
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": now_iso,
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": "",
-                    "Method": "Email",
-                    "Status": "SKIP",
-                    "Error": "Already emailed today (To+Subject)",
-                    "DurationS": "",
-                    "RecipientsTo": to_addrs,
-                    "Subject": subject,
-                },
-            )
-            continue
-
-        # Freshness checks for attachments
-        problems = []
-        for p in atts:
-            if not p.exists():
-                problems.append(f"Missing file: {p}")
-                continue
-            if not most_recent_refresh_ok_today(runlog, p, EMAIL_RUN_DATE):
-                problems.append(f"No successful refresh today: {p}")
-                continue
-            if REQUIRE_METHOD_EMAIL and not refresh_method_is_email_today(runlog, p, EMAIL_RUN_DATE):
-                problems.append(f"Method not 'Email' today: {p}")
-
-        if problems:
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": now_iso,
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": ";".join(str(p) for p in atts),
-                    "Method": "Email",
-                    "Status": "FAIL",
-                    "Error": "; ".join(problems),
-                    "DurationS": "",
-                    "RecipientsTo": to_addrs,
-                    "Subject": subject,
-                },
-            )
-            continue
-
-        # Build message
-        msg = EmailMessage()
-        msg["From"] = FROM_USER
-        msg["To"] = to_addrs
-        if cc_addrs:
-            msg["Cc"] = cc_addrs
-        # Do not set "Bcc" header; we add Bcc to the transport recipient list instead.
-        msg["Subject"] = subject
-        # Text fallback
-        msg.set_content(body_text)
-        # HTML part (simple)
-        msg.add_alternative(
-            f"<pre style='font-family: inherit; white-space: pre-wrap'>{body_text}</pre>",
-            subtype="html",
-        )
-
-        # Attach files
-        for p in atts:
-            maintype, subtype = infer_mime(p)
-            with open(p, "rb") as fh:
-                data = fh.read()
-            msg.add_attachment(
-                data, maintype=maintype, subtype=subtype, filename=p.name
-            )
-
-        # Final recipients for transport (To + Cc + Bcc)
-        all_recipients = []
-        for hdr in ["To", "Cc"]:
-            val = msg.get(hdr)
-            if val:
-                all_recipients += [a.strip() for a in val.split(",") if a.strip()]
-        if bcc_addrs:
-            all_recipients += [a.strip() for a in bcc_addrs.split(",") if a.strip()]
-
-        # Dry run?
-        if DRY_RUN:
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": now_iso,
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": ";".join(str(p) for p in atts),
-                    "Method": "Email",
-                    "Status": "SKIP",
-                    "Error": "DRYRUN",
-                    "DurationS": "",
-                    "RecipientsTo": to_addrs,
-                    "Subject": subject,
-                },
-            )
-            continue
-
-        # Send
-        try:
-            if USE_SSL:
-                context = ssl.create_default_context()
-                with smtplib.SMTP_SSL(
-                    SMTP_SERVER, int(CONFIG["SMTP_PORT_SSL"]), context=context
-                ) as s:
-                    s.login(FROM_USER, APP_PASSWORD)
-                    s.send_message(
-                        msg, from_addr=FROM_USER, to_addrs=all_recipients or [FROM_USER]
-                    )
-            else:
-                with smtplib.SMTP(SMTP_SERVER, int(CONFIG["SMTP_PORT_STARTTLS"])) as s:
-                    s.starttls()
-                    s.login(FROM_USER, APP_PASSWORD)
-                    s.send_message(
-                        msg, from_addr=FROM_USER, to_addrs=all_recipients or [FROM_USER]
-                    )
-
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": ";".join(str(p) for p in atts),
-                    "Method": "Email",
-                    "Status": "OK",
-                    "Error": "",
-                    "DurationS": "",
-                    "RecipientsTo": to_addrs,
-                    "Subject": subject,
-                },
-            )
-
-        except Exception as e:
-            append_log_row(
-                LOG_PATH,
-                {
-                    "Timestamp": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-                    "RunDate": today_str,
-                    "Batch": BATCH,
-                    "Stage": "Email",
-                    "Master": MASTER_PATH,
-                    "FilePath": ";".join(str(p) for p in atts),
-                    "Method": "Email",
-                    "Status": "FAIL",
-                    "Error": str(e),
-                    "DurationS": "",
-                    "RecipientsTo": to_addrs,
-                    "Subject": subject,
-                },
-            )
-
-    return 0
+    print(f"Summary: OK={total_ok} FAIL={total_fail} SKIP={total_skip}")
+    return 0 if total_fail == 0 else 1
 
 
 if __name__ == "__main__":

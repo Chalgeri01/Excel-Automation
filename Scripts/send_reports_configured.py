@@ -36,7 +36,7 @@ CONFIG = {
     "MAX_PARALLEL": 3,  # Default max parallel processes
     
     # Fallback email timing (hours)
-    "FALLBACK_HOURS": 18,  # Consider emails sent in last 18 hours as "already sent"
+    "FALLBACK_HOURS": 2,  # Consider emails sent in last 18 hours as "already sent"
     
     # Force resend
     "FORCE_RESEND": False,  # Bypass all validations and resend all emails
@@ -74,6 +74,45 @@ If you are not the intended recipient, please notify us immediately and delete t
 
 🌱 Please consider the environment before printing this email.
 """
+
+#
+LOG_FILE_NAME = "email-runner.log"
+LOG_FILE_PATH = os.path.join(CONFIG["LOG_DIR"], LOG_FILE_NAME)
+def write_log(message: str):
+    """
+    Writes a timestamped message to both the console and a log file, 
+    using the configured LOG_DIR.
+
+    Args:
+        message (str): The message content to be logged.
+    """
+    try:
+        # 1. Ensure the log directory exists
+        # 'exist_ok=True' prevents an error if the directory is already there.
+        os.makedirs(CONFIG["LOG_DIR"], exist_ok=True)
+        
+        # 2. Get the current timestamp
+        ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        # 3. Construct the full log line
+        # We also include the configuration's BATCH value if available (assuming a default of "ScriptRun")
+        batch_tag = CONFIG.get("BATCH", "ScriptRun")
+        log_line = f"[{ts}][{batch_tag}] {message}"
+
+        # 4. Write the line to the console (Write-Host equivalent)
+        print(log_line)
+
+        # 5. Append the line to the log file (Out-File -Append equivalent)
+        # Using 'a' for append mode.
+        with open(LOG_FILE_PATH, 'a', encoding='utf-8') as f:
+            f.write(log_line + '\n')
+
+    except IOError as e:
+        # Handle cases where the file cannot be written (e.g., permissions issue)
+        print(f"FATAL ERROR: Could not write to log file {LOG_FILE_PATH}. Check directory permissions. Details: {e}")
+    except Exception as e:
+        # Catch any other unexpected errors
+        print(f"FATAL ERROR: An unexpected error occurred during logging: {e}")
 
 # --------------------------- Helpers (unchanged where possible) -----
 
@@ -389,7 +428,7 @@ def process_single_email(row_data, config, email_run_id, batch, email_run_date, 
         else:
             # Force resend mode - skip all validations
             to_norm = to_addrs
-            print(f"🔧 Email {index+1}: FORCE RESEND - Bypassing all validations")
+            write_log(f"Email {index+1}: FORCE RESEND - Bypassing all validations")
 
         # Build message + recipients
         msg = EmailMessage()
@@ -484,7 +523,7 @@ def main():
         try:
             EMAIL_RUN_DATE = date.fromisoformat(args.email_date)
         except ValueError:
-            print(f"ERROR: Invalid date '{args.email_date}'. Use YYYY-MM-DD.")
+            write_log(f"ERROR: Invalid date '{args.email_date}'. Use YYYY-MM-DD.")
             return 2
     else:
         EMAIL_RUN_DATE = date.today()
@@ -515,21 +554,21 @@ def main():
     email_csv_out = LOG_DIR / f"email-log_{EMAIL_RUN_DATE:%Y-%m-%d}_Batch-{BATCH_NUMBER}.csv"
 
     if not FROM_USER or not APP_PASSWORD:
-        print("ERROR: Please set FROM_USER and APP_PASSWORD in CONFIG.")
+        write_log("ERROR: Please set FROM_USER and APP_PASSWORD in CONFIG.")
         return 2
 
     # Load email list
     df_list = load_email_list(EMAIL_LIST_PATH)
     for col in ["Receiver","CC","BCC","Subject","Attachement Path"]:
         if col not in df_list.columns:
-            print(f"ERROR: Column '{col}' missing in List sheet.")
+            write_log(f"ERROR: Column '{col}' missing in List sheet.")
             return 2
 
-    print(f"Processing Batch {BATCH_NUMBER} for {EMAIL_RUN_DATE} | email_run_id={email_run_id}")
-    print(f"Email list: {EMAIL_LIST_PATH}")
-    print(f"Parallel execution: {MAX_PARALLEL} processes")
-    print(f"Fallback hours: {FALLBACK_HOURS} hours")
-    print(f"Force resend: {FORCE_RESEND}")
+    write_log(f"Processing Batch {BATCH_NUMBER} for {EMAIL_RUN_DATE} | email_run_id={email_run_id}")
+    write_log(f"Email list: {EMAIL_LIST_PATH}")
+    write_log(f"Parallel execution: {MAX_PARALLEL} processes")
+    write_log(f"Fallback hours: {FALLBACK_HOURS} hours")
+    write_log(f"Force resend: {FORCE_RESEND}")
 
     # Prepare data for parallel processing
     email_rows = [(row, idx) for idx, row in df_list.iterrows()]
@@ -562,30 +601,30 @@ def main():
                 result = future.result()
                 if result['status'] == 'OK':
                     total_ok += 1
-                    status_indicator = "🔧" if FORCE_RESEND else "✓"
-                    print(f"{status_indicator} Email {result['index']+1}: OK - To: {result['to_norm']}")
+                    status_indicator = "Force Resend is set to Ture" if FORCE_RESEND else "Force Resend is set to False"
+                    write_log(f"{status_indicator} Email {result['index']+1}: OK - To: {result['to_norm']}")
                 elif result['status'] == 'FAIL':
                     total_fail += 1
-                    print(f"✗ Email {result['index']+1}: FAIL - {result['error']}")
+                    write_log(f"X Email {result['index']+1}: FAIL - {result['error']}")
                 elif result['status'] == 'SKIP':
                     total_skip += 1
-                    print(f"- Email {result['index']+1}: SKIP - {result['error']}")
+                    write_log(f"- Email {result['index']+1}: SKIP - {result['error']}")
                     
             except Exception as e:
                 total_fail += 1
-                print(f"✗ Email {future_to_index[future]+1}: EXCEPTION - {str(e)}")
+                write_log(f"X Email {future_to_index[future]+1}: EXCEPTION - {str(e)}")
 
     # Export this email run to CSV (IST timestamps)
     try:
         # Reconnect to export CSV (main process connection)
         conn = db_connect()
         export_email_csv(conn, email_run_id, email_csv_out)
-        print(f"Email CSV exported: {email_csv_out}")
+        write_log(f"Email CSV exported: {email_csv_out}")
         conn.close()
     except Exception as e:
-        print(f"WARNING: CSV export failed: {e}")
+        write_log(f"WARNING: CSV export failed: {e}")
 
-    print(f"Summary: OK={total_ok} FAIL={total_fail} SKIP={total_skip}")
+    write_log(f"Summary: OK={total_ok} FAIL={total_fail} SKIP={total_skip}")
     return 0 if total_fail == 0 else 1
 
 

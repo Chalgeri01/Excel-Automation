@@ -31,6 +31,21 @@ $BatchNameMap = @{
     6 = "14:00"
 }
 
+# ==== NEW: batches that should send email (map batch -> Email_List.xlsx) ====
+$EmailListMap = @{
+    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 11.00 PM Schedule.xlsx"
+    # 2 → no email
+    3 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx"
+    4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx"
+    5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx"
+    6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
+}
+# Python executable selector (change to "py" or full path if you prefer)
+$PythonExe = "C:\Users\kapl\AppData\Local\Programs\Python\Python313\python.exe"
+# Optional knobs for the email script (leave empty if you don’t want them)
+$EmailMaxParallel = $null      # e.g. 6
+$EmailForceResend = $false     # $true to force resend regardless of DB
+
 # ---- Parse BatchNumbers into array of ints ----
 $BatchArray = @()
 foreach ($num in $BatchNumbers.Split(',')) {
@@ -65,12 +80,10 @@ function Cleanup-Excel {
 }
 
 # ---- Load MySql.Data (Connector/NET) ----
-# Adjust path to the DLL if needed (you installed Connector/NET 9.4)
 try {
     Add-Type -AssemblyName "MySql.Data" -ErrorAction Stop
 } catch {
     Write-Log "Could not load MySql.Data from GAC, trying a direct path…"
-    # fallback path example (adjust if needed):
     $dllGuess = "C:\Program Files (x86)\MySQL\MySQL Connector NET 9.4\MySql.Data.dll"
     if (Test-Path $dllGuess) {
         Add-Type -Path $dllGuess
@@ -118,10 +131,8 @@ ORDER BY timestamp_utc ASC, id ASC
         [void]$ad.Fill($dt)
         $conn.Close()
 
-        # Ensure directory exists
         New-Item -ItemType Directory -Force -Path (Split-Path $OutCsv -Parent) | Out-Null
 
-        # Export CSV with same header order as your existing files
         $cols = "Timestamp","RunDate","Batch","Stage","Master","FilePath","Method","Status","Error","DurationS","RecipientsTo","Subject"
         $dt | Select-Object $cols | Export-Csv -Path $OutCsv -NoTypeInformation -Encoding UTF8
         Write-Log "Exported $($dt.Rows.Count) rows."
@@ -147,7 +158,7 @@ function Get-RunId {
     return "run-log_{0}_Batch-{1}" -f $dateStr, $BatchNumber
 }
 
-# ---- Main ----
+# ================== MAIN ==================
 Write-Log "=== Scheduled-Runner started ==="
 Write-Log "User=$env:USERNAME  Computer=$env:COMPUTERNAME  FastMode=$($FastMode.IsPresent)"
 Write-Log "Batches: $BatchNumbers"
@@ -163,7 +174,7 @@ foreach ($bn in $BatchArray) {
     $masterPath  = $MasterFileMap[$bn]
     $batchName   = $BatchNameMap[$bn]
     $runId       = Get-RunId -BatchNumber $bn
-    $outCsv      = Join-Path $LogDir "$runId.csv"    # same file name pattern as before
+    $outCsv      = Join-Path $LogDir "$runId.csv"
     $localCopy   = Join-Path $TempDir (Split-Path $masterPath -Leaf)
 
     Write-Log "---- Batch $bn ($batchName) ----"
@@ -182,18 +193,16 @@ foreach ($bn in $BatchArray) {
 
         Push-Location $ScriptsDir
         try {
-            # Call your existing Run-Parallel.ps1
-            # NOTE: We pass LogIdentifier (for continuity) AND DbConn (new). Run-Parallel will be updated next to use DB.
             $args = @{
-                MasterPath   = $localCopy
-                SheetName    = ""
-                PathColumn   = "B"
-                StartRow     = 2
-                ThrottleLimit= 3
-                Batch        = $batchName
-                LogIdentifier= $runId
-                FastMode     = $FastMode.IsPresent
-                DbConn       = $DbConn        # <-- Run-Parallel will start using this after we update it
+                MasterPath    = $localCopy
+                SheetName     = ""
+                PathColumn    = "B"
+                StartRow      = 2
+                ThrottleLimit = 3
+                Batch         = $batchName
+                LogIdentifier = $runId
+                FastMode      = $FastMode.IsPresent
+                DbConn        = $DbConn
             }
             Write-Log "Invoking Run-Parallel.ps1 …"
             .\Run-Parallel.ps1 @args
@@ -202,23 +211,72 @@ foreach ($bn in $BatchArray) {
             Pop-Location
         }
 
-        # Export the consolidated CSV for this run_id from DB (so email step can keep using CSV)
+        # Export consolidated CSV (refresh log) for this run_id
         if (Export-RunLogCsv -RunId $runId -OutCsv $outCsv -DbConn $DbConn) {
             Write-Log "Batch $bn CSV exported: $outCsv"
         } else {
             Write-Log "Batch $bn CSV export FAILED (DB issue)."
         }
+        Start-Sleep -Seconds 10
+        # ===== NEW: If this batch has an Email_List.xlsx, call the Python email script =====
+        if ($EmailListMap.ContainsKey($bn)) {
+            $emailList = $EmailListMap[$bn]
+            Write-Log "Email list found for batch $bn → $emailList"
+            if (-not (Test-Path $emailList)) {
+                Write-Log "WARNING: Email list not reachable: $emailList (skipping email step)."
+            } else {
+                Write-Log "Launching email sender for batch $bn …"
+                $scriptPath   = Join-Path $ScriptsDir "send_reports_configured.py"
+                $quotedScript = '"' + $scriptPath  + '"'
+                $quotedEmail  = '"' + $emailList   + '"'
+                
+                
+              $pyArgs = @(
+                    "-u",
+                    $quotedScript,
+                    "--batch", $bn,
+                    "--email-list", $quotedEmail
+                )
+                if ($EmailMaxParallel) { $pyArgs += @("--max-parallel", $EmailMaxParallel) }
+                if ($EmailForceResend) { $pyArgs += "--force-resend" }
+
+                $psi = New-Object System.Diagnostics.ProcessStartInfo
+                $psi.FileName = $PythonExe
+                $psi.Arguments = ($pyArgs -join " ")
+                Write-Log "Email cmd: $($psi.FileName) $($psi.Arguments)"
+                $psi.WorkingDirectory = $ScriptsDir
+                $psi.RedirectStandardOutput = $true
+                $psi.RedirectStandardError  = $true
+                $psi.UseShellExecute = $false
+                $psi.CreateNoWindow = $true
+
+                $proc = [System.Diagnostics.Process]::Start($psi)
+                $stdOut = $proc.StandardOutput.ReadToEnd()
+                $stdErr = $proc.StandardError.ReadToEnd()
+                $proc.WaitForExit()
+
+                if ($stdOut) { Write-Log "[email stdout] $stdOut".Trim() }
+                if ($stdErr) { Write-Log "[email stderr] $stdErr".Trim() }
+
+                if ($proc.ExitCode -eq 0) {
+                    Write-Log "Email step completed successfully for batch $bn."
+                } else {
+                    Write-Log "Email step FAILED for batch $bn (exit $($proc.ExitCode))."
+                }
+            }
+        } else {
+            Write-Log "No email step configured for batch $bn — skipping."
+        }
+        # ===== END NEW =====
 
         $success++
     } catch {
         Write-Log "ERROR batch $bn : $($_.Exception.Message)"
         $failed++
     } finally {
-        # Cleanup local copy
         try {
             if (Test-Path $localCopy) { Remove-Item $localCopy -Force -ErrorAction SilentlyContinue }
         } catch { Write-Log "Warning removing local copy: $($_.Exception.Message)" }
-
         #Cleanup-Excel
         Start-Sleep -Seconds 2
     }

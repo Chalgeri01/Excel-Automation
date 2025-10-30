@@ -21,6 +21,7 @@ $MasterFileMap = @{
     4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx"
     5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx"
     6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Data Update - 02.00 PM.xlsx"
+    7 = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Master-sheet\07-Test-Master-File.xlsx"
 }
 $BatchNameMap = @{
     1 = "23:00"
@@ -29,6 +30,7 @@ $BatchNameMap = @{
     4 = "12:00"
     5 = "13:30"
     6 = "14:00"
+    7 = "Test"
 }
 
 # ==== NEW: batches that should send email (map batch -> Email_List.xlsx) ====
@@ -277,7 +279,7 @@ foreach ($bn in $BatchArray) {
         try {
             if (Test-Path $localCopy) { Remove-Item $localCopy -Force -ErrorAction SilentlyContinue }
         } catch { Write-Log "Warning removing local copy: $($_.Exception.Message)" }
-        #Cleanup-Excel
+        Cleanup-Excel
         Start-Sleep -Seconds 2
     }
 }

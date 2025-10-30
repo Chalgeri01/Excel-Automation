@@ -33,10 +33,10 @@ CONFIG = {
     "SMTP_PORT_STARTTLS": 587,
 
     # Parallel execution
-    "MAX_PARALLEL": 3,  # Default max parallel processes
+    "MAX_PARALLEL": 1,  # Default max parallel processes
     
     # Fallback email timing (hours)
-    "FALLBACK_HOURS": 2,  # Consider emails sent in last 18 hours as "already sent"
+    "FALLBACK_HOURS": 18,  # Consider emails sent in last 18 hours as "already sent"
     
     # Force resend
     "FORCE_RESEND": False,  # Bypass all validations and resend all emails
@@ -53,6 +53,7 @@ import ssl
 from pathlib import Path
 import argparse
 import sys
+import time
 
 import pandas as pd
 import pymysql
@@ -246,24 +247,24 @@ def db_refresh_method_email_for_date(conn, file_path: str, check_date: date) -> 
         cur.execute(sql, (file_path, check_date))
         return cur.fetchone() is not None
 
-def db_already_emailed_ok(conn, to_norm: str, subject: str, fallback_hours: int = 18) -> bool:
+def db_already_emailed_ok(conn, to_norm: str, subject: str, run_date: date, batch: str) -> bool:
     """
     Check if the same email (To+Subject) was already sent in the last X hours (fallback period).
     This prevents sending duplicate emails within the fallback window.
     """
-    cutoff_time = datetime.now(timezone.utc) - timedelta(hours=fallback_hours)
     
     sql = """
         SELECT 1
         FROM events
         WHERE stage='Email' AND status='OK'
-          AND timestamp_utc >= %s
+          AND rundate = %s
+          AND batch   = %s
           AND LOWER(recipients_to) = LOWER(%s)
           AND LOWER(subject)       = LOWER(%s)
         LIMIT 1
     """
     with conn.cursor() as cur:
-        cur.execute(sql, (cutoff_time, to_norm, subject))
+        cur.execute(sql, (run_date, batch, to_norm, subject))
         return cur.fetchone() is not None
 
 def db_write_email_event(conn, run_id: str, batch: str, rundate: date,
@@ -326,6 +327,7 @@ def process_single_email(row_data, config, email_run_id, batch, email_run_date, 
     """
     Process a single email row - this function runs in parallel
     """
+    time.sleep(2)
     row, index = row_data
     
     # Create a new DB connection for this process
@@ -415,12 +417,12 @@ def process_single_email(row_data, config, email_run_id, batch, email_run_date, 
 
             # SECOND: Check if already emailed in last X hours (only if files are fresh)
             to_norm = to_addrs
-            if db_already_emailed_ok(conn, to_norm, subject, fallback_hours):
-                db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "SKIP", f"Already emailed in last {fallback_hours} hours")
+            if db_already_emailed_ok(conn, to_norm, subject, email_run_date, batch):
+                db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "SKIP", f"Already emailed for this run (rundate={email_run_date}, batch={batch})")
                 return {
                     'index': index,
                     'status': 'SKIP',
-                    'error': f"Already emailed in last {fallback_hours} hours",
+                    'error': f"Already emailed for this run",
                     'to_norm': to_norm,
                     'subject': subject,
                     'atts': atts
@@ -602,7 +604,7 @@ def main():
                 if result['status'] == 'OK':
                     total_ok += 1
                     status_indicator = "Force Resend is set to Ture" if FORCE_RESEND else "Force Resend is set to False"
-                    write_log(f"{status_indicator} Email {result['index']+1}: OK - To: {result['to_norm']}")
+                    write_log(f"Email {result['index']+1}: OK - To: {result['to_norm']}")
                 elif result['status'] == 'FAIL':
                     total_fail += 1
                     write_log(f"X Email {result['index']+1}: FAIL - {result['error']}")

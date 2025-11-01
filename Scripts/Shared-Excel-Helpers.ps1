@@ -25,7 +25,7 @@ function Stop-Excel($excel){
   }
 }
 
-function Wait-Connections($wb, [int]$TimeoutSec=600){
+function Wait-Connections($wb, [int]$TimeoutSec=1400){
   $sw = [Diagnostics.Stopwatch]::StartNew()
   do {
     Start-Sleep -Milliseconds 200
@@ -86,6 +86,7 @@ function Refresh-WorkbookSmart([object]$excel,[string]$Path,[int]$TimeoutSec=900
 
     # Power Query / Connections
     $wb.RefreshAll() | Out-Null
+    try { $excel.CalculateUntilAsyncQueriesDone() } catch {}
     [void](Wait-Connections -wb $wb -TimeoutSec $TimeoutSec)
 
     # Only refresh tables/pivots if present (and not in FastMode)
@@ -110,7 +111,9 @@ function Refresh-WorkbookSmart([object]$excel,[string]$Path,[int]$TimeoutSec=900
         }
       }
     }
-
+    try { if ($wb.Model) { $wb.Model.Refresh(); Start-Sleep -Seconds 5 } } catch {}
+    try { $excel.CalculateFull() } catch {}
+    # try { $excel.CalculateFullRebuild() } catch {}  # only if needed
     $wb.Save()
   }
   finally {

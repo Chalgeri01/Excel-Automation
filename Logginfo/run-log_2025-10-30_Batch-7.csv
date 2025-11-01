@@ -1,0 +1,3 @@
+"Timestamp","RunDate","Batch","Stage","Master","FilePath","Method","Status","Error","DurationS","RecipientsTo","Subject"
+"2025-10-30 21:35:08","2025-10-30","Test","Refresh","C:\Temp\ExcelAutomation\07-Test-Master-File.xlsx","\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\002 UDYAMNAGAR\UDYAM-SH & RF Stock Report.xlsb","","OK","","67","",""
+"2025-10-30 21:51:22","2025-10-30","Test","Refresh","C:\Temp\ExcelAutomation\07-Test-Master-File.xlsx","\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\PRODUCTION AND DISPATCH\05. UDYAMNAGAR\07. MANOJ KANDHARE\Quantity Report - UN-RM.xlsb","","OK","","1040","",""

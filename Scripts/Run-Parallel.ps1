@@ -63,7 +63,7 @@ function Test-AlreadyOkInDb {
     $q1 = @"
 SELECT 1
 FROM events
-WHERE file_path = @f
+WHERE LOWER(REPLACE(file_path, '\\\\', '\\')) = LOWER(@f)
   AND stage = 'Refresh'
   AND status = 'OK'
   AND batch = @b
@@ -71,9 +71,12 @@ WHERE file_path = @f
 LIMIT 1
 "@
     # build IN list params dynamically
+    write-host "SQL query"
+    write-host $q1
     $inParams = @()
     for ($i=0; $i -lt $AcceptRunDates.Count; $i++) { $inParams += ",@d$($i+1)" }
     $sql = [string]::Format($q1, ($inParams -join ''))
+    write-host $sql
     $conn = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
     try {
       $conn.Open()
@@ -94,7 +97,7 @@ LIMIT 1
   $q2 = @"
 SELECT 1
 FROM events
-WHERE file_path = @f
+WHERE LOWER(REPLACE(file_path, '\\\\', '\\')) = LOWER(@f)
   AND stage = 'Refresh'
   AND status = 'OK'
   AND batch = @b

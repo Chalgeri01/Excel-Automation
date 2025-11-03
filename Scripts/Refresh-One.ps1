@@ -188,20 +188,67 @@ VALUES
   }
 }
 
-# ---------- Refresh ----------
-$excel  = Start-Excel
-$status = "OK"
-$err    = ""
-$t0     = Get-Date
-
+# --- Per-run isolated temp folder to avoid cache collisions ---
 try {
-  Refresh-WorkbookSmart -excel $excel -Path $Path -TimeoutSec $TimeoutSec -FastMode:$FastMode
-} catch {
-  $status = "FAIL"
-  $err    = $_.Exception.Message
-} finally {
-  Stop-Excel $excel
+  $tempRoot = "C:\Temp\ExcelTmp"
+  New-Item -ItemType Directory -Force -Path $tempRoot | Out-Null
+  $safeName = ([IO.Path]::GetFileNameWithoutExtension($Path) -replace '[^A-Za-z0-9_-]','_')
+  $runTemp  = Join-Path $tempRoot ("{0}_{1}" -f $safeName, [guid]::NewGuid().ToString('N'))
+  New-Item -ItemType Directory -Force -Path $runTemp | Out-Null
+
+  # Scope to *this process* only (won’t affect machine/user)
+  [Environment]::SetEnvironmentVariable('TEMP', $runTemp, 'Process')
+  [Environment]::SetEnvironmentVariable('TMP',  $runTemp, 'Process')
+} catch { }
+
+# Handle the erros
+function Clear-OfficeCaches {
+  param([switch]$AlsoOfficeFileCache)
+  try {
+    $paths = @("$env:LOCALAPPDATA\Microsoft\Windows\INetCache\Content.MSO")
+    if ($AlsoOfficeFileCache) {
+      $paths += "$env:LOCALAPPDATA\Microsoft\Office\16.0\OfficeFileCache"
+    }
+    foreach ($p in $paths) {
+      if (Test-Path $p) {
+        Get-ChildItem -LiteralPath $p -Recurse -ErrorAction SilentlyContinue |
+          Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+      }
+    }
+  } catch { }
 }
+
+
+# ---------- Refresh with one targeted retry ----------
+$status   = "OK"
+$err      = ""
+$t0       = Get-Date
+$didRetry = $false
+
+:refresh_attempt do {
+  $excel = Start-Excel
+  try {
+    Refresh-WorkbookSmart -excel $excel -Path $Path -TimeoutSec $TimeoutSec -FastMode:$FastMode
+  }
+  catch {
+    $msg = $_.Exception.Message
+    # Trigger retry only for the known cache/collision signatures
+    if (-not $didRetry -and ($msg -match 'INetCache\\Content\.MSO' -or $msg -match 'OfficeFileCache')) {
+      try { Stop-Excel $excel } catch {}
+      Clear-OfficeCaches            # clear cache that caused the lock
+      Start-Sleep -Seconds 3
+      $didRetry = $true
+      continue refresh_attempt      # restart Excel and try once more
+    } else {
+      $status = "FAIL"
+      $err    = $msg
+    }
+  }
+  finally {
+    try { Stop-Excel $excel } catch {}
+  }
+  break
+} while ($true)
 
 # ---------- Write event to DB ----------
 $nowUtc  = (Get-Date).ToUniversalTime()

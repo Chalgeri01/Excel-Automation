@@ -247,12 +247,12 @@ def db_refresh_method_email_for_date(conn, file_path: str, check_date: date) -> 
         cur.execute(sql, (file_path, check_date))
         return cur.fetchone() is not None
 
-def db_already_emailed_ok(conn, to_norm: str, subject: str, run_date: date, batch: str) -> bool:
+def db_already_emailed_ok(conn, to_norm: str, subject: str, run_date: date, batch: str, file_path: str) -> bool:
     """
     Check if the same email (To+Subject) was already sent in the last X hours (fallback period).
     This prevents sending duplicate emails within the fallback window.
     """
-    
+    #print(f'File path is :- {file_path}')
     sql = """
         SELECT 1
         FROM events
@@ -261,10 +261,12 @@ def db_already_emailed_ok(conn, to_norm: str, subject: str, run_date: date, batc
           AND batch   = %s
           AND LOWER(recipients_to) = LOWER(%s)
           AND LOWER(subject)       = LOWER(%s)
+          AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(%s, '\\\\', '/'))
         LIMIT 1
     """
+    #print(f"SQL query :- {sql}")
     with conn.cursor() as cur:
-        cur.execute(sql, (run_date, batch, to_norm, subject))
+        cur.execute(sql, (str(run_date), batch, to_norm, subject, file_path))
         return cur.fetchone() is not None
 
 def db_write_email_event(conn, run_id: str, batch: str, rundate: date,
@@ -417,7 +419,7 @@ def process_single_email(row_data, config, email_run_id, batch, email_run_date, 
 
             # SECOND: Check if already emailed in last X hours (only if files are fresh)
             to_norm = to_addrs
-            if db_already_emailed_ok(conn, to_norm, subject, email_run_date, batch):
+            if db_already_emailed_ok(conn, to_norm, subject, email_run_date, batch, fp_str):
                 db_write_email_event(conn, email_run_id, batch, email_run_date, master_path, atts, to_norm, subject, "SKIP", f"Already emailed for this run (rundate={email_run_date}, batch={batch})")
                 return {
                     'index': index,

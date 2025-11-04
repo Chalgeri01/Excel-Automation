@@ -50,75 +50,47 @@ if ($items.Count -eq 0) { throw "No file paths found in $MasterPath." }
 $PwshExe = Join-Path $PSHOME 'pwsh.exe'
 
 # ------------------ DB helpers ------------------
-function Test-AlreadyOkInDb {
+function old_Test-AlreadyOkInDb {
   param(
     [string]$ConnStr,
-    [string]$FilePath,
-    [string[]]$AcceptRunDates,
-    [datetime]$CutoffUtc,
-    [string]$Batch
+    [string]$FilePath,      # raw PS path like \\192.168.1.237\...
+    [string]$RunDate,       # 'yyyy-MM-dd' (single logical day)
+    [string]$Batch          # e.g. '12:00'
   )
-  # 1) try RunDate match (fast exact)
-  if ($AcceptRunDates -and $AcceptRunDates.Count -gt 0) {
-    $q1 = @"
+  Write-Log "In the Test-Already DB function"
+  $sql = @"
 SELECT 1
 FROM events
-WHERE LOWER(REPLACE(file_path, '\\\\', '\\')) = LOWER(@f)
-  AND stage = 'Refresh'
-  AND status = 'OK'
+WHERE stage='Refresh'
+  AND status='OK'
   AND batch = @b
-  AND rundate IN (@d1{0})
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
 LIMIT 1
 "@
-    # build IN list params dynamically
-    write-host "SQL query"
-    write-host $q1
-    $inParams = @()
-    for ($i=0; $i -lt $AcceptRunDates.Count; $i++) { $inParams += ",@d$($i+1)" }
-    $sql = [string]::Format($q1, ($inParams -join ''))
-    write-host $sql
-    $conn = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
-    try {
-      $conn.Open()
-      $cmd = $conn.CreateCommand()
-      $cmd.CommandText = $sql
-      $p = $cmd.Parameters
-      $null = $p.Add("@f",[MySql.Data.MySqlClient.MySqlDbType]::LongText).Value = $FilePath
-      $null = $p.Add("@b",[MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value  = $Batch
-      for ($i=0; $i -lt $AcceptRunDates.Count; $i++) {
-        $null = $p.Add("@d$($i+1)",[MySql.Data.MySqlClient.MySqlDbType]::Date).Value = [datetime]::ParseExact($AcceptRunDates[$i],'yyyy-MM-dd',$null)
-      }
-      $r = $cmd.ExecuteScalar()
-      if ($r) { return $true }
-    } finally { $conn.Close(); $conn.Dispose() }
-  }
-
-  # 2) fallback: any OK since cutoff UTC (covers partial-overnight edge)
-  $q2 = @"
-SELECT 1
-FROM events
-WHERE LOWER(REPLACE(file_path, '\\\\', '\\')) = LOWER(@f)
-  AND stage = 'Refresh'
-  AND status = 'OK'
-  AND batch = @b
-  AND timestamp_utc >= @cut
-LIMIT 1
-"@
-  $conn2 = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
+  Write-Log "SQL query $sql"
+  $conn = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
   try {
-    $conn2.Open()
-    $cmd2 = $conn2.CreateCommand()
-    $cmd2.CommandText = $q2
-    $p2 = $cmd2.Parameters
-    $null = $p2.Add("@f",[MySql.Data.MySqlClient.MySqlDbType]::LongText).Value   = $FilePath
-    $null = $p2.Add("@b",[MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value    = $Batch
-    $null = $p2.Add("@cut",[MySql.Data.MySqlClient.MySqlDbType]::DateTime).Value = $CutoffUtc
-    $r2 = $cmd2.ExecuteScalar()
-    return [bool]$r2
-  } finally { $conn2.Close(); $conn2.Dispose() }
+    $conn.Open()
+    $cmd = $conn.CreateCommand()
+    $cmd.CommandText = $sql
+    $p = $cmd.Parameters
+    Write-Log "SQL COmmand :- $cmd.CommandText"
+    # Use AddWithValue to avoid MySqlDbType enum issues
+    [void]$p.AddWithValue("@b",  $Batch)
+    [void]$p.AddWithValue("@rd", [datetime]::ParseExact($RunDate,'yyyy-MM-dd',$null))
+    [void]$p.AddWithValue("@f",  $FilePath)
+    Write-Log "SQL Parm passing ($cmd.Parameters)"
+    $r = $cmd.ExecuteScalar()
+    return [bool]$r
+  } finally {
+    if ($conn.State -ne 'Closed') { $conn.Close() }
+    $conn.Dispose()
+  }
 }
 
-function Write-SkipRowToDb {
+
+function old_Write-SkipRowToDb {
   param(
     [string]$ConnStr,
     [string]$RunId,
@@ -152,6 +124,7 @@ VALUES
   } finally { $conn.Close(); $conn.Dispose() }
 }
 
+
 # Determine the logical RunDate to stamp for SKIP/forwarding
 # Prefer the parsed batch date; fall back to today.
 $LogicalRunDate = if ($BatchLogDate) { $BatchLogDate } else { (Get-Date).ToString('yyyy-MM-dd') }
@@ -172,20 +145,100 @@ $items | ForEach-Object -Parallel {
   $targetPath = $_.Path
   $method     = $_.Method
 
+  # ------------------ DB helpers ------------------
+function Test-AlreadyOkInDb {
+  param(
+    [string]$ConnStr,
+    [string]$FilePath,      # raw PS path like \\192.168.1.237\...
+    [string]$RunDate,       # 'yyyy-MM-dd' (single logical day)
+    [string]$Batch          # e.g. '12:00'
+  )
+  $sql = @"
+SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+"@
+  $conn = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
+  try {
+    $conn.Open()
+    $cmd = $conn.CreateCommand()
+    $cmd.CommandText = $sql
+    $p = $cmd.Parameters
+    # Use AddWithValue to avoid MySqlDbType enum issues
+    [void]$p.AddWithValue("@b",  $Batch)
+    [void]$p.AddWithValue("@rd", [datetime]::ParseExact($RunDate,'yyyy-MM-dd',$null))
+    [void]$p.AddWithValue("@f",  $FilePath)
+    $r = $cmd.ExecuteScalar()
+    return [bool]$r
+  } finally {
+    if ($conn.State -ne 'Closed') { $conn.Close() }
+    $conn.Dispose()
+  }
+}
+
+function Write-SkipRowToDb {
+  param(
+    [string]$ConnStr,
+    [string]$RunId,
+    [string]$RunDate,   # yyyy-MM-dd
+    [string]$Batch,
+    [string]$MasterPath,
+    [string]$FilePath,
+    [string]$Method
+  )
+
+  $utc = (Get-Date).ToUniversalTime()
+
+  $sql = @"
+INSERT INTO events
+(run_id,batch,stage,timestamp_utc,rundate,master_path,file_path,method,status,error_text,duration_s,recipients_to,subject)
+VALUES
+(@run,@batch,'Refresh',@ts,CAST(@rd AS DATE),@mp,@fp,@m,'SKIP','Already OK for this batch/day',0,NULL,NULL)
+"@
+
+  $conn = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
+  try {
+    $conn.Open()
+    $cmd = $conn.CreateCommand()
+    $cmd.CommandText = $sql
+
+    # No MySqlDbType enums here (avoids CLS casing issue)
+    [void]$cmd.Parameters.AddWithValue("@run",  $RunId)
+    [void]$cmd.Parameters.AddWithValue("@batch",$Batch)
+    [void]$cmd.Parameters.AddWithValue("@ts",   $utc)                                        # DATETIME
+    [void]$cmd.Parameters.AddWithValue("@rd",   [datetime]::ParseExact($RunDate,'yyyy-MM-dd',$null)) # DATE via CAST
+    [void]$cmd.Parameters.AddWithValue("@mp",   ($(if ($MasterPath) { $MasterPath } else { [DBNull]::Value })))
+    [void]$cmd.Parameters.AddWithValue("@fp",   $FilePath)
+    [void]$cmd.Parameters.AddWithValue("@m",    ($(if ($Method) { $Method } else { "" })))
+
+    [void]$cmd.ExecuteNonQuery()
+  } finally {
+    if ($conn.State -ne 'Closed') { $conn.Close() }
+    $conn.Dispose()
+  }
+}
+
   # --- DB-based skip check ---
   $alreadyOk = $false
   try {
-    $alreadyOk = Test-AlreadyOkInDb -ConnStr $connStr -FilePath $targetPath -AcceptRunDates $accDates -CutoffUtc $cutoff -Batch $batch
+    $alreadyOk = Test-AlreadyOkInDb -ConnStr $connStr -FilePath $targetPath -Batch $batch -RunDate $logRunDate
   } catch {
     # If DB is down, be safe and DO NOT skip (process the file)
     $alreadyOk = $false
   }
-
   if ($alreadyOk) {
     # Write SKIP event to DB (so final CSV export shows it too)
     try {
+      try { Add-Type -AssemblyName "MySql.Data" -ErrorAction SilentlyContinue } catch {Write-Host "Error to load"}
       Write-SkipRowToDb -ConnStr $connStr -RunId $runId -RunDate $logRunDate -Batch $batch -MasterPath $master -FilePath $targetPath -Method $method
-    } catch { }
+    } catch { 
+      Write-Host "in the catch block of skip write to DB"
+    }
     return
   }
 

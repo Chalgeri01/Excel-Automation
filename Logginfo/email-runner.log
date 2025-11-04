@@ -9142,3 +9142,568 @@
 [2025-11-03 12:43:56][EmailRun] - Email 5: SKIP - Already emailed for this run
 [2025-11-03 12:43:56][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-4.csv
 [2025-11-03 12:43:56][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-03 12:57:05][EmailRun] Processing Batch 4 for 2025-11-03 | email_run_id=email-log_2025-11-03_Batch-4
+[2025-11-03 12:57:05][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-03 12:57:05][EmailRun] Parallel execution: 1 processes
+[2025-11-03 12:57:05][EmailRun] Fallback hours: 18 hours
+[2025-11-03 12:57:05][EmailRun] Force resend: False
+[2025-11-03 12:57:08][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-03 12:57:10][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-03 12:57:12][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-03 12:57:14][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-03 12:57:16][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-03 12:57:16][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-4.csv
+[2025-11-03 12:57:16][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-03 13:06:11][EmailRun] Processing Batch 4 for 2025-11-03 | email_run_id=email-log_2025-11-03_Batch-4
+[2025-11-03 13:06:11][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-03 13:06:11][EmailRun] Parallel execution: 1 processes
+[2025-11-03 13:06:11][EmailRun] Fallback hours: 18 hours
+[2025-11-03 13:06:11][EmailRun] Force resend: False
+[2025-11-03 13:06:14][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-03 13:06:16][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-03 13:06:18][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-03 13:06:20][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-03 13:06:22][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-03 13:06:22][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-4.csv
+[2025-11-03 13:06:22][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-03 13:27:41][EmailRun] Processing Batch 4 for 2025-11-03 | email_run_id=email-log_2025-11-03_Batch-4
+[2025-11-03 13:27:41][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-03 13:27:41][EmailRun] Parallel execution: 1 processes
+[2025-11-03 13:27:41][EmailRun] Fallback hours: 18 hours
+[2025-11-03 13:27:41][EmailRun] Force resend: False
+[2025-11-03 13:27:44][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-03 13:27:46][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-03 13:27:49][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-03 13:27:51][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-03 13:27:53][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-03 13:27:53][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-4.csv
+[2025-11-03 13:27:53][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-03 13:44:51][EmailRun] Processing Batch 5 for 2025-11-03 | email_run_id=email-log_2025-11-03_Batch-5
+[2025-11-03 13:44:51][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx
+[2025-11-03 13:44:51][EmailRun] Parallel execution: 1 processes
+[2025-11-03 13:44:51][EmailRun] Fallback hours: 18 hours
+[2025-11-03 13:44:51][EmailRun] Force resend: False
+[2025-11-03 13:45:01][EmailRun] Email 1: OK - To: Nagesh Sawant <Compounding@kotharigroupindia.com>, PVC Mixer <pvcmixer@kotharigroupindia.com>, Guru Mahindraker <rm.store@kotharigroupindia.com>, Granulator Deptartment <granulator@kotharigroupindia.com>
+[2025-11-03 13:45:09][EmailRun] Email 2: OK - To: Ganesh Wadshingkar <cncu5@kotharigroupindia.com>, Swpanil Nimgade <store.consumable@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>, Mahesh Sutar <ppc1@kotharigroupindia.com>, Rohan naik <rohan.naik@kotharigroupindia.com>
+[2025-11-03 13:46:18][EmailRun] Email 3: OK - To: manoj.kandare@kotharigroupindia.com
+[2025-11-03 13:47:24][EmailRun] Email 4: OK - To: Nagesh Sawant <compounding@kotharigroupindia.com>, Amol Puranik <pe.rmstore@kotharigroupindia.com>, PVC Mixer <pvcmixer@kotharigroupindia.com>, Amol Puranik <pe.rmstore@kotharigroupindia.com>, Granulator Deptartment <granulator@kotharigroupindia.com>
+[2025-11-03 13:48:24][EmailRun] Email 5: OK - To: manoj.kandare@kotharigroupindia.com
+[2025-11-03 13:50:01][EmailRun] Email 6: OK - To: manoj.kandare@kotharigroupindia.com
+[2025-11-03 13:50:11][EmailRun] Email 7: OK - To: Onkar Kadam <stocku5@kotharigroupindia.com>, Production Backoffice <production.backoffice@kotharigroupindia.com>, Hemant Zokarkar <hemant.zokarkar@kotharigroupindia.com>, Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>
+[2025-11-03 13:50:21][EmailRun] Email 8: OK - To: Onkar Kadam <stocku5@kotharigroupindia.com>, Production Backoffice <production.backoffice@kotharigroupindia.com>, Amit Gortyal <amit.gortyal@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>
+[2025-11-03 13:50:31][EmailRun] Email 9: OK - To: Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Onkar Kadam <stocku5@kotharigroupindia.com>, Production Backoffice <production.backoffice@kotharigroupindia.com>, Building Extrusion <building.extrusion@kotharigroupindia.com>
+[2025-11-03 13:50:42][EmailRun] Email 10: OK - To: Datta Jadhav <pe@kotharigroupindia.com>, New Cell Drip <newcelldrip@kotharigroupindia.com>, Dinesh Pawar <sprinkler@kotharigroupindia.com>, Shrihari Gharbude <drip@kotharigroupindia.com>, "Rahul Chitte (MIS)" <operationsu4@kotharigroupindia.com>, Shivaji Chavan <ganesh.dalave@kotharigroupindia.com>, Vijay Kakde <logistics1@kotharigroupindia.com>
+[2025-11-03 13:50:52][EmailRun] Email 11: OK - To: Pramod Sutar <pramod.sutar@kotharigroupindia.com>, Shivaji Chavan <ganesh.dalave@kotharigroupindia.com>, Vijay Kakde <logistics1@kotharigroupindia.com>, Mahesh Bhalekar <prodm3@kotharigroupindia.com>
+[2025-11-03 13:51:02][EmailRun] Email 12: OK - To: Abhimanyu Tiwari <a.tiwari@kotharigroupindia.com>, Vijay Gangji <purchase4@kotharigroupindia.com>, vinay shaha <shaha.vinay@kotharigroupindia.com>
+[2025-11-03 13:51:11][EmailRun] Email 13: OK - To: Ankur Shrivastava <ankur.shrivastava@kotharigroupindia.com>, Vijay Gangji <purchase4@kotharigroupindia.com>, vinay shaha <shaha.vinay@kotharigroupindia.com>
+[2025-11-03 13:51:45][EmailRun] Email 14: OK - To: vinay shaha <shaha.vinay@kotharigroupindia.com>, Abhimanyu Tiwari <a.tiwari@kotharigroupindia.com>, Ankur Shrivastava <ankur.shrivastava@kotharigroupindia.com>
+[2025-11-03 13:51:55][EmailRun] Email 15: OK - To: Yogesh Havale <rm.mhlstore@kotharigroupindia.com>
+[2025-11-03 13:52:05][EmailRun] Email 16: OK - To: Abhimanyu Tiwari <a.tiwari@kotharigroupindia.com>
+[2025-11-03 13:52:14][EmailRun] Email 17: OK - To: Ankur Shrivastava <ankur.shrivastava@kotharigroupindia.com>
+[2025-11-03 13:52:23][EmailRun] Email 18: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>
+[2025-11-03 13:52:31][EmailRun] Email 19: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>
+[2025-11-03 13:52:42][EmailRun] Email 20: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>
+[2025-11-03 13:52:42][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-5.csv
+[2025-11-03 13:52:42][EmailRun] Summary: OK=20 FAIL=0 SKIP=0
+[2025-11-03 15:32:38][EmailRun] Processing Batch 6 for 2025-11-03 | email_run_id=email-log_2025-11-03_Batch-6
+[2025-11-03 15:32:38][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx
+[2025-11-03 15:32:38][EmailRun] Parallel execution: 1 processes
+[2025-11-03 15:32:38][EmailRun] Fallback hours: 18 hours
+[2025-11-03 15:32:38][EmailRun] Force resend: False
+[2025-11-03 15:32:49][EmailRun] Email 1: OK - To: Ganesh Wadshingkar <cncu5@kotharigroupindia.com>
+[2025-11-03 15:33:00][EmailRun] Email 2: OK - To: PVC Mixer <pvcmixer@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Building Extrusion <building.extrusion@kotharigroupindia.com>
+[2025-11-03 15:33:11][EmailRun] Email 3: OK - To: Swapnil Nimgade <store.consumable@kotharigroupindia.com>
+[2025-11-03 15:33:25][EmailRun] Email 4: OK - To: Ashish Kumar Singh <ashishkumar.singh@kotharigroupindia.com>, Vipin Kumar <vipin.kumar@kotharigroupindia.com>
+[2025-11-03 15:33:42][EmailRun] Email 5: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Hemant Zokarkar <hemant.zokarkar@kotharigroupindia.com>, Nagesh Sawant <compounding@kotharigroupindia.com>, Granulator Deptartment <granulator@kotharigroupindia.com>
+[2025-11-03 15:33:57][EmailRun] Email 6: OK - To: satyendra.singh@kotharigroupindia.com
+[2025-11-03 15:34:07][EmailRun] Email 7: OK - To: Pramod Sutar <pramod.sutar@kotharigroupindia.com>, Mahesh Bhalekar <prodm3@kotharigroupindia.com>
+[2025-11-03 15:34:07][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-6.csv
+[2025-11-03 15:34:07][EmailRun] Summary: OK=7 FAIL=0 SKIP=0
+[2025-11-03 21:18:31][EmailRun] Processing Batch 4 for 2025-11-03 | email_run_id=email-log_2025-11-03_Batch-4
+[2025-11-03 21:18:31][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-03 21:18:31][EmailRun] Parallel execution: 1 processes
+[2025-11-03 21:18:31][EmailRun] Fallback hours: 18 hours
+[2025-11-03 21:18:31][EmailRun] Force resend: False
+[2025-11-03 21:18:34][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-03 21:18:36][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-03 21:18:38][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-03 21:18:40][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-03 21:18:42][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-03 21:18:42][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-03_Batch-4.csv
+[2025-11-03 21:18:42][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 03:00:03][EmailRun] Processing Batch 1 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-1
+[2025-11-04 03:00:03][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 11.00 PM Schedule.xlsx
+[2025-11-04 03:00:03][EmailRun] Parallel execution: 1 processes
+[2025-11-04 03:00:03][EmailRun] Fallback hours: 18 hours
+[2025-11-04 03:00:03][EmailRun] Force resend: False
+[2025-11-04 03:02:26][EmailRun] Email 1: OK - To: Gourav Kothari <gourav@kotharigroupindia.com>
+[2025-11-04 03:02:44][EmailRun] Email 2: OK - To: Yogesh Shah <yogesh@kotharigroupindia.com>, Pushkaraj Kothari <pushkaraj@kotharigroupindia.com>
+[2025-11-04 03:02:51][EmailRun] Email 3: OK - To: Ujwal Kothari <ujwal@kotharigroupindia.com>, Vaibhav Melage <rmsales@kotharigroupindia.com>
+[2025-11-04 03:03:01][EmailRun] Email 4: OK - To: Ujwal Kothari <ujwal@kotharigroupindia.com>
+[2025-11-04 03:03:50][EmailRun] Email 5: OK - To: yogesh@kotharigroupindia.com
+[2025-11-04 03:03:57][EmailRun] Email 6: OK - To: Ashish Kothari <ashish@kotharigroupindia.com>
+[2025-11-04 03:04:05][EmailRun] Email 7: OK - To: Ashish Kothari <ashish@kotharigroupindia.com>
+[2025-11-04 03:06:05][EmailRun] Email 8: OK - To: Ujwal Kothari <ujwal@kotharigroupindia.com>, Arvind Kothari <arvind@kotharigroupindia.com>, Pushkaraj Kothari <pushkaraj@kotharigroupindia.com>, Kiran Kothari <kiran@kotharigroupindia.com>
+[2025-11-04 03:06:16][EmailRun] Email 9: OK - To: PPC Executive <ppc1.kosons@kotharigroupindia.com>, Vinod Kumar <vinod.kumar@kotharigroupindia.com>, Dispatch Cables <dsu6@kotharigroupindia.com>, Quality Control Cables <qau6@kotharigroupindia.com>
+[2025-11-04 03:06:28][EmailRun] Email 10: OK - To: Tushar Mane <operations.pe@kotharigroupindia.com>, Mis Drip <operationsu4@kotharigroupindia.com>, Satish Bura <satish.bura@kotharigroupindia.com>
+[2025-11-04 03:06:46][EmailRun] Email 11: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:06:54][EmailRun] Email 12: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:07:01][EmailRun] Email 13: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:07:09][EmailRun] Email 14: OK - To: Satyendra Singh <satyendra.singh@kotharigroupindia.com>, Onkar kamble <ppc.pe@kotharigroupindia.com>, Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:07:19][EmailRun] Email 15: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>, Tushar Mane <operations.pe@kotharigroupindia.com>, Onkar kamble <ppc.pe@kotharigroupindia.com>
+[2025-11-04 03:07:27][EmailRun] Email 16: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:07:34][EmailRun] Email 17: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:07:42][EmailRun] Email 18: OK - To: Mis Drip <operationsu4@kotharigroupindia.com>
+[2025-11-04 03:07:52][EmailRun] Email 19: OK - To: Mahesh Sutar <ppc1@kotharigroupindia.com>, Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Bhushan Joshi <bhushan.joshi@kotharigroupindia.com>
+[2025-11-04 03:07:59][EmailRun] Email 20: OK - To: purchase Department <purchase@kotharigroupindia.com>
+[2025-11-04 03:08:06][EmailRun] Email 21: OK - To: Tushar Mane <operations.pe@kotharigroupindia.com>
+[2025-11-04 03:08:14][EmailRun] Email 22: OK - To: Santosh Yadav <santosh.yadav@kotharigroupindia.com>, Akshay Shete <planning.logistics@kotharigroupindia.com>, Sanjay Shah <logistics2@kotharigroupindia.com>, Ganesh Dalave <Ganesh.Dalave@kotharigroupindia.com>
+[2025-11-04 03:08:22][EmailRun] Email 23: OK - To: dispatch@kotharigroupindia.com
+[2025-11-04 03:08:33][EmailRun] Email 24: OK - To: Rohan naik <rohan.naik@kotharigroupindia.com>, Mahesh Sutar <ppc1@kotharigroupindia.com>
+[2025-11-04 03:08:42][EmailRun] Email 25: OK - To: Jaysing Deshmukh <prodnu1@kotharigroupindia.com>
+[2025-11-04 03:08:44][EmailRun] X Email 26: FAIL - File not refreshed for today (2025-11-04). Last refresh: 2025-11-03: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\007 Purchase\Due Report_New.xlsb
+[2025-11-04 03:08:52][EmailRun] Email 27: OK - To: suresh.kakee@kotharigroupindia.com
+[2025-11-04 03:08:59][EmailRun] Email 28: OK - To: vinay shaha <shaha.vinay@kotharigroupindia.com>, Atul Chhatre <atul.chhatre@kotharigroupindia.com>, Chetan Babar <chetan.babar@kotharigroupindia.com>
+[2025-11-04 03:09:09][EmailRun] Email 29: OK - To: Tushar Mane <operations.pe@kotharigroupindia.com>, Onkar kamble <ppc.pe@kotharigroupindia.com>, Chetan Babar <chetan.babar@kotharigroupindia.com>
+[2025-11-04 03:09:19][EmailRun] Email 30: OK - To: Amol Puranik <pe.rmstore@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>, "Mr. Kiran Chaudhari" <manager.moulding@kotharigroupindia.com>, Tanaji Umardand <store.consumable@kotharigroupindia.com>, Rohan naik <rohan.naik@kotharigroupindia.com>, Sushil Awtade <rm.store@kotharigroupindia.com>, Nagesh Sawant <compounding@kotharigroupindia.com>, Chetan Babar <chetan.babar@kotharigroupindia.com>
+[2025-11-04 03:09:31][EmailRun] Email 31: OK - To: Sachin Pangudwale <store1@kotharigroupindia.com>, Tanaji Umardand <store.consumable@kotharigroupindia.com>, Prakash Lad <prakash.lad@kotharigroupindia.com>, Kishor Kulkarni <kishor.kulkarni@kotharigroupindia.com>, Aditya Gavali <aditya.gavali@kotharigroupindia.com>, Rajesh Shinde <store3@kotharigroupindia.com>
+[2025-11-04 03:09:40][EmailRun] Email 32: OK - To: purchase Department <purchase@kotharigroupindia.com>, Rahul Dornal <purchase2@kotharigroupindia.com>
+[2025-11-04 03:09:54][EmailRun] Email 33: OK - To: Akshay Shete <planning.logistics@kotharigroupindia.com>, Vishal Kadam <inventorycontrol@kotharigroupindia.com>
+[2025-11-04 03:10:10][EmailRun] Email 34: OK - To: Dipak Mane <planning.logistics2@kotharigroupindia.com>, Akshay Shete <planning.logistics@kotharigroupindia.com>
+[2025-11-04 03:10:45][EmailRun] Email 35: OK - To: Anantapur Depot <anantapur.warehouse@kotharigroupindia.com>
+[2025-11-04 03:11:13][EmailRun] Email 36: OK - To: Venugopal v <venugopal.v@kotharigroupindia.com>, Eswaramoorthi R <salem.warehouse@kotharigroupindia.com>
+[2025-11-04 03:11:44][EmailRun] Email 37: OK - To: Hyderabad Depot <hyderabad.warehouse@kotharigroupindia.com>
+[2025-11-04 03:12:10][EmailRun] Email 38: OK - To: KAPL CG <raipur.warehouse@kotharigroupindia.com>
+[2025-11-04 03:12:37][EmailRun] Email 39: OK - To: Sanjay Bhise <indore.warehouse@kotharigroupindia.com>
+[2025-11-04 03:13:01][EmailRun] Email 40: OK - To: KAPL HP <Sundernagar.warehouse@kotharigroupindia.com>
+[2025-11-04 03:13:35][EmailRun] Email 41: OK - To: Mahesh Kadus <kukarwada.warehouse@kotharigroupindia.com>
+[2025-11-04 03:14:02][EmailRun] Email 42: OK - To: Samadhan Wankhede <akola.warehouse@kotharigroupindia.com>
+[2025-11-04 03:14:26][EmailRun] Email 43: OK - To: Amol Veer <aurangabad.warehouse@kotharigroupindia.com>
+[2025-11-04 03:14:50][EmailRun] Email 44: OK - To: Vitthal Sukre <pune.warehouse@kotharigroupindia.com>
+[2025-11-04 03:15:15][EmailRun] Email 45: OK - To: M.V. patil <hubli.warehouse@kotharigroupindia.com>
+[2025-11-04 03:15:41][EmailRun] Email 46: OK - To: Mahendra Singh <lucknow.warehouse@kotharigroupindia.com>
+[2025-11-04 03:16:15][EmailRun] Email 47: OK - To: balasubrahmanyam.bayya@kotharigroupindia.com
+[2025-11-04 03:16:57][EmailRun] Email 48: OK - To: Gourav Kothari <gourav@kotharigroupindia.com>, Admin Pipe <admin.pipe@kotharigroupindia.com>
+[2025-11-04 03:17:26][EmailRun] Email 49: OK - To: Unnikrishnan Pillai <bu.pillai@kotharigroupindia.com>
+[2025-11-04 03:17:44][EmailRun] Email 50: OK - To: Laxmanan R M <laxmanan.rm@kotharigroupindia.com>
+[2025-11-04 03:18:04][EmailRun] Email 51: OK - To: Prabhat Panda <prabhat.panda@kotharigroupindia.com>
+[2025-11-04 03:18:25][EmailRun] Email 52: OK - To: Hanumant Patil <hanumant.patil@kotharigroupindia.com>
+[2025-11-04 03:18:53][EmailRun] Email 53: OK - To: Rahul chitnis <rahul.chitnis@kotharigroupindia.com>
+[2025-11-04 03:19:14][EmailRun] Email 54: OK - To: Shailesh Thakkar <shailesh.thakkar@kotharigroupindia.com>
+[2025-11-04 03:19:31][EmailRun] Email 55: OK - To: Ahamed Mukthar Sheik Mohamed <ahamedmukthar.sm@kotharigroupindia.com>
+[2025-11-04 03:19:48][EmailRun] Email 56: OK - To: Pankaj Kumar Singh <pankajkumar.singh@kotharigroupindia.com>
+[2025-11-04 03:20:05][EmailRun] Email 57: OK - To: Alagandula Komuraiah <alagandula.komuraiah@kotharigroupindia.com>
+[2025-11-04 03:20:23][EmailRun] Email 58: OK - To: Sumit Gupta <sumit.gupta@kotharigroupindia.com>
+[2025-11-04 03:20:45][EmailRun] Email 59: OK - To: Shriniwas Chavan <shriniwas.chavan@kotharigroupindia.com>
+[2025-11-04 03:21:02][EmailRun] Email 60: OK - To: Rajesh Kukreti <rajesh.kukreti@kotharigroupindia.com>
+[2025-11-04 03:21:18][EmailRun] Email 61: OK - To: Abhishek Pandey <abhishek.pandey@kotharigroupindia.com>
+[2025-11-04 03:21:34][EmailRun] Email 62: OK - To: Gurucharan Dhal <gurucharan.dhal@kotharigroupindia.com>
+[2025-11-04 03:21:51][EmailRun] Email 63: OK - To: Aditya Pandey <aditya.pandey@kotharigroupindia.com>
+[2025-11-04 03:22:09][EmailRun] Email 64: OK - To: Prasad Joshi <prasad.joshi@kotharigroupindia.com>
+[2025-11-04 03:22:28][EmailRun] Email 65: OK - To: Thirumal Murugan <thirumal.p@kotharigroupindia.com>
+[2025-11-04 03:22:45][EmailRun] Email 66: OK - To: Vasantlal Prajapati <vasantlal.prajapati@kotharigroupindia.com>
+[2025-11-04 03:23:01][EmailRun] Email 67: OK - To: Vishalkumar Prajapati <vishalkumar.prajapati@kotharigroupindia.com>
+[2025-11-04 03:23:18][EmailRun] Email 68: OK - To: Vajukumar Kathad <vajukumar.kathad@kotharigroupindia.com>
+[2025-11-04 03:23:39][EmailRun] Email 69: OK - To: Hardik Amipara <hardik.amipara@kotharigroupindia.com>
+[2025-11-04 03:23:56][EmailRun] Email 70: OK - To: Pawan Kumar <pawan.kumar@kotharigroupindia.com>
+[2025-11-04 03:24:12][EmailRun] Email 71: OK - To: Sudhakar kumar Jha <sudharkar.jha@kotharigroupindia.com>
+[2025-11-04 03:24:31][EmailRun] Email 72: OK - To: Javeed Nadaf <javeed.nadaf@kotharigroupindia.com>
+[2025-11-04 03:24:54][EmailRun] Email 73: OK - To: vishwanatha nm <vishwanatha.nm@kotharigroupindia.com>
+[2025-11-04 03:25:10][EmailRun] Email 74: OK - To: Bheemarao Ganjihal <bheemarao.ganjihal@kotharigroupindia.com>
+[2025-11-04 03:25:28][EmailRun] Email 75: OK - To: Gopi Rajpurohit <gopi.rajpurohit@kotharigroupindia.com>
+[2025-11-04 03:25:46][EmailRun] Email 76: OK - To: Deepak Kasture <deepak.kasture@kotharigroupindia.com>
+[2025-11-04 03:26:04][EmailRun] Email 77: OK - To: Shrikant Kasture <shrikant.kasture@kotharigroupindia.com>
+[2025-11-04 03:26:24][EmailRun] Email 78: OK - To: Sachin Bhamare <sachin.bhamare@kotharigroupindia.com>
+[2025-11-04 03:26:40][EmailRun] Email 79: OK - To: avinash akolkar <avinash.akolkar@kotharigroupindia.com>
+[2025-11-04 03:26:57][EmailRun] Email 80: OK - To: avdhut jadhav <avdhut.jadhav@kotharigroupindia.com>
+[2025-11-04 03:27:13][EmailRun] Email 81: OK - To: Ramkrishna Nikam <ramkrishna.nikam@kotharigroupindia.com>
+[2025-11-04 03:27:32][EmailRun] Email 82: OK - To: Shekhar Deokar <shekhar.deokar@kotharigroupindia.com>
+[2025-11-04 03:27:50][EmailRun] Email 83: OK - To: Sagar Patil <sagar.patil@kotharigroupindia.com>
+[2025-11-04 03:28:08][EmailRun] Email 84: OK - To: Rajendra Lawale <rajendra.lawale@kotharigroupindia.com>
+[2025-11-04 03:28:25][EmailRun] Email 85: OK - To: Sandeep Chincholkar <sandeep.chincholkar@kotharigroupindia.com>
+[2025-11-04 03:28:41][EmailRun] Email 86: OK - To: Naresh Awachar <naresh.awachar@kotharigroupindia.com>
+[2025-11-04 03:28:57][EmailRun] Email 87: OK - To: Vaibhav Kayande <vaibhav.kayande@kotharigroupindia.com>
+[2025-11-04 03:29:15][EmailRun] Email 88: OK - To: Akash Yadav <akash.yadav@kotharigroupindia.com>
+[2025-11-04 03:29:31][EmailRun] Email 89: OK - To: Basantilal Patidar <basantilal.patidar@kotharigroupindia.com>
+[2025-11-04 03:29:47][EmailRun] Email 90: OK - To: Bhupendra Shrivas <bhupendra.shrivas@kotharigroupindia.com>
+[2025-11-04 03:30:05][EmailRun] Email 91: OK - To: Devendra Patidar <devendra.patidar@kotharigroupindia.com>
+[2025-11-04 03:30:22][EmailRun] Email 92: OK - To: Lenin Mahapatra <lenin.mahapatra@kotharigroupindia.com>
+[2025-11-04 03:30:39][EmailRun] Email 93: OK - To: Devendra Krishnawat <devendra.krishnawat@kotharigroupindia.com>
+[2025-11-04 03:30:56][EmailRun] Email 94: OK - To: Sunil Kumar Dehran <sunilkumar.dehran@kotharigroupindia.com>
+[2025-11-04 03:31:13][EmailRun] Email 95: OK - To: Vikas Saxena <vikas.saxena@kotharigroupindia.com>
+[2025-11-04 03:31:32][EmailRun] Email 96: OK - To: Balveer Singh <balveer.singh@kotharigroupindia.com>
+[2025-11-04 03:31:49][EmailRun] Email 97: OK - To: Satya Narayan Vyas <satya.vyas@kotharigroupindia.com>
+[2025-11-04 03:32:06][EmailRun] Email 98: OK - To: Sampath Kuppan <sampath.kuppan@kotharigroupindia.com>
+[2025-11-04 03:32:21][EmailRun] Email 99: OK - To: Kamalnath R <kamalnath.r@kotharigroupindia.com>
+[2025-11-04 03:32:38][EmailRun] Email 100: OK - To: Dharmaraj Jaganathan <dharmaraj.jaganathan@kotharigroupindia.com>
+[2025-11-04 03:32:58][EmailRun] Email 101: OK - To: Venkatesh KB <venkatesh.kb@kotharigroupindia.com>
+[2025-11-04 03:33:15][EmailRun] Email 102: OK - To: Vinothkumar T <vinothkumar.t@kotharigroupindia.com>
+[2025-11-04 03:33:37][EmailRun] Email 103: OK - To: KC Prakash <kc.prakash@kotharigroupindia.com>
+[2025-11-04 03:33:57][EmailRun] Email 104: OK - To: Bhanu Srivastava <bhanu.srivastava@kotharigroupindia.com>
+[2025-11-04 03:34:14][EmailRun] Email 105: OK - To: Rajat Srivastava <rajat.srivastava@kotharigroupindia.com>
+[2025-11-04 03:34:31][EmailRun] Email 106: OK - To: Himanshu Pandey <himanshu.pandey@kotharigroupindia.com>
+[2025-11-04 03:34:50][EmailRun] Email 107: OK - To: Rakesh Tiwari <rakesh.tiwari@kotharigroupindia.com>
+[2025-11-04 03:35:09][EmailRun] Email 108: OK - To: Toman Sahu <toman.sahu@kotharigroupindia.com>
+[2025-11-04 03:35:24][EmailRun] Email 109: OK - To: Satya Seela <satya.seela@kotharigroupindia.com>
+[2025-11-04 03:35:40][EmailRun] Email 110: OK - To: Rohit Sahu <rohit.sahu@kotharigroupindia.com>
+[2025-11-04 03:35:57][EmailRun] Email 111: OK - To: Nisha Mookim <nisha.mookim@kotharigroupindia.com>
+[2025-11-04 03:36:14][EmailRun] Email 112: OK - To: Somnath Das <somnath.das@kotharigroupindia.com>
+[2025-11-04 03:36:32][EmailRun] Email 113: OK - To: C Prasad <c.prasad@kotharigroupindia.com>
+[2025-11-04 03:36:50][EmailRun] Email 114: OK - To: Prasantajit Rabha <prasantajit.rabha@kotharigroupindia.com>
+[2025-11-04 03:37:07][EmailRun] Email 115: OK - To: Arjun Singh Negi <arjun.negi@kotharigroupindia.com>
+[2025-11-04 03:37:23][EmailRun] Email 116: OK - To: Hitesh Modi <Hitesh.modi@kotharigroupindia.com>
+[2025-11-04 03:37:39][EmailRun] Email 117: OK - To: Mohammadashif Multani <mohammadashif.multani@kotharigroupindia.com>
+[2025-11-04 03:37:57][EmailRun] Email 118: OK - To: Shah Divyeshkumar <divyeshkumar.shah@kotharigroupindia.com>
+[2025-11-04 03:38:15][EmailRun] Email 119: OK - To: Vishal Panchal <vishal.panchal@kotharigroupindia.com>
+[2025-11-04 03:38:33][EmailRun] Email 120: OK - To: Mallinath Madgunaki <m.mallinath@kotharigroupindia.com>
+[2025-11-04 03:38:45][EmailRun] Email 121: OK - To: Satappa Patil <satappa.patil@kotharigroupindia.com>
+[2025-11-04 03:38:58][EmailRun] Email 122: OK - To: Ulhas Pawar <ulhas.pawar@kotharigroupindia.com>
+[2025-11-04 03:39:11][EmailRun] Email 123: OK - To: Vaibhav Rokade <vaibhav.rokade@kotharigroupindia.com>
+[2025-11-04 03:39:27][EmailRun] Email 124: OK - To: Umesh Kokane <umesh.kokane@kotharigroupindia.com>
+[2025-11-04 03:39:39][EmailRun] Email 125: OK - To: Rajesh Varganti <rajesh.varganti@kotharigroupindia.com>
+[2025-11-04 03:39:53][EmailRun] Email 126: OK - To: Sandeep Wagh <sandeep.wagh@kotharigroupindia.com>
+[2025-11-04 03:40:06][EmailRun] Email 127: OK - To: Ashok Bawane <ashok.bawane@kotharigroupindia.com>
+[2025-11-04 03:40:17][EmailRun] Email 128: OK - To: Harun Shaikh <harun.shaikh@kotharigroupindia.com>
+[2025-11-04 03:40:29][EmailRun] Email 129: OK - To: Satyam Yadav <satyam.yadav@kotharigroupindia.com>
+[2025-11-04 03:40:42][EmailRun] Email 130: OK - To: Shivam Shukla <shivam.shukla@kotharigroupindia.com>
+[2025-11-04 03:40:57][EmailRun] Email 131: OK - To: Sanket Sunthe <sanket.sunthe@kotharigroupindia.com>
+[2025-11-04 03:41:10][EmailRun] Email 132: OK - To: vijaykumar.satpute@kotharigroupindia.com
+[2025-11-04 03:41:24][EmailRun] Email 133: OK - To: amar.zarekar@kotharigroupindia.com
+[2025-11-04 03:41:40][EmailRun] Email 134: OK - To: balram.singh@kotharigroupindia.com
+[2025-11-04 03:41:58][EmailRun] Email 135: OK - To: prashant.srivastava@kotharigroupindia.com
+[2025-11-04 03:42:15][EmailRun] Email 136: OK - To: vishal.babu@kotharigroupindia.com
+[2025-11-04 03:42:32][EmailRun] Email 137: OK - To: pillai.bhasakara@kotharigroupindia.com
+[2025-11-04 03:42:49][EmailRun] Email 138: OK - To: nagasurendra.c@kotharigroupindia.com
+[2025-11-04 03:43:06][EmailRun] Email 139: OK - To: murali.krishna@kotharigroupindia.com
+[2025-11-04 03:43:22][EmailRun] Email 140: OK - To: narendra.gautam@kotharigroupindia.com
+[2025-11-04 03:43:38][EmailRun] Email 141: OK - To: vicky.kumar@kotharigroupindia.com
+[2025-11-04 03:43:55][EmailRun] Email 142: OK - To: Kapil.singh@Kotharigroupindia.com
+[2025-11-04 03:44:13][EmailRun] Email 143: OK - To: deviprasad.pattanaik@kotharigroupindia.com
+[2025-11-04 03:44:31][EmailRun] Email 144: OK - To: nithyananda.shetty@kotharigroupindia.com
+[2025-11-04 03:44:49][EmailRun] Email 145: OK - To: amit.salve@kotharigroupindia.com
+[2025-11-04 03:45:06][EmailRun] Email 146: OK - To: navjyot.pogul@kotharigroupindia.com
+[2025-11-04 03:45:24][EmailRun] Email 147: OK - To: kashid.shashikant@kotharigroupindia.com
+[2025-11-04 03:45:41][EmailRun] Email 148: OK - To: rajendra.mhatre@kotharigroupindia.com
+[2025-11-04 03:45:57][EmailRun] Email 149: OK - To: suryadev.sahoo@kotharigroupindia.com
+[2025-11-04 03:46:15][EmailRun] Email 150: OK - To: ravindra.patil@kotharigroupindia.com
+[2025-11-04 03:46:31][EmailRun] Email 151: OK - To: ganesh.malavekar@kotharigroupindia.com
+[2025-11-04 03:46:47][EmailRun] Email 152: OK - To: jatin.gorghate@kotharigroupindia.com
+[2025-11-04 03:47:07][EmailRun] Email 153: OK - To: dikshant.sontakke@kotharigroupindia.com
+[2025-11-04 03:47:25][EmailRun] Email 154: OK - To: shankar.chandrasekaran@kotharigroupindia.com
+[2025-11-04 03:47:43][EmailRun] Email 155: OK - To: akhilesh.shah@kotharigroupindia.com
+[2025-11-04 03:48:00][EmailRun] Email 156: OK - To: rahul.gite@kotharigroupindia.com
+[2025-11-04 03:48:21][EmailRun] Email 157: OK - To: gajendra.rawat@kotharigroupindia.com
+[2025-11-04 03:48:38][EmailRun] Email 158: OK - To: deepak.sharma@kotharigroupindia.com
+[2025-11-04 03:48:55][EmailRun] Email 159: OK - To: nishant.rawat@kotharigroupindia.com
+[2025-11-04 03:49:11][EmailRun] Email 160: OK - To: kanwaljitsingh@kotharigroupindia.com
+[2025-11-04 03:49:28][EmailRun] Email 161: OK - To: thiyagarajan.s@kotharigroupindia.com
+[2025-11-04 03:49:46][EmailRun] Email 162: OK - To: keshavkumar.uk@kotharigroupindia.com
+[2025-11-04 03:50:02][EmailRun] Email 163: OK - To: ashok.pareek@kotharigroupindia.com
+[2025-11-04 03:50:19][EmailRun] Email 164: OK - To: rishavkumar.plumbing@kotharigroupindia.com
+[2025-11-04 03:50:36][EmailRun] Email 165: OK - To: koushik.bhattacharya@kotharigroupindia.com
+[2025-11-04 03:50:55][EmailRun] Email 166: OK - To: gangaprosad.mondal@kotharigroupindia.com
+[2025-11-04 03:51:13][EmailRun] Email 167: OK - To: ajay.choudhary@kotharigroupindia.com
+[2025-11-04 03:51:32][EmailRun] Email 168: OK - To: pankaj.kumar@kotharigroupindia.com
+[2025-11-04 03:53:21][EmailRun] Email 169: OK - To: Satish Bura <satish.bura@kotharigroupindia.com>, Pushkaraj Kothari <pushkaraj@kotharigroupindia.com>
+[2025-11-04 03:54:00][EmailRun] Email 170: OK - To: G Satheshkumar <g.sathesh@kotharigroupindia.com>, Kaviarasan E <accounts.tn@kotharigroupindia.com>
+[2025-11-04 03:54:25][EmailRun] Email 171: OK - To: tnzone1.zm@kotharigroupindia.com
+[2025-11-04 03:54:55][EmailRun] Email 172: OK - To: tnzone2.am1@kotharigroupindia.com
+[2025-11-04 03:55:23][EmailRun] Email 173: OK - To: tnzone3.zm@kotharigroupindia.com
+[2025-11-04 03:55:50][EmailRun] Email 174: OK - To: tnzone2.am2@kotharigroupindia.com
+[2025-11-04 03:56:23][EmailRun] Email 175: OK - To: Ayub Shaikh <ayub.shaikh@kotharigroupindia.com>
+[2025-11-04 03:56:55][EmailRun] Email 176: OK - To: Gajendra Yadav <gajendra.yadav@kotharigroupindia.com>
+[2025-11-04 03:57:53][EmailRun] Email 177: OK - To: Macchindra Gajare <m.gajare@kotharigroupindia.com>
+[2025-11-04 03:58:17][EmailRun] Email 178: OK - To: Shivanand Shillin <shivanand.shillin@kotharigroupindia.com>
+[2025-11-04 03:58:42][EmailRun] Email 179: OK - To: Gururaj Boman <gururaj.boman@kotharigroupindia.com>
+[2025-11-04 03:59:08][EmailRun] Email 180: OK - To: Balaji Bhosle <balaji.bhosle@kotharigroupindia.com>
+[2025-11-04 03:59:37][EmailRun] Email 181: OK - To: Sachin Kotyal <sachin.kotyal@kotharigroupindia.com>
+[2025-11-04 04:00:04][EmailRun] Email 182: OK - To: Suresh Kumar <suresh.k@kotharigroupindia.com>
+[2025-11-04 04:00:30][EmailRun] Email 183: OK - To: Sachin Patil <sachin.patil@kotharigroupindia.com>
+[2025-11-04 04:00:56][EmailRun] Email 184: OK - To: S Jayachandra <s.jayachandra@kotharigroupindia.com>
+[2025-11-04 04:01:21][EmailRun] Email 185: OK - To: Ramesh Birunagi <ramesh.birunagi@kotharigroupindia.com>
+[2025-11-04 04:01:48][EmailRun] Email 186: OK - To: Narayan Sonyal <narayan.sonyal@kotharigroupindia.com>
+[2025-11-04 04:02:13][EmailRun] Email 187: OK - To: Vinod Kumar <vinod.kumar@kotharigroupindia.com>
+[2025-11-04 04:02:39][EmailRun] Email 188: OK - To: Shrikant Gadade <shrikant.gadade@kotharigroupindia.com>
+[2025-11-04 04:03:05][EmailRun] Email 189: OK - To: Abhijit Kalekar <abhijeet.kalekar@kotharigroupindia.com>
+[2025-11-04 04:03:32][EmailRun] Email 190: OK - To: Ajit Arote <ajit.arote@kotharigroupindia.com>
+[2025-11-04 04:03:58][EmailRun] Email 191: OK - To: Akshay Kumbhar <akshay.kumbhar@kotharigroupindia.com>
+[2025-11-04 04:04:24][EmailRun] Email 192: OK - To: Amit Bagade <amit.bagade@kotharigroupindia.com>
+[2025-11-04 04:04:51][EmailRun] Email 193: OK - To: Amit Chougale <amit.chougale@kotharigroupindia.com>
+[2025-11-04 04:05:16][EmailRun] Email 194: OK - To: Amol Sankpal <amol.sapkal@kotharigroupindia.com>
+[2025-11-04 04:05:42][EmailRun] Email 195: OK - To: Anand Yadav <anand.yadav@kotharigroupindia.com>
+[2025-11-04 04:06:09][EmailRun] Email 196: OK - To: Appasaheb Shejul <appasaheb.shejul@kotharigroupindia.com>
+[2025-11-04 04:06:34][EmailRun] Email 197: OK - To: Ashish Gorde <ashish.gorde@kotharigroupindia.com>
+[2025-11-04 04:07:01][EmailRun] Email 198: OK - To: Ashish Mohale <ashish.mohale@kotharigroupindia.com>
+[2025-11-04 04:07:27][EmailRun] Email 199: OK - To: Atul Desale <atul.desale@kotharigroupindia.com>
+[2025-11-04 04:07:54][EmailRun] Email 200: OK - To: Balaji Goundge <balaji.goundge@kotharigroupindia.com>
+[2025-11-04 04:08:19][EmailRun] Email 201: OK - To: Bharatbhushan Tapare <bharatbhushan.tapare@kotharigroupindia.com>
+[2025-11-04 04:08:43][EmailRun] Email 202: OK - To: Chetan Ganure <chetan.ganure@kotharigroupindia.com>
+[2025-11-04 04:09:09][EmailRun] Email 203: OK - To: Hemraj Dhondge <hemraj.dhondge@kotharigroupindia.com>
+[2025-11-04 04:09:36][EmailRun] Email 204: OK - To: Javed Gadiwale <javed.gadiwale@kotharigroupindia.com>
+[2025-11-04 04:10:03][EmailRun] Email 205: OK - To: Kakasaheb Sirsath <kakasaheb.sirsath@kotharigroupindia.com>
+[2025-11-04 04:10:28][EmailRun] Email 206: OK - To: Kiran Pansare <kiran.pansare@kotharigroupindia.com>
+[2025-11-04 04:10:54][EmailRun] Email 207: OK - To: Kiran Patil <kiranpatil@kotharigroupindia.com>
+[2025-11-04 04:11:19][EmailRun] Email 208: OK - To: Kishor Rathod <kishor.rathod@kotharigroupindia.com>
+[2025-11-04 04:11:45][EmailRun] Email 209: OK - To: Krushnat Javlakar <krushnat.javlakar@kotharigroupindia.com>
+[2025-11-04 04:12:13][EmailRun] Email 210: OK - To: Kushal Ghogare <kushal.ghogare@kotharigroupindia.com>
+[2025-11-04 04:12:38][EmailRun] Email 211: OK - To: Lokesh Patil <lokesh.patil@kotharigroupindia.com>
+[2025-11-04 04:13:06][EmailRun] Email 212: OK - To: Nikhil Bhalerao <nikhil.bhalerao@kotharigroupindia.com>
+[2025-11-04 04:13:30][EmailRun] Email 213: OK - To: Nilesh Rane <nilesh.rane@kotharigroupindia.com>
+[2025-11-04 04:13:59][EmailRun] Email 214: OK - To: Niranjan v <niranjan.waghmare@kotharigroupindia.com>
+[2025-11-04 04:14:28][EmailRun] Email 215: OK - To: Pradeep Jadhav <pradeep.jadhav@kotharigroupindia.com>
+[2025-11-04 04:14:55][EmailRun] Email 216: OK - To: Prakash Jangale <prakash.jangale@kotharigroupindia.com>
+[2025-11-04 04:15:24][EmailRun] Email 217: OK - To: Pratik Pangul <pratik.pangul@kotharigroupindia.com>
+[2025-11-04 04:15:50][EmailRun] Email 218: OK - To: Rahul Sonawane <rahul.sonawane@kotharigroupindia.com>
+[2025-11-04 04:16:18][EmailRun] Email 219: OK - To: Rajendra Pankhade <rajendra.pankhade@kotharigroupindia.com>
+[2025-11-04 04:16:44][EmailRun] Email 220: OK - To: Rajkumar Chopane <rajkumar.chopane@kotharigroupindia.com>
+[2025-11-04 04:17:10][EmailRun] Email 221: OK - To: Ranjit Ghadage <ranjit.ghadage@kotharigroupindia.com>
+[2025-11-04 04:17:37][EmailRun] Email 222: OK - To: Rohit Kare <rohit.kare@kotharigroupindia.com>
+[2025-11-04 04:18:03][EmailRun] Email 223: OK - To: Roshan Chavan <roshan.chavan@kotharigroupindia.com>
+[2025-11-04 04:18:28][EmailRun] Email 224: OK - To: Rushikesh Hage <rushikesh.hage@kotharigroupindia.com>
+[2025-11-04 04:18:53][EmailRun] Email 225: OK - To: Sachin Karjule <sachin.karjule@kotharigroupindia.com>
+[2025-11-04 04:19:18][EmailRun] Email 226: OK - To: Sagar Deshmukh <sagar.deshmukh@kotharigroupindia.com>
+[2025-11-04 04:19:42][EmailRun] Email 227: OK - To: Sagar Kalambe <sagar.kalambe@kotharigroupindia.com>
+[2025-11-04 04:20:07][EmailRun] Email 228: OK - To: Sahil Deotale <sahil.deotale@kotharigroupindia.com>
+[2025-11-04 04:20:33][EmailRun] Email 229: OK - To: Sandesh Shinde <sandesh.shinde@kotharigroupindia.com>
+[2025-11-04 04:21:00][EmailRun] Email 230: OK - To: Sandipsinh Bayas <sandipsinh.Bayas@kotharigroupindia.com>
+[2025-11-04 04:21:24][EmailRun] Email 231: OK - To: Sangram Bais <sangram.bais@kotharigroupindia.com>
+[2025-11-04 04:21:48][EmailRun] Email 232: OK - To: Sangram Chavan <sangram.chavan@kotharigroupindia.com>
+[2025-11-04 04:22:16][EmailRun] Email 233: OK - To: Savan Alone <savan.alone@kotharigroupindia.com>
+[2025-11-04 04:22:50][EmailRun] Email 234: OK - To: Shivhari Jadhav <shivhari.jadhav@kotharigroupindia.com>
+[2025-11-04 04:23:17][EmailRun] Email 235: OK - To: Shrikant Deshmukh <shrikant.deshmukh@kotharigroupindia.com>
+[2025-11-04 04:23:42][EmailRun] Email 236: OK - To: Shrikrishna Badade <shrikrishna.badade@kotharigroupindia.com>
+[2025-11-04 04:24:07][EmailRun] Email 237: OK - To: Shubham Chahakar <shubham.chahakar@kotharigroupindia.com>
+[2025-11-04 04:24:33][EmailRun] Email 238: OK - To: Someshwar Raut <someshwar.raut@kotharigroupindia.com>
+[2025-11-04 04:24:58][EmailRun] Email 239: OK - To: Suraj Pundage <suraj.pundage@kotharigroupindia.com>
+[2025-11-04 04:25:24][EmailRun] Email 240: OK - To: Tejas Shinde <tejas.shinde@kotharigroupindia.com>
+[2025-11-04 04:25:58][EmailRun] Email 241: OK - To: Tushar Morankar <tushar.morankar@kotharigroupindia.com>
+[2025-11-04 04:26:24][EmailRun] Email 242: OK - To: Tushar Survase <tushar.survase@kotharigroupindia.com>
+[2025-11-04 04:26:26][EmailRun] X Email 243: FAIL - File not refreshed for today (2025-11-04). Last refresh: 2025-11-03: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\002 Irrigation Division\01 2025-26\Employees\ID_MH_2562.xlsb
+[2025-11-04 04:26:52][EmailRun] Email 244: OK - To: Vaibhav Jadhav <vaibhav.jadhav@kotharigroupindia.com>
+[2025-11-04 04:27:19][EmailRun] Email 245: OK - To: Vijay Salunke <vijay.salunke@kotharigroupindia.com>
+[2025-11-04 04:27:42][EmailRun] Email 246: OK - To: Vinayak Yannawar <vinayak.yannawar@kotharigroupindia.com>
+[2025-11-04 04:28:06][EmailRun] Email 247: OK - To: Yogesh Patil <yogesh.patil@kotharigroupindia.com>
+[2025-11-04 04:28:32][EmailRun] Email 248: OK - To: Ritesh Kumar Yadav <riteshkumar.yadav@kotharigroupindia.com>
+[2025-11-04 04:28:56][EmailRun] Email 249: OK - To: Chandrakar Vipin <chandrakar.vipin@kotharigroupindia.com>
+[2025-11-04 04:29:23][EmailRun] Email 250: OK - To: Lokesh Mishra <lokesh.mishra@kotharigroupindia.com>
+[2025-11-04 04:29:49][EmailRun] Email 251: OK - To: Nishant Gawande <nishant.gawande@kotharigroupindia.com>
+[2025-11-04 04:30:18][EmailRun] Email 252: OK - To: Tarun Kumar <tarun.kumar@kotharigroupindia.com>
+[2025-11-04 04:30:43][EmailRun] Email 253: OK - To: ram.dhuleshette@kotharigroupindia.com
+[2025-11-04 04:31:10][EmailRun] Email 254: OK - To: Chevendra Kumar <chevendra.kumar@kotharigroupindia.com>
+[2025-11-04 04:31:36][EmailRun] Email 255: OK - To: Anand Shrivastava <anand.shrivastava@kotharigroupindia.com>
+[2025-11-04 04:32:05][EmailRun] Email 256: OK - To: Anurodh Verma <anurodh.verma@kotharigroupindia.com>
+[2025-11-04 04:32:30][EmailRun] Email 257: OK - To: Harindar Kumar <harindar.kumar@kotharigroupindia.com>
+[2025-11-04 04:32:57][EmailRun] Email 258: OK - To: Ashish Kumar UP <Ashish.kumar@kotharigroupindia.com>
+[2025-11-04 04:33:22][EmailRun] Email 259: OK - To: Rohit Verma <rohit.verma@kotharigroupindia.com>
+[2025-11-04 04:33:24][EmailRun] X Email 260: FAIL - File not refreshed for today (2025-11-04). Last refresh: 2025-11-03: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\002 Irrigation Division\01 2025-26\Employees\ID_UP_2388.xlsb
+[2025-11-04 04:33:50][EmailRun] Email 261: OK - To: Akhilesh Kumar <akhilesh.kumar@kotharigroupindia.com>
+[2025-11-04 04:34:15][EmailRun] Email 262: OK - To: Ritik Mishra <ritik.mishra@kotharigroupindia.com>
+[2025-11-04 04:34:42][EmailRun] Email 263: OK - To: Brijesh Patel <brijesh.patel@kotharigroupindia.com>
+[2025-11-04 04:35:13][EmailRun] Email 264: OK - To: Sunil Singh <sunil.singh@kotharigroupindia.com>
+[2025-11-04 04:35:39][EmailRun] Email 265: OK - To: Suresh Kakee <suresh.kakee@kotharigroupindia.com>
+[2025-11-04 04:36:05][EmailRun] Email 266: OK - To: Deepak Yadav <deepak.yadav@kotharigroupindia.com>
+[2025-11-04 04:36:31][EmailRun] Email 267: OK - To: Pawan Kumar UP <pawan.kumarup@kotharigroupindia.com>
+[2025-11-04 04:36:58][EmailRun] Email 268: OK - To: Vijay Rajpoot <vijay.rajpoot@kotharigroupindia.com>
+[2025-11-04 04:37:30][EmailRun] Email 269: OK - To: Chandrapal Singh <chandrapal.singh@kotharigroupindia.com>
+[2025-11-04 04:37:57][EmailRun] Email 270: OK - To: Ravi Kumar Sharma <ravikumar.sharma@kotharigroupindia.com>
+[2025-11-04 04:38:25][EmailRun] Email 271: OK - To: Kuldeep Yadav <kuldeep.yadav@kotharigroupindia.com>
+[2025-11-04 04:38:49][EmailRun] Email 272: OK - To: Sumit Maddheshiya <sumit.maddheshiya@kotharigroupindia.com>
+[2025-11-04 04:39:18][EmailRun] Email 273: OK - To: Vinod Kumar <vinod.kumar@kotharigroupindia.com>
+[2025-11-04 04:39:43][EmailRun] Email 274: OK - To: Vinaykumar Maurya <vinaykumar.maurya@kotharigroupindia.com>
+[2025-11-04 04:40:09][EmailRun] Email 275: OK - To: kalyan.kavade@kotharigroupindia.com
+[2025-11-04 04:40:36][EmailRun] Email 276: OK - To: Vijendra Dinkar <vijendra.dinkar@kotharigroupindia.com>
+[2025-11-04 04:41:04][EmailRun] Email 277: OK - To: Subhash Gangwar <subhash.gangwar@kotharigroupindia.com>
+[2025-11-04 04:41:32][EmailRun] Email 278: OK - To: Dharmendra Sharma <dharmendra.sharma@kotharigroupindia.com>
+[2025-11-04 04:41:57][EmailRun] Email 279: OK - To: Anil Kumar <anil.kumar@kotharigroupindia.com>
+[2025-11-04 04:42:21][EmailRun] Email 280: OK - To: Amit Kumar <amit.kumar@kotharigroupindia.com>
+[2025-11-04 04:42:46][EmailRun] Email 281: OK - To: Jaysingh Ghosh <jaysingh.ghosh@kotharigroupindia.com>
+[2025-11-04 04:43:10][EmailRun] Email 282: OK - To: Krishna Kumar Janghela <krishnakumar.janghela@kotharigroupindia.com>
+[2025-11-04 04:43:34][EmailRun] Email 283: OK - To: Arvind Pancheshwar <arvind.pancheshwar@kotharigroupindia.com>
+[2025-11-04 04:44:05][EmailRun] Email 284: OK - To: Pankaj Pal <pankaj.pal@kotharigroupindia.com>
+[2025-11-04 04:44:32][EmailRun] Email 285: OK - To: Arvind Kumar <arvind.kumar@kotharigroupindia.com>
+[2025-11-04 04:44:58][EmailRun] Email 286: OK - To: Priyanshu Kanungo <priyanshu.kanungo@kotharigroupindia.com>
+[2025-11-04 04:45:23][EmailRun] Email 287: OK - To: Sahil Khan <sahil.khan@kotharigroupindia.com>
+[2025-11-04 04:45:51][EmailRun] Email 288: OK - To: Kuldeep Panwar <kuldeep.panwar@kotharigroupindia.com>
+[2025-11-04 04:46:17][EmailRun] Email 289: OK - To: Kalpesh Vaidya <kalpesh.vaidya@kotharigroupindia.com>
+[2025-11-04 04:46:47][EmailRun] Email 290: OK - To: Nitin Rathod <nitin.rathod@kotharigroupindia.com>
+[2025-11-04 04:47:32][EmailRun] Email 291: OK - To: KAPL AP <ap@kotharigroupindia.com>, Accounts Manager <hyderabad.accountsmanager@kotharigroupindia.com>, Uday Bhaskar <udaya.bhaskar@kotharigroupindia.com>, "P. Raghupati" <p.raghupathy@kotharigroupindia.com>
+[2025-11-04 04:48:06][EmailRun] Email 292: OK - To: KAPL AP <ap@kotharigroupindia.com>, Accounts Manager <hyderabad.accountsmanager@kotharigroupindia.com>, Uday Bhaskar <udaya.bhaskar@kotharigroupindia.com>, "P. Raghupati" <p.raghupathy@kotharigroupindia.com>
+[2025-11-04 04:48:47][EmailRun] Email 293: OK - To: KAPL AP <ap@kotharigroupindia.com>, Accounts Manager <hyderabad.accountsmanager@kotharigroupindia.com>, Uday Bhaskar <udaya.bhaskar@kotharigroupindia.com>, "P. Raghupati" <p.raghupathy@kotharigroupindia.com>
+[2025-11-04 04:49:12][EmailRun] Email 294: OK - To: pranit.hadge@kotharigroupindia.com
+[2025-11-04 04:49:42][EmailRun] Email 295: OK - To: pravin.masane@kotharigroupindia.com
+[2025-11-04 04:50:09][EmailRun] Email 296: OK - To: farug.mulani@kotharigroupindia.com
+[2025-11-04 04:50:34][EmailRun] Email 297: OK - To: pawan.patil@kotharigroupindia.com
+[2025-11-04 04:50:43][EmailRun] Email 298: OK - To: "Rahul Chitte (MIS)" <operationsu4@kotharigroupindia.com>, Gangadhar Pardhe <gangadhar.pardhe@kotharigroupindia.com>, Vishal Kadam <inventorycontrol@kotharigroupindia.com>, Onkar kamble <ppc.pe@kotharigroupindia.com>, Rohan naik <rohan.naik@kotharigroupindia.com>, Tushar Mane <operations.pe@kotharigroupindia.com>
+[2025-11-04 04:50:50][EmailRun] Email 299: OK - To: Onkar kamble <ppc.pe@kotharigroupindia.com>, Rohan naik <rohan.naik@kotharigroupindia.com>, Tushar Mane <operations.pe@kotharigroupindia.com>, "Rahul Chitte (MIS)" <operationsu4@kotharigroupindia.com>
+[2025-11-04 04:50:50][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-1.csv
+[2025-11-04 04:50:50][EmailRun] Summary: OK=296 FAIL=3 SKIP=0
+[2025-11-04 11:00:46][EmailRun] Processing Batch 3 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-3
+[2025-11-04 11:00:46][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx
+[2025-11-04 11:00:46][EmailRun] Parallel execution: 1 processes
+[2025-11-04 11:00:46][EmailRun] Fallback hours: 18 hours
+[2025-11-04 11:00:46][EmailRun] Force resend: False
+[2025-11-04 11:00:55][EmailRun] Email 1: OK - To: ashish@kotharigroupindia.com
+[2025-11-04 11:01:02][EmailRun] Email 2: OK - To: ashish@kotharigroupindia.com
+[2025-11-04 11:01:02][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-3.csv
+[2025-11-04 11:01:02][EmailRun] Summary: OK=2 FAIL=0 SKIP=0
+[2025-11-04 12:01:17][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 12:01:17][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 12:01:17][EmailRun] Parallel execution: 1 processes
+[2025-11-04 12:01:17][EmailRun] Fallback hours: 18 hours
+[2025-11-04 12:01:17][EmailRun] Force resend: False
+[2025-11-04 12:01:27][EmailRun] Email 1: OK - To: Tushar Mane <operations.pe@kotharigroupindia.com>, Onkar kamble <ppc.pe@kotharigroupindia.com>
+[2025-11-04 12:01:35][EmailRun] Email 2: OK - To: Ashish Kothari <ashish@kotharigroupindia.com>
+[2025-11-04 12:01:46][EmailRun] Email 3: OK - To: Mahesh Sutar <ppc1@kotharigroupindia.com>, Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>
+[2025-11-04 12:01:53][EmailRun] Email 4: OK - To: Rohan naik <rohan.naik@kotharigroupindia.com>
+[2025-11-04 12:02:00][EmailRun] Email 5: OK - To: satyendra.singh@kotharigroupindia.com
+[2025-11-04 12:02:00][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 12:02:00][EmailRun] Summary: OK=5 FAIL=0 SKIP=0
+[2025-11-04 13:45:00][EmailRun] Processing Batch 5 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-5
+[2025-11-04 13:45:00][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx
+[2025-11-04 13:45:00][EmailRun] Parallel execution: 1 processes
+[2025-11-04 13:45:00][EmailRun] Fallback hours: 18 hours
+[2025-11-04 13:45:00][EmailRun] Force resend: False
+[2025-11-04 13:45:11][EmailRun] Email 1: OK - To: Nagesh Sawant <Compounding@kotharigroupindia.com>, PVC Mixer <pvcmixer@kotharigroupindia.com>, Guru Mahindraker <rm.store@kotharigroupindia.com>, Granulator Deptartment <granulator@kotharigroupindia.com>
+[2025-11-04 13:45:19][EmailRun] Email 2: OK - To: Ganesh Wadshingkar <cncu5@kotharigroupindia.com>, Swpanil Nimgade <store.consumable@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>, Mahesh Sutar <ppc1@kotharigroupindia.com>, Rohan naik <rohan.naik@kotharigroupindia.com>
+[2025-11-04 13:46:30][EmailRun] Email 3: OK - To: manoj.kandare@kotharigroupindia.com
+[2025-11-04 13:47:19][EmailRun] Email 4: OK - To: Nagesh Sawant <compounding@kotharigroupindia.com>, Amol Puranik <pe.rmstore@kotharigroupindia.com>, PVC Mixer <pvcmixer@kotharigroupindia.com>, Amol Puranik <pe.rmstore@kotharigroupindia.com>, Granulator Deptartment <granulator@kotharigroupindia.com>
+[2025-11-04 13:48:19][EmailRun] Email 5: OK - To: manoj.kandare@kotharigroupindia.com
+[2025-11-04 13:49:57][EmailRun] Email 6: OK - To: manoj.kandare@kotharigroupindia.com
+[2025-11-04 13:50:07][EmailRun] Email 7: OK - To: Onkar Kadam <stocku5@kotharigroupindia.com>, Production Backoffice <production.backoffice@kotharigroupindia.com>, Hemant Zokarkar <hemant.zokarkar@kotharigroupindia.com>, Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>
+[2025-11-04 13:50:17][EmailRun] Email 8: OK - To: Onkar Kadam <stocku5@kotharigroupindia.com>, Production Backoffice <production.backoffice@kotharigroupindia.com>, Amit Gortyal <amit.gortyal@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>
+[2025-11-04 13:50:27][EmailRun] Email 9: OK - To: Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Onkar Kadam <stocku5@kotharigroupindia.com>, Production Backoffice <production.backoffice@kotharigroupindia.com>, Building Extrusion <building.extrusion@kotharigroupindia.com>
+[2025-11-04 13:50:37][EmailRun] Email 10: OK - To: Datta Jadhav <pe@kotharigroupindia.com>, New Cell Drip <newcelldrip@kotharigroupindia.com>, Dinesh Pawar <sprinkler@kotharigroupindia.com>, Shrihari Gharbude <drip@kotharigroupindia.com>, "Rahul Chitte (MIS)" <operationsu4@kotharigroupindia.com>, Shivaji Chavan <ganesh.dalave@kotharigroupindia.com>, Vijay Kakde <logistics1@kotharigroupindia.com>
+[2025-11-04 13:50:48][EmailRun] Email 11: OK - To: Pramod Sutar <pramod.sutar@kotharigroupindia.com>, Shivaji Chavan <ganesh.dalave@kotharigroupindia.com>, Vijay Kakde <logistics1@kotharigroupindia.com>, Mahesh Bhalekar <prodm3@kotharigroupindia.com>
+[2025-11-04 13:50:57][EmailRun] Email 12: OK - To: Abhimanyu Tiwari <a.tiwari@kotharigroupindia.com>, Vijay Gangji <purchase4@kotharigroupindia.com>, vinay shaha <shaha.vinay@kotharigroupindia.com>
+[2025-11-04 13:51:05][EmailRun] Email 13: OK - To: Ankur Shrivastava <ankur.shrivastava@kotharigroupindia.com>, Vijay Gangji <purchase4@kotharigroupindia.com>, vinay shaha <shaha.vinay@kotharigroupindia.com>
+[2025-11-04 13:51:40][EmailRun] Email 14: OK - To: vinay shaha <shaha.vinay@kotharigroupindia.com>, Abhimanyu Tiwari <a.tiwari@kotharigroupindia.com>, Ankur Shrivastava <ankur.shrivastava@kotharigroupindia.com>
+[2025-11-04 13:51:51][EmailRun] Email 15: OK - To: Yogesh Havale <rm.mhlstore@kotharigroupindia.com>
+[2025-11-04 13:51:59][EmailRun] Email 16: OK - To: Abhimanyu Tiwari <a.tiwari@kotharigroupindia.com>
+[2025-11-04 13:52:07][EmailRun] Email 17: OK - To: Ankur Shrivastava <ankur.shrivastava@kotharigroupindia.com>
+[2025-11-04 13:52:16][EmailRun] Email 18: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>
+[2025-11-04 13:52:25][EmailRun] Email 19: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>
+[2025-11-04 13:52:37][EmailRun] Email 20: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Pramod Sutar <pramod.sutar@kotharigroupindia.com>
+[2025-11-04 13:52:37][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-5.csv
+[2025-11-04 13:52:37][EmailRun] Summary: OK=20 FAIL=0 SKIP=0
+[2025-11-04 15:24:52][EmailRun] Processing Batch 6 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-6
+[2025-11-04 15:24:52][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx
+[2025-11-04 15:24:52][EmailRun] Parallel execution: 1 processes
+[2025-11-04 15:24:52][EmailRun] Fallback hours: 18 hours
+[2025-11-04 15:24:52][EmailRun] Force resend: False
+[2025-11-04 15:25:02][EmailRun] Email 1: OK - To: Ganesh Wadshingkar <cncu5@kotharigroupindia.com>
+[2025-11-04 15:25:13][EmailRun] Email 2: OK - To: PVC Mixer <pvcmixer@kotharigroupindia.com>, Alok Mohapatra <alok.mohapatra@kotharigroupindia.com>, Building Extrusion <building.extrusion@kotharigroupindia.com>
+[2025-11-04 15:25:25][EmailRun] Email 3: OK - To: Swapnil Nimgade <store.consumable@kotharigroupindia.com>
+[2025-11-04 15:25:45][EmailRun] Email 4: OK - To: Ashish Kumar Singh <ashishkumar.singh@kotharigroupindia.com>, Vipin Kumar <vipin.kumar@kotharigroupindia.com>
+[2025-11-04 15:26:06][EmailRun] Email 5: OK - To: Kiran Chaudhari <kiran.chaudhari@kotharigroupindia.com>, Hemant Zokarkar <hemant.zokarkar@kotharigroupindia.com>, Nagesh Sawant <compounding@kotharigroupindia.com>, Granulator Deptartment <granulator@kotharigroupindia.com>
+[2025-11-04 15:26:21][EmailRun] Email 6: OK - To: satyendra.singh@kotharigroupindia.com
+[2025-11-04 15:26:31][EmailRun] Email 7: OK - To: Pramod Sutar <pramod.sutar@kotharigroupindia.com>, Mahesh Bhalekar <prodm3@kotharigroupindia.com>
+[2025-11-04 15:26:34][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-6.csv
+[2025-11-04 15:26:34][EmailRun] Summary: OK=7 FAIL=0 SKIP=0
+[2025-11-04 17:05:36][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 17:05:36][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 17:05:36][EmailRun] Parallel execution: 1 processes
+[2025-11-04 17:05:36][EmailRun] Fallback hours: 18 hours
+[2025-11-04 17:05:36][EmailRun] Force resend: False
+[2025-11-04 17:05:39][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 17:05:41][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 17:05:44][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 17:05:46][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 17:05:48][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 17:05:48][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 17:05:48][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 17:16:48][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 17:16:48][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 17:16:48][EmailRun] Parallel execution: 1 processes
+[2025-11-04 17:16:48][EmailRun] Fallback hours: 18 hours
+[2025-11-04 17:16:48][EmailRun] Force resend: False
+[2025-11-04 17:16:51][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 17:16:53][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 17:16:56][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 17:16:58][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 17:17:00][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 17:17:00][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 17:17:00][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 17:43:09][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 17:43:09][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 17:43:09][EmailRun] Parallel execution: 1 processes
+[2025-11-04 17:43:09][EmailRun] Fallback hours: 18 hours
+[2025-11-04 17:43:09][EmailRun] Force resend: False
+[2025-11-04 17:43:12][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 17:43:14][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 17:43:16][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 17:43:18][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 17:43:20][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 17:43:20][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 17:43:20][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 17:56:28][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 17:56:28][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 17:56:28][EmailRun] Parallel execution: 1 processes
+[2025-11-04 17:56:28][EmailRun] Fallback hours: 18 hours
+[2025-11-04 17:56:28][EmailRun] Force resend: False
+[2025-11-04 17:56:31][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 17:56:33][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 17:56:35][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 17:56:37][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 17:56:39][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 17:56:39][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 17:56:39][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 18:21:35][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 18:21:35][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 18:21:35][EmailRun] Parallel execution: 1 processes
+[2025-11-04 18:21:35][EmailRun] Fallback hours: 18 hours
+[2025-11-04 18:21:35][EmailRun] Force resend: False
+[2025-11-04 18:21:38][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 18:21:40][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 18:21:42][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 18:21:45][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 18:21:47][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 18:21:47][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 18:21:47][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 18:55:19][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 18:55:19][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 18:55:19][EmailRun] Parallel execution: 1 processes
+[2025-11-04 18:55:19][EmailRun] Fallback hours: 18 hours
+[2025-11-04 18:55:19][EmailRun] Force resend: False
+[2025-11-04 18:55:21][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 18:55:23][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 18:55:26][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 18:55:28][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 18:55:30][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 18:55:30][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 18:55:30][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 19:21:46][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 19:21:46][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 19:21:46][EmailRun] Parallel execution: 1 processes
+[2025-11-04 19:21:46][EmailRun] Fallback hours: 18 hours
+[2025-11-04 19:21:46][EmailRun] Force resend: False
+[2025-11-04 19:21:49][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 19:21:51][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 19:21:53][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 19:21:55][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 19:21:58][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 19:21:58][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 19:21:58][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 20:31:39][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 20:31:39][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 20:31:39][EmailRun] Parallel execution: 1 processes
+[2025-11-04 20:31:39][EmailRun] Fallback hours: 18 hours
+[2025-11-04 20:31:39][EmailRun] Force resend: False
+[2025-11-04 20:31:42][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 20:31:44][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 20:31:46][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 20:31:48][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 20:31:50][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 20:31:50][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 20:31:50][EmailRun] Summary: OK=0 FAIL=0 SKIP=5
+[2025-11-04 20:37:44][EmailRun] Processing Batch 4 for 2025-11-04 | email_run_id=email-log_2025-11-04_Batch-4
+[2025-11-04 20:37:44][EmailRun] Email list: \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx
+[2025-11-04 20:37:44][EmailRun] Parallel execution: 1 processes
+[2025-11-04 20:37:44][EmailRun] Fallback hours: 18 hours
+[2025-11-04 20:37:44][EmailRun] Force resend: False
+[2025-11-04 20:37:47][EmailRun] - Email 1: SKIP - Already emailed for this run
+[2025-11-04 20:37:49][EmailRun] - Email 2: SKIP - Already emailed for this run
+[2025-11-04 20:37:51][EmailRun] - Email 3: SKIP - Already emailed for this run
+[2025-11-04 20:37:54][EmailRun] - Email 4: SKIP - Already emailed for this run
+[2025-11-04 20:37:56][EmailRun] - Email 5: SKIP - Already emailed for this run
+[2025-11-04 20:37:56][EmailRun] Email CSV exported: C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo\email-log_2025-11-04_Batch-4.csv
+[2025-11-04 20:37:56][EmailRun] Summary: OK=0 FAIL=0 SKIP=5

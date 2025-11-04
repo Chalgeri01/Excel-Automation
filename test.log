@@ -1,0 +1,352 @@
+[2025-11-04 17:04:22] Started the logging
+[2025-11-04 17:04:22] \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V1.xlsb
+[2025-11-04 17:04:54] Started the logging
+[2025-11-04 17:04:54] \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 17:04:54] Started the logging
+[2025-11-04 17:04:54] \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 17:15:37] Started the logging
+[2025-11-04 17:15:37] Started the logging
+[2025-11-04 17:15:37] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_NEW_V2.xlsb
+[2025-11-04 17:15:37] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 17:15:37] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:15:37] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:15:37] Batch:- 12:00
+[2025-11-04 17:15:37] Batch:- 12:00
+[2025-11-04 17:15:37] RunDate:- 2025-11-04
+[2025-11-04 17:15:37] RunDate:- 2025-11-04
+[2025-11-04 17:16:05] Started the logging
+[2025-11-04 17:16:05] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 17:16:05] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:16:05] Batch:- 12:00
+[2025-11-04 17:16:05] RunDate:- 2025-11-04
+[2025-11-04 17:16:08] Started the logging
+[2025-11-04 17:16:08] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 17:16:08] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:16:08] Batch:- 12:00
+[2025-11-04 17:16:08] RunDate:- 2025-11-04
+[2025-11-04 17:42:00] Started the logging
+[2025-11-04 17:42:00] Started the logging
+[2025-11-04 17:42:00] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 17:42:00] Result of the DB check False
+[2025-11-04 17:42:00] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:42:00] Batch:- 12:00
+[2025-11-04 17:42:00] RunDate:- 2025-11-04
+[2025-11-04 17:42:00] Result of the DB check False
+[2025-11-04 17:42:28] Started the logging
+[2025-11-04 17:42:28] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 17:42:28] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:42:28] Batch:- 12:00
+[2025-11-04 17:42:28] RunDate:- 2025-11-04
+[2025-11-04 17:42:28] Result of the DB check False
+[2025-11-04 17:42:29] Started the logging
+[2025-11-04 17:42:29] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 17:42:29] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:42:29] Batch:- 12:00
+[2025-11-04 17:42:29] RunDate:- 2025-11-04
+[2025-11-04 17:42:29] Result of the DB check False
+[2025-11-04 17:55:20] Started the logging
+[2025-11-04 17:55:20] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V1.xlsb
+[2025-11-04 17:55:20] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:55:20] Batch:- 12:00
+[2025-11-04 17:55:20] RunDate:- 2025-11-04
+[2025-11-04 17:55:20] Result of the DB check False
+[2025-11-04 17:55:20] Started the logging
+[2025-11-04 17:55:20] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 17:55:20] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:55:20] Batch:- 12:00
+[2025-11-04 17:55:20] RunDate:- 2025-11-04
+[2025-11-04 17:55:20] Result of the DB check False
+[2025-11-04 17:55:20] Result of the DB check False
+[2025-11-04 17:55:47] Started the logging
+[2025-11-04 17:55:47] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 17:55:47] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:55:47] Batch:- 12:00
+[2025-11-04 17:55:47] RunDate:- 2025-11-04
+[2025-11-04 17:55:47] Result of the DB check False
+[2025-11-04 17:55:50] Started the logging
+[2025-11-04 17:55:50] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 17:55:50] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 17:55:50] Batch:- 12:00
+[2025-11-04 17:55:50] RunDate:- 2025-11-04
+[2025-11-04 17:55:50] Result of the DB check False
+[2025-11-04 18:20:24] Started the logging
+[2025-11-04 18:20:24] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V1.xlsb
+[2025-11-04 18:20:24] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:20:25] Batch:- 12:00
+[2025-11-04 18:20:25] RunDate:- 2025-11-04
+[2025-11-04 18:20:25] Started the logging
+[2025-11-04 18:20:25] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_NEW_V2.xlsb
+[2025-11-04 18:20:25] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:20:25] Batch:- 12:00
+[2025-11-04 18:20:25] Started the logging
+[2025-11-04 18:20:25] RunDate:- 2025-11-04
+[2025-11-04 18:20:25] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 18:20:25] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:20:25] Batch:- 12:00
+[2025-11-04 18:20:25] RunDate:- 2025-11-04
+[2025-11-04 18:20:25] Result of the DB check False
+[2025-11-04 18:20:25] Result of the DB check False
+[2025-11-04 18:20:25] Result of the DB check False
+[2025-11-04 18:20:54] Started the logging
+[2025-11-04 18:20:54] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 18:20:54] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:20:54] Batch:- 12:00
+[2025-11-04 18:20:54] RunDate:- 2025-11-04
+[2025-11-04 18:20:54] Result of the DB check False
+[2025-11-04 18:20:55] Started the logging
+[2025-11-04 18:20:55] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 18:20:55] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:20:55] Batch:- 12:00
+[2025-11-04 18:20:55] RunDate:- 2025-11-04
+[2025-11-04 18:20:55] Result of the DB check False
+[2025-11-04 18:54:46] Started the logging
+[2025-11-04 18:54:46] Started the logging
+[2025-11-04 18:54:46] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_NEW_V2.xlsb
+[2025-11-04 18:54:46] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:54:46] Batch:- 12:00
+[2025-11-04 18:54:46] Result of the DB check False
+[2025-11-04 18:54:46] Result of the DB check False
+[2025-11-04 18:54:46] Started the logging
+[2025-11-04 18:54:46] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 18:54:46] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:54:46] Batch:- 12:00
+[2025-11-04 18:54:46] RunDate:- 2025-11-04
+[2025-11-04 18:54:46] In the Test-Already DB function
+[2025-11-04 18:54:46] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 18:54:48] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 18:54:48] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 18:54:48] Result of the DB check True
+[2025-11-04 18:54:48] Skipping the file refrsh
+[2025-11-04 18:54:48] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 18:54:48] Method :- 
+[2025-11-04 18:54:48] Started the logging
+[2025-11-04 18:54:48] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 18:54:48] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:54:48] Batch:- 12:00
+[2025-11-04 18:54:48] RunDate:- 2025-11-04
+[2025-11-04 18:54:48] In the Test-Already DB function
+[2025-11-04 18:54:48] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 18:54:48] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 18:54:48] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 18:54:48] Result of the DB check True
+[2025-11-04 18:54:48] Skipping the file refrsh
+[2025-11-04 18:54:48] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 18:54:48] Method :- 
+[2025-11-04 18:54:48] Started the logging
+[2025-11-04 18:54:48] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 18:54:48] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 18:54:48] Batch:- 12:00
+[2025-11-04 18:54:48] RunDate:- 2025-11-04
+[2025-11-04 18:54:48] In the Test-Already DB function
+[2025-11-04 18:54:48] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 18:54:48] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 18:54:48] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 18:54:48] Result of the DB check True
+[2025-11-04 18:54:48] Skipping the file refrsh
+[2025-11-04 18:54:48] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 18:54:48] Method :- 
+[2025-11-04 19:21:13] Started the logging
+[2025-11-04 19:21:13] Started the logging
+[2025-11-04 19:21:13] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 19:21:13] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 19:21:13] Batch:- 12:00
+[2025-11-04 19:21:13] RunDate:- 2025-11-04
+[2025-11-04 19:21:13] In the Test-Already DB function
+[2025-11-04 19:21:13] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 19:21:15] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 19:21:15] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 19:21:15] Result of the DB check True
+[2025-11-04 19:21:15] Skipping the file refrsh
+[2025-11-04 19:21:15] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 19:21:15] Method :- 
+[2025-11-04 19:21:15] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 19:21:15] in the catch block of skip write to DB
+[2025-11-04 19:21:15] Started the logging
+[2025-11-04 19:21:15] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 19:21:15] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 19:21:15] Batch:- 12:00
+[2025-11-04 19:21:15] RunDate:- 2025-11-04
+[2025-11-04 19:21:15] In the Test-Already DB function
+[2025-11-04 19:21:15] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 19:21:15] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 19:21:15] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 19:21:15] Result of the DB check True
+[2025-11-04 19:21:15] Skipping the file refrsh
+[2025-11-04 19:21:15] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 19:21:15] Method :- 
+[2025-11-04 19:21:15] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 19:21:15] in the catch block of skip write to DB
+[2025-11-04 19:21:15] Started the logging
+[2025-11-04 19:21:15] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 19:21:15] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 19:21:15] Batch:- 12:00
+[2025-11-04 19:21:15] RunDate:- 2025-11-04
+[2025-11-04 19:21:15] In the Test-Already DB function
+[2025-11-04 19:21:15] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 19:21:15] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 19:21:15] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 19:21:15] Result of the DB check True
+[2025-11-04 19:21:15] Skipping the file refrsh
+[2025-11-04 19:21:15] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 19:21:15] Method :- 
+[2025-11-04 19:21:15] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 19:21:15] in the catch block of skip write to DB
+[2025-11-04 20:23:53] Started the logging
+[2025-11-04 20:23:53] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V1.xlsb
+[2025-11-04 20:23:53] Result of the DB check False
+[2025-11-04 20:23:53] Result of the DB check False
+[2025-11-04 20:23:53] Started the logging
+[2025-11-04 20:23:53] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New__V2.xlsb
+[2025-11-04 20:23:53] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 20:23:53] Batch:- 12:00
+[2025-11-04 20:23:53] RunDate:- 2025-11-04
+[2025-11-04 20:23:53] In the Test-Already DB function
+[2025-11-04 20:23:53] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 20:23:58] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 20:23:58] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 20:23:58] Result of the DB check True
+[2025-11-04 20:23:58] Skipping the file refrsh
+[2025-11-04 20:23:58] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 20:23:58] Method :- 
+[2025-11-04 20:23:58] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 20:23:58] in the catch block of skip write to DB
+[2025-11-04 20:23:58] Started the logging
+[2025-11-04 20:23:58] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 20:23:58] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 20:23:58] Batch:- 12:00
+[2025-11-04 20:23:58] RunDate:- 2025-11-04
+[2025-11-04 20:23:58] In the Test-Already DB function
+[2025-11-04 20:23:58] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 20:23:58] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 20:23:58] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 20:23:58] Result of the DB check True
+[2025-11-04 20:23:58] Skipping the file refrsh
+[2025-11-04 20:23:58] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 20:23:58] Method :- 
+[2025-11-04 20:23:58] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 20:23:58] in the catch block of skip write to DB
+[2025-11-04 20:23:58] Started the logging
+[2025-11-04 20:23:58] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 20:23:58] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 20:23:58] Batch:- 12:00
+[2025-11-04 20:23:58] RunDate:- 2025-11-04
+[2025-11-04 20:23:58] In the Test-Already DB function
+[2025-11-04 20:23:58] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 20:23:58] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 20:23:58] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 20:23:58] Result of the DB check True
+[2025-11-04 20:23:58] Skipping the file refrsh
+[2025-11-04 20:23:58] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 20:23:58] Method :- 
+[2025-11-04 20:23:58] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 20:23:58] in the catch block of skip write to DB
+[2025-11-04 20:30:55] Started the logging
+[2025-11-04 20:30:55] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_NEW_V2.xlsb
+[2025-11-04 20:30:55] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 20:30:55] Result of the DB check False
+[2025-11-04 20:30:55] Result of the DB check False
+[2025-11-04 20:31:24] Started the logging
+[2025-11-04 20:31:24] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production & Stock Transfer Report_Rohan Naik.xlsb
+[2025-11-04 20:31:24] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 20:31:24] Batch:- 12:00
+[2025-11-04 20:31:24] RunDate:- 2025-11-04
+[2025-11-04 20:31:24] In the Test-Already DB function
+[2025-11-04 20:31:24] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 20:31:24] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 20:31:24] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 20:31:24] Result of the DB check True
+[2025-11-04 20:31:24] Skipping the file refrsh
+[2025-11-04 20:31:24] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 20:31:24] Method :- 
+[2025-11-04 20:31:24] Run ID run-log_2025-11-04_Batch-4
+[2025-11-04 20:31:24] Started the logging
+[2025-11-04 20:31:24] File path :- \\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\MARKETING EMPLOYEES\001 Production\01 2025-26\007 ALL 12.00 PM Reports\Production Planning Report_New_V3.xlsb
+[2025-11-04 20:31:24] Connection:- Server=127.0.0.1;Port=3306;Database=reportlogs;Uid=root;Pwd=Google@123;AllowPublicKeyRetrieval=True;SslMode=None
+[2025-11-04 20:31:24] Batch:- 12:00
+[2025-11-04 20:31:24] RunDate:- 2025-11-04
+[2025-11-04 20:31:24] In the Test-Already DB function
+[2025-11-04 20:31:24] SQL query SELECT 1
+FROM events
+WHERE stage='Refresh'
+  AND status='OK'
+  AND batch = @b
+  AND rundate = CAST(@rd AS DATE)
+  AND LOWER(REPLACE(file_path, '\\\\', '/')) = LOWER(REPLACE(@f, '\\\\', '/'))
+LIMIT 1
+[2025-11-04 20:31:24] SQL COmmand :- MySql.Data.MySqlClient.MySqlCommand.CommandText
+[2025-11-04 20:31:24] SQL Parm passing (MySql.Data.MySqlClient.MySqlCommand.Parameters)
+[2025-11-04 20:31:24] Result of the DB check True
+[2025-11-04 20:31:24] Skipping the file refrsh
+[2025-11-04 20:31:24] Master file path :- C:\Temp\ExcelAutomation\04 Data Update - 12.00 PM.xlsx
+[2025-11-04 20:31:24] Method :- 
+[2025-11-04 20:31:24] Run ID run-log_2025-11-04_Batch-4

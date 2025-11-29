@@ -61,70 +61,6 @@ if ([string]::IsNullOrWhiteSpace($RunDate)) {
 }
 
 # ---------- DB helper ----------
-function Write-EventToDb_old {
-  param(
-    [string]$ConnStr,
-    [string]$RunId,
-    [string]$Batch,
-    [ValidateSet('Refresh','Email')][string]$Stage,  # here we use 'Refresh'
-    [DateTime]$TimestampUtc,
-    [string]$RunDateStr,                             # yyyy-MM-dd
-    [string]$MasterPath,
-    [string]$FilePath,
-    [string]$Method,
-    [ValidateSet('OK','FAIL','SKIP')][string]$Status,
-    [string]$ErrorText,
-    [int]$DurationS
-  )
-
-  $sql = @"
-INSERT INTO events
-(run_id,batch,stage,timestamp_utc,rundate,master_path,file_path,method,status,error_text,duration_s,recipients_to,subject)
-VALUES
-(@run,@batch,@stage,@ts,@rd,@mp,@fp,@m,@st,@err,@dur,NULL,NULL)
-"@
-
-  # Try open connection with good diagnostics
-  $conn = [MySql.Data.MySqlClient.MySqlConnection]::new($ConnStr)
-  try {
-    try {
-      $conn.Open()
-    } catch {
-      $msg = $_.Exception.Message
-      if ($msg -like "*RSA public key*not enabled*") {
-        throw "MySQL connection refused: RSA public key retrieval not enabled. Add 'AllowPublicKeyRetrieval=True;SslMode=None' to your connection string (or enable proper TLS). Understood error: $msg"
-      }
-      throw "Could not open MySQL connection. Check host/port/user/password. Error: $msg"
-    }
-
-    $cmd = $conn.CreateCommand()
-    $cmd.CommandText = $sql
-    $p = $cmd.Parameters
-
-    # Correct enum casing matters (e.g. DateTime, VarChar, Int32, LongText)
-    $null = $p.Add("@run",   [MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value   = $RunId
-    $null = $p.Add("@batch", [MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value   = ($Batch ?? "")
-    $null = $p.Add("@stage", [MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value   = $Stage
-    $null = $p.Add("@ts",    [MySql.Data.MySqlClient.MySqlDbType]::DateTime).Value  = $TimestampUtc
-    $null = $p.Add("@rd",    [MySql.Data.MySqlClient.MySqlDbType]::Date).Value      = [datetime]::ParseExact($RunDateStr,'yyyy-MM-dd',$null)
-    $null = $p.Add("@mp",    [MySql.Data.MySqlClient.MySqlDbType]::LongText).Value  = ($MasterPath ?? [DBNull]::Value)
-    $null = $p.Add("@fp",    [MySql.Data.MySqlClient.MySqlDbType]::LongText).Value  = $FilePath
-    $null = $p.Add("@m",     [MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value   = ($Method ?? "")
-    $null = $p.Add("@st",    [MySql.Data.MySqlClient.MySqlDbType]::VarChar).Value   = $Status
-    $null = $p.Add("@err",   [MySql.Data.MySqlClient.MySqlDbType]::LongText).Value  = ($(if ($ErrorText) { $ErrorText } else { [DBNull]::Value }))
-    $null = $p.Add("@dur",   [MySql.Data.MySqlClient.MySqlDbType]::Int32).Value     = [int]$DurationS
-
-    $null = $cmd.ExecuteNonQuery()
-    return $true
-  } catch {
-    Write-Error "DB insert failed for '$FilePath': $($_.Exception.Message)"
-    return $false
-  } finally {
-    if ($conn.State -ne 'Closed') { $conn.Close() }
-    $conn.Dispose()
-  }
-}
-
 function Write-EventToDb {
   param(
     [string]$ConnStr,
@@ -219,36 +155,52 @@ function Clear-OfficeCaches {
 }
 
 
-# ---------- Refresh with one targeted retry ----------
+# ---------- Refresh with targeted retries (cache + RPC) ----------
 $status   = "OK"
 $err      = ""
 $t0       = Get-Date
-$didRetry = $false
+$didCacheRetry = $false
+$didRpcRetry   = $false
 
 :refresh_attempt do {
+  Register-ComMessageFilter
   $excel = Start-Excel
   try {
-    Refresh-WorkbookSmart -excel $excel -Path $Path -TimeoutSec $TimeoutSec -FastMode:$FastMode
+    # Wrap critical COM calls in Invoke-ComRetry so temporary busy states don’t blow up
+    Invoke-ComRetry { Refresh-WorkbookSmart -excel $excel -Path $Path -TimeoutSec $TimeoutSec -FastMode:$FastMode } | Out-Null
   }
   catch {
     $msg = $_.Exception.Message
-    # Trigger retry only for the known cache/collision signatures
-    if (-not $didRetry -and ($msg -match 'INetCache\\Content\.MSO' -or $msg -match 'OfficeFileCache')) {
+    $hr  = $_.Exception.HResult
+
+    # 1) Temp/Office cache collision retry (your existing logic)
+    if (-not $didCacheRetry -and ($msg -match 'INetCache\\Content\.MSO' -or $msg -match 'OfficeFileCache')) {
       try { Stop-Excel $excel } catch {}
-      Clear-OfficeCaches            # clear cache that caused the lock
+      Clear-OfficeCaches
       Start-Sleep -Seconds 3
-      $didRetry = $true
-      continue refresh_attempt      # restart Excel and try once more
-    } else {
-      $status = "FAIL"
-      $err    = $msg
+      $didCacheRetry = $true
+      continue refresh_attempt
     }
+
+    # 2) RPC server unavailable => rebuild Excel once
+    if (-not $didRpcRetry -and $hr -eq -2147023174) { # 0x800706BA
+      try { Stop-Excel $excel } catch {}
+      Start-Sleep -Seconds 2
+      $didRpcRetry = $true
+      continue refresh_attempt
+    }
+
+    # Anything else — fail
+    $status = "FAIL"
+    $err    = $msg
   }
   finally {
     try { Stop-Excel $excel } catch {}
+    Unregister-ComMessageFilter
   }
   break
 } while ($true)
+
 
 # ---------- Write event to DB ----------
 $nowUtc  = (Get-Date).ToUniversalTime()

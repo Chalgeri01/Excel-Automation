@@ -6,6 +6,93 @@ Utilities:
 - Refresh-WorkbookSmart (PQ then tables/pivots-if-present, FastMode optional)
 #>
 
+# --- COM Message Filter to handle RPC_E_CALL_REJECTED from Excel ---
+if (-not ([System.Management.Automation.PSTypeName]'ComMessageFilter').Type) {
+  Add-Type -Language CSharp -TypeDefinition @"
+using System;
+using System.Runtime.InteropServices;
+
+public class ComMessageFilter : IOleMessageFilter
+{
+    // Register the message filter.
+    public static void Register() {
+        IOleMessageFilter newFilter = new ComMessageFilter();
+        IOleMessageFilter oldFilter = null;
+        CoRegisterMessageFilter(newFilter, out oldFilter);
+    }
+
+    // Revoke the message filter.
+    public static void Revoke() {
+        IOleMessageFilter oldFilter = null;
+        CoRegisterMessageFilter(null, out oldFilter);
+    }
+
+    // Handle incoming call.
+    int IOleMessageFilter.HandleInComingCall(int dwCallType, System.IntPtr hTaskCaller, int dwTickCount, System.IntPtr lpInterfaceInfo) {
+        // SERVERCALL_ISHANDLED
+        return 0;
+    }
+
+    // Thread call rejected/retry—tell COM to retry after a short delay.
+    int IOleMessageFilter.RetryRejectedCall(System.IntPtr hTaskCallee, int dwTickCount, int dwRejectType) {
+        // SERVERCALL_RETRYLATER = 2 -> ask COM to retry after 100 ms
+        if (dwRejectType == 2) return 100;
+        // cancel call
+        return -1;
+    }
+
+    int IOleMessageFilter.MessagePending(System.IntPtr hTaskCallee, int dwTickCount, int dwPendingType) {
+        // PENDINGMSG_WAITDEFPROCESS
+        return 2;
+    }
+
+    [DllImport("Ole32.dll")]
+    private static extern int CoRegisterMessageFilter(IOleMessageFilter newFilter, out IOleMessageFilter oldFilter);
+}
+
+[ComImport(), Guid("00000016-0000-0000-C000-000000000046"),
+ InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+public interface IOleMessageFilter {
+    [PreserveSig] int HandleInComingCall(int dwCallType, IntPtr hTaskCaller, int dwTickCount, IntPtr lpInterfaceInfo);
+    [PreserveSig] int RetryRejectedCall(IntPtr hTaskCallee, int dwTickCount, int dwRejectType);
+    [PreserveSig] int MessagePending(IntPtr hTaskCallee, int dwTickCount, int dwPendingType);
+}
+"@
+}
+
+function Register-ComMessageFilter { 
+  try { [ComMessageFilter]::Register() } catch { }
+}
+function Unregister-ComMessageFilter { 
+  try { [ComMessageFilter]::Revoke() } catch { }
+}
+
+function Invoke-ComRetry {
+  param(
+    [Parameter(Mandatory=$true)][scriptblock]$ScriptBlock,
+    [int]$MaxAttempts = 6,           # ~6 tries
+    [int]$InitialDelayMs = 150       # start with 150ms, we’ll backoff
+  )
+  $delay = $InitialDelayMs
+  for ($i=1; $i -le $MaxAttempts; $i++) {
+    try {
+      return & $ScriptBlock
+    } catch {
+      $h = ($_.Exception.HResult)
+      # 0x80010001 = RPC_E_CALL_REJECTED (Excel busy), 0x800706BA = RPC server unavailable
+      if (($h -eq -2147418111) -or ($h -eq -2147023174)) {
+        Start-Sleep -Milliseconds $delay
+        $delay = [Math]::Min($delay * 2, 2000) # cap at 2s
+        continue
+      } else {
+        throw
+      }
+    }
+  }
+  throw "Invoke-ComRetry: exceeded retries for COM call."
+}
+
+
 function Start-Excel {
   $excel = New-Object -ComObject Excel.Application
   $excel.Visible = $false

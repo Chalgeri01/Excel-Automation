@@ -41,6 +41,7 @@ $EmailListMap = @{
     4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx"
     5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx"
     6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
+    #7 = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Email-Master\07 Test-Btach.xlsx"
 }
 # Python executable selector (change to "py" or full path if you prefer)
 $PythonExe = "C:\Users\kapl\AppData\Local\Programs\Python\Python313\python.exe"
@@ -200,7 +201,7 @@ foreach ($bn in $BatchArray) {
                 SheetName     = ""
                 PathColumn    = "B"
                 StartRow      = 2
-                ThrottleLimit = 3
+                ThrottleLimit = 2
                 Batch         = $batchName
                 LogIdentifier = $runId
                 FastMode      = $FastMode.IsPresent

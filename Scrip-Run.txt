@@ -1,0 +1,53 @@
+1.Run the PoweShell-7 as Administrator user 
+2.Go to below folder do the CD command
+C:\Users\kapl\Desktop\Project-Reporting-Automation\script\
+3. Now you can run the below commands based your requirements
+
+
+Run Only Email Batches :-
+Batch-1:-
+py send_reports_configured.py --batch 1 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 11.00 PM Schedule.xlsx"
+
+Batch-3:-
+py send_reports_configured.py --batch 3 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx"
+
+Batch-4:-
+py send_reports_configured.py --batch 4 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx"
+
+Btach-5:-
+py send_reports_configured.py --batch 5 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx"
+
+Batch-6:-
+py send_reports_configured.py --batch 6 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
+
+Batch-7:-
+py send_reports_configured.py --batch 7 --email-list "C:\Users\kapl\Desktop\Project-Reporting-Automation\Email-Master\07 Test-Btach.xlsx"
+
+
+
+Run Only File Refresh :-
+Batch-1:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "1"
+
+Batch-2:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "2"
+
+Batch-3:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "3"
+
+Batch-4:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "4"
+
+Batch-5:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "5"
+
+Batch-6:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "6"
+
+Batch-7:
+pwsh -file "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "7"
+
+
+
+
+ 

@@ -1,0 +1,5 @@
+"Timestamp","RunDate","Batch","Stage","Master","FilePath","Method","Status","Error","DurationS","RecipientsTo","Subject"
+"2025-11-29 19:39:22","2025-11-29","Test","Refresh","C:\Temp\ExcelAutomation\07-Test-Master-File.xlsx","\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\SOLAPUR (HO)\04. MARKETING\A. IRRIGATION DIVISION\10. GANGADHAR PARDHE\Sales Quantity Base Report - 2025-26_New_17-11-25.xlsb","","FAIL","The term 'Get-ItemsSafe' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.","6","",""
+"2025-11-29 19:39:29","2025-11-29","Test","Refresh","C:\Temp\ExcelAutomation\07-Test-Master-File.xlsx","\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\PRODUCTION AND DISPATCH\05. UDYAMNAGAR\07. MANOJ KANDHARE\Quantity Report - UN-RM.xlsb","","FAIL","The term 'Get-ItemsSafe' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.","12","",""

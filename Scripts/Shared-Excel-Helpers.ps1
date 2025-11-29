@@ -155,7 +155,7 @@ function Get-PathsFromMaster([string]$MasterPath,[string]$SheetName,[string]$Pat
   }
 }
 
-function Refresh-WorkbookSmart([object]$excel,[string]$Path,[int]$TimeoutSec=900,[switch]$FastMode){
+function Old_Refresh-WorkbookSmart([object]$excel,[string]$Path,[int]$TimeoutSec=900,[switch]$FastMode){
   if (-not (Test-Path $Path)){ throw "File not found: $Path" }
 
   $wb = $null
@@ -201,6 +201,76 @@ function Refresh-WorkbookSmart([object]$excel,[string]$Path,[int]$TimeoutSec=900
     try { if ($wb.Model) { $wb.Model.Refresh(); Start-Sleep -Seconds 5 } } catch {}
     try { $excel.CalculateFull() } catch {}
     # try { $excel.CalculateFullRebuild() } catch {}  # only if needed
+    $wb.Save()
+  }
+  finally {
+    if ($wb -ne $null){ try { $wb.Close($true) } catch {} }
+  }
+}
+
+function Refresh-WorkbookSmart([object]$excel,[string]$Path,[int]$TimeoutSec=900,[switch]$FastMode){
+  if (-not (Test-Path $Path)){ throw "File not found: $Path" }
+
+  $wb = $null
+  try {
+    # Open (COM-retry is safer, but plain open is fine if you prefer)
+    $wb = $excel.Workbooks.Open($Path, $false, $false) # read/write
+
+    # --- Disable background queries, null-safe
+    if (-not $FastMode) {
+      $cnCol = $null; try { $cnCol = $wb.Connections } catch {}
+      foreach ($cn in (Get-ItemsSafe $cnCol)) {
+        try {
+          if ($cn.Type -eq 1 -and $cn.ODBCConnection)  { $cn.ODBCConnection.BackgroundQuery  = $false }
+          if ($cn.Type -eq 2 -and $cn.OLEDBConnection) { $cn.OLEDBConnection.BackgroundQuery = $false }
+        } catch {}
+      }
+    }
+
+    # --- Power Query / Connections (guard everything that can flap to $null)
+    try { Invoke-ComRetry { $wb.RefreshAll() | Out-Null } } catch {}
+    try { $excel.CalculateUntilAsyncQueriesDone() } catch {}
+
+    $okWait = $false
+    try { $okWait = (Wait-Connections -wb $wb -TimeoutSec $TimeoutSec) } catch { $okWait = $true }
+
+    # --- Only refresh tables/pivots if present (and not in FastMode)
+    if (-not $FastMode){
+      $hasTables = $false; $hasPivots = $false
+      $wsList = Get-ItemsSafe $wb.Worksheets
+
+      foreach ($ws in $wsList) {
+        $loCol = $null; try { $loCol = $ws.ListObjects } catch {}
+        if (Get-CountSafe $loCol -gt 0) { $hasTables = $true }
+
+        $ptCol = $null; try { $ptCol = $ws.PivotTables } catch {}
+        if (Get-CountSafe $ptCol -gt 0) { $hasPivots = $true }
+      }
+
+      if ($hasTables){
+        foreach ($ws in $wsList) {
+          $loCol = $null; try { $loCol = $ws.ListObjects } catch {}
+          foreach ($lo in (Get-ItemsSafe $loCol)) {
+            try { if ($lo) { Invoke-ComRetry { $lo.Refresh() | Out-Null } } } catch {}
+          }
+        }
+      }
+
+      if ($hasPivots){
+        foreach ($ws in $wsList) {
+          $ptCol = $null; try { $ptCol = $ws.PivotTables } catch {}
+          foreach ($pt in (Get-ItemsSafe $ptCol)) {
+            try { if ($pt) { Invoke-ComRetry { $pt.RefreshTable() | Out-Null } } } catch {}
+          }
+        }
+      }
+    }
+
+    # --- Data model + calc (safe)
+    try { if ($wb.Model) { $wb.Model.Refresh(); Start-Sleep -Seconds 5 } } catch {}
+    try { $excel.CalculateFull() } catch {}
+    # try { $excel.CalculateFullRebuild() } catch {}  # only if really needed
+
     $wb.Save()
   }
   finally {

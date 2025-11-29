@@ -1,6 +1,6 @@
 1.Run the PoweShell-7 as Administrator user 
 2.Go to below folder do the CD command
-C:\Users\kapl\Desktop\Project-Reporting-Automation\script\
+C:\Users\kapl\Desktop\Project-Reporting-Automation\scripts\
 3. Now you can run the below commands based your requirements
 
 

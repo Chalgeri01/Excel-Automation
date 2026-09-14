@@ -2,6 +2,8 @@
 param(
   [Parameter(Mandatory = $true)][string]$Path,
   [int]$TimeoutSec = 900,
+  [ValidateRange(1,16)][int]$MachineExcelLimit = 3,
+  [ValidateRange(1,86400)][int]$ExcelSlotWaitTimeoutSec = 21600,
   [switch]$FastMode,
   [string]$Master = "",
   [string]$Method = "",
@@ -9,10 +11,44 @@ param(
   # --- DB logging (required in DB mode) ---
   [Parameter(Mandatory = $true)][string]$DbConn,
   [Parameter(Mandatory = $true)][string]$LogIdentifier,   # e.g. run-log_YYYY-MM-DD_Batch-1
-  [string]$RunDate = ""                                    # yyyy-MM-dd (logical day for this run)
+  [string]$RunDate = "",                                   # yyyy-MM-dd (logical day for this run)
+  [string]$TraceLogPath = ""
 )
 
+. "$PSScriptRoot\Shared-Trace-Helpers.ps1"
 . "$PSScriptRoot\Shared-Excel-Helpers.ps1"
+
+if ([string]::IsNullOrWhiteSpace($TraceLogPath)) {
+  $traceDirectory = Join-Path (Split-Path -Parent $PSScriptRoot) 'Logginfo'
+  $traceName = (($LogIdentifier -replace '^run-log_', 'refresh-trace_') + '.log')
+  $TraceLogPath = Join-Path $traceDirectory $traceName
+}
+
+$script:RefreshTraceStart = Get-Date
+$script:RefreshTraceExcelPid = $null
+
+function Write-WorkerTrace {
+  param(
+    [Parameter(Mandatory=$true)][string]$Phase,
+    [string]$Details = '',
+    [ValidateSet('DEBUG','INFO','WARN','ERROR')][string]$Level = 'INFO',
+    [AllowNull()][object]$ExcelPid = $null,
+    [string]$Source = 'Worker'
+  )
+
+  if ($null -ne $ExcelPid -and [string]$ExcelPid -ne '') {
+    $script:RefreshTraceExcelPid = [int]$ExcelPid
+  }
+  $elapsedSeconds = ((Get-Date) - $script:RefreshTraceStart).TotalSeconds
+  Write-RefreshTrace -TraceLogPath $TraceLogPath -RunId $LogIdentifier -Batch $Batch -FilePath $Path -Phase $Phase -Level $Level -Source $Source -Details $Details -ExcelPid $script:RefreshTraceExcelPid -ElapsedSeconds $elapsedSeconds
+}
+
+$traceCallback = {
+  param($Phase, $Details = '', $Level = 'INFO', $ExcelPid = $null, $Source = 'Excel')
+  Write-WorkerTrace -Phase $Phase -Details $Details -Level $Level -ExcelPid $ExcelPid -Source $Source
+}
+
+Write-WorkerTrace -Phase 'PROCESS_START' -Details "Method=$Method; TimeoutSec=$TimeoutSec; MachineExcelLimit=$MachineExcelLimit; FastMode=$($FastMode.IsPresent)"
 
 # ---------- Load MySql.Data ----------
 function Load-MySqlAssembly {
@@ -35,16 +71,27 @@ function Load-MySqlAssembly {
     throw "MySql.Data not found. Install MySQL Connector/NET or update fallback paths in Refresh-One.ps1."
   }
 }
-Load-MySqlAssembly
+Write-WorkerTrace -Phase 'MYSQL_ASSEMBLY_LOAD_START'
+try {
+  Load-MySqlAssembly
+  Write-WorkerTrace -Phase 'MYSQL_ASSEMBLY_LOAD_END'
+} catch {
+  Write-WorkerTrace -Phase 'MYSQL_ASSEMBLY_LOAD_ERROR' -Level 'ERROR' -Details "Error=$($_.Exception.Message)"
+  throw
+}
 
 # ---------- Param validation / normalization ----------
+Write-WorkerTrace -Phase 'INPUT_VALIDATION_START'
 if (-not (Test-Path -LiteralPath $Path)) {
+  Write-WorkerTrace -Phase 'INPUT_VALIDATION_ERROR' -Level 'ERROR' -Details 'File not found'
   throw "Refresh-One.ps1: file not found: $Path"
 }
 if ([string]::IsNullOrWhiteSpace($DbConn)) {
+  Write-WorkerTrace -Phase 'INPUT_VALIDATION_ERROR' -Level 'ERROR' -Details 'Missing database connection string'
   throw "Refresh-One.ps1: Missing -DbConn (MySQL connection string)."
 }
 if ([string]::IsNullOrWhiteSpace($LogIdentifier)) {
+  Write-WorkerTrace -Phase 'INPUT_VALIDATION_ERROR' -Level 'ERROR' -Details 'Missing run identifier'
   throw "Refresh-One.ps1: Missing -LogIdentifier (run_id)."
 }
 
@@ -56,9 +103,11 @@ if ([string]::IsNullOrWhiteSpace($RunDate)) {
     # Validate format
     [void][datetime]::ParseExact($RunDate,'yyyy-MM-dd',$null)
   } catch {
+    Write-WorkerTrace -Phase 'INPUT_VALIDATION_ERROR' -Level 'ERROR' -Details "Invalid RunDate=$RunDate"
     throw "Refresh-One.ps1: -RunDate must be yyyy-MM-dd (got '$RunDate')."
   }
 }
+Write-WorkerTrace -Phase 'INPUT_VALIDATION_END' -Details "RunDate=$RunDate"
 
 # ---------- DB helper ----------
 function Write-EventToDb {
@@ -102,13 +151,13 @@ VALUES
 
     # Use AddWithValue to avoid MySqlDbType enum references entirely
     [void]$p.AddWithValue("@run",   $RunId)
-    [void]$p.AddWithValue("@batch", ($Batch   ?? ""))
+    [void]$p.AddWithValue("@batch", ($(if ($null -ne $Batch) { $Batch } else { "" })))
     [void]$p.AddWithValue("@stage", $Stage)
     [void]$p.AddWithValue("@ts",    $TimestampUtc)                                  # provider infers DATETIME
     [void]$p.AddWithValue("@rd",    [datetime]::ParseExact($RunDateStr,'yyyy-MM-dd',$null)) # provider infers DATE
     [void]$p.AddWithValue("@mp",    ($(if ($MasterPath) { $MasterPath } else { [DBNull]::Value })))
     [void]$p.AddWithValue("@fp",    $FilePath)
-    [void]$p.AddWithValue("@m",     ($Method ?? ""))                                # VARCHAR
+    [void]$p.AddWithValue("@m",     ($(if ($null -ne $Method) { $Method } else { "" }))) # VARCHAR
     [void]$p.AddWithValue("@st",    $Status)                                        # VARCHAR
     [void]$p.AddWithValue("@err",   ($(if ($ErrorText) { $ErrorText } else { [DBNull]::Value })))
     [void]$p.AddWithValue("@dur",   [int]$DurationS)                                # INT
@@ -125,6 +174,7 @@ VALUES
 }
 
 # --- Per-run isolated temp folder to avoid cache collisions ---
+Write-WorkerTrace -Phase 'TEMP_SETUP_START'
 try {
   $tempRoot = "C:\Temp\ExcelTmp"
   New-Item -ItemType Directory -Force -Path $tempRoot | Out-Null
@@ -135,7 +185,10 @@ try {
   # Scope to *this process* only (won’t affect machine/user)
   [Environment]::SetEnvironmentVariable('TEMP', $runTemp, 'Process')
   [Environment]::SetEnvironmentVariable('TMP',  $runTemp, 'Process')
-} catch { }
+  Write-WorkerTrace -Phase 'TEMP_SETUP_END' -Details "Directory=$runTemp"
+} catch {
+  Write-WorkerTrace -Phase 'TEMP_SETUP_ERROR' -Level 'WARN' -Details "Continuing=True; Error=$($_.Exception.Message)"
+}
 
 # Handle the erros
 function Clear-OfficeCaches {
@@ -161,32 +214,52 @@ $err      = ""
 $t0       = Get-Date
 $didCacheRetry = $false
 $didRpcRetry   = $false
+$attemptNumber = 0
 
 :refresh_attempt do {
+  $attemptNumber++
+  Write-WorkerTrace -Phase 'ATTEMPT_START' -Details "Attempt=$attemptNumber"
   Register-ComMessageFilter
-  $excel = Start-Excel
+  Write-WorkerTrace -Phase 'COM_MESSAGE_FILTER_REGISTERED' -Details "Attempt=$attemptNumber"
+  $excel = $null
+  try {
+    $excel = Start-Excel -MachineLimit $MachineExcelLimit -SlotWaitTimeoutSec $ExcelSlotWaitTimeoutSec -Trace $traceCallback
+  } catch {
+    Write-WorkerTrace -Phase 'ATTEMPT_START_ERROR' -Level 'ERROR' -Details "Attempt=$attemptNumber; Error=$($_.Exception.Message)"
+    Unregister-ComMessageFilter
+    Write-WorkerTrace -Phase 'COM_MESSAGE_FILTER_UNREGISTERED' -Details "Attempt=$attemptNumber"
+    throw
+  }
   try {
     # Wrap critical COM calls in Invoke-ComRetry so temporary busy states don’t blow up
-    Invoke-ComRetry { Refresh-WorkbookSmart -excel $excel -Path $Path -TimeoutSec $TimeoutSec -FastMode:$FastMode } | Out-Null
+    Invoke-ComRetry { Refresh-WorkbookSmart -excel $excel -Path $Path -TimeoutSec $TimeoutSec -FastMode:$FastMode -Trace $traceCallback } | Out-Null
+    Write-WorkerTrace -Phase 'ATTEMPT_REFRESH_END' -Details "Attempt=$attemptNumber"
   }
   catch {
     $msg = $_.Exception.Message
     $hr  = $_.Exception.HResult
+    Write-WorkerTrace -Phase 'ATTEMPT_ERROR' -Level 'ERROR' -Details "Attempt=$attemptNumber; HResult=$hr; Error=$msg"
 
     # 1) Temp/Office cache collision retry (your existing logic)
     if (-not $didCacheRetry -and ($msg -match 'INetCache\\Content\.MSO' -or $msg -match 'OfficeFileCache')) {
-      try { Stop-Excel $excel } catch {}
+      Write-WorkerTrace -Phase 'CACHE_RETRY_START' -Level 'WARN' -Details "Attempt=$attemptNumber"
+      try { Stop-Excel $excel -Trace $traceCallback } catch {}
+      Write-WorkerTrace -Phase 'CACHE_CLEAR_START' -Level 'WARN'
       Clear-OfficeCaches
+      Write-WorkerTrace -Phase 'CACHE_CLEAR_END' -Level 'WARN'
       Start-Sleep -Seconds 3
       $didCacheRetry = $true
+      Write-WorkerTrace -Phase 'CACHE_RETRY_END' -Level 'WARN' -Details 'Retrying=True'
       continue refresh_attempt
     }
 
     # 2) RPC server unavailable => rebuild Excel once
     if (-not $didRpcRetry -and $hr -eq -2147023174) { # 0x800706BA
-      try { Stop-Excel $excel } catch {}
+      Write-WorkerTrace -Phase 'RPC_RETRY_START' -Level 'WARN' -Details "Attempt=$attemptNumber; HResult=$hr"
+      try { Stop-Excel $excel -Trace $traceCallback } catch {}
       Start-Sleep -Seconds 2
       $didRpcRetry = $true
+      Write-WorkerTrace -Phase 'RPC_RETRY_END' -Level 'WARN' -Details 'Retrying=True'
       continue refresh_attempt
     }
 
@@ -195,8 +268,13 @@ $didRpcRetry   = $false
     $err    = $msg
   }
   finally {
-    try { Stop-Excel $excel } catch {}
+    Write-WorkerTrace -Phase 'ATTEMPT_CLEANUP_START' -Details "Attempt=$attemptNumber"
+    try { Stop-Excel $excel -Trace $traceCallback } catch {
+      Write-WorkerTrace -Phase 'ATTEMPT_CLEANUP_ERROR' -Level 'WARN' -Details "Attempt=$attemptNumber; Error=$($_.Exception.Message)"
+    }
     Unregister-ComMessageFilter
+    Write-WorkerTrace -Phase 'COM_MESSAGE_FILTER_UNREGISTERED' -Details "Attempt=$attemptNumber"
+    Write-WorkerTrace -Phase 'ATTEMPT_CLEANUP_END' -Details "Attempt=$attemptNumber"
   }
   break
 } while ($true)
@@ -207,6 +285,7 @@ $nowUtc  = (Get-Date).ToUniversalTime()
 $duration = [int]((Get-Date) - $t0).TotalSeconds
 
 try {
+  Write-WorkerTrace -Phase 'DB_EVENT_WRITE_START' -Details "Status=$status; DurationS=$duration"
   $ok = Write-EventToDb `
     -ConnStr      $DbConn `
     -RunId        $LogIdentifier `
@@ -221,6 +300,9 @@ try {
     -ErrorText    $err `
     -DurationS    $duration
 
+  $dbTraceLevel = if ($ok) { 'INFO' } else { 'ERROR' }
+  Write-WorkerTrace -Phase 'DB_EVENT_WRITE_END' -Level $dbTraceLevel -Details "Success=$ok; Status=$status"
+
   if (-not $ok -and $status -eq 'OK') {
     # Refresh succeeded but DB write failed: surface a warning (non-fatal for Excel refresh)
     Write-Warning "Refresh succeeded, but DB logging failed for '$Path'. See errors above."
@@ -228,7 +310,10 @@ try {
 } catch {
   # Defensive catch — shouldn't happen because Write-EventToDb catches its own
   Write-Error "Unexpected logging error: $($_.Exception.Message)"
+  Write-WorkerTrace -Phase 'DB_EVENT_WRITE_ERROR' -Level 'ERROR' -Details "Error=$($_.Exception.Message)"
 }
 
 # Exit code for parent / scheduler
-if ($status -eq 'OK') { exit 0 } else { exit 1 }
+$finalExitCode = if ($status -eq 'OK') { 0 } else { 1 }
+Write-WorkerTrace -Phase 'PROCESS_END' -Level $(if ($finalExitCode -eq 0) { 'INFO' } else { 'ERROR' }) -Details "Status=$status; DurationS=$duration; ExitCode=$finalExitCode"
+exit $finalExitCode

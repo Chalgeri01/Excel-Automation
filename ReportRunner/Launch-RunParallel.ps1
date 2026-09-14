@@ -29,7 +29,7 @@ $LogDir = 'C:\ReportRunner\logs'
 $UseNetUse  = $false
 $ShareRoot  = '\\192.168.1.237\Accounts'
 $ShareUser  = 'KAPL\kapl'
-$SharePass  = 'Smart@it#2025'
+$SharePass  = '$mart+Security2026$'
 #endregion ==== CONFIG ====
 
 # ---- Prep logging ----

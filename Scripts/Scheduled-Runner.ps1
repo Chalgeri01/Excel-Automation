@@ -2,6 +2,8 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$BatchNumbers,                # e.g. "1,2" or "3"
     [switch]$FastMode,
+    [ValidateRange(1,16)][int]$MachineExcelLimit = 3,
+    [ValidateRange(1,86400)][int]$ExcelSlotWaitTimeoutSec = 21600,
     [string]$DbConn = $env:REPORTLOGS_CONN,  # prefer env var
     [string]$ScriptsDir = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts",
     [string]$LogDir    = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo",
@@ -15,33 +17,52 @@ if (-not $DbConn) {
 
 # ---- Batch map (extend as needed) ----
 $MasterFileMap = @{
-    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 11.00 PM.xlsx"
+    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 12.05 AM.xlsx"
     2 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Data Update - 05.00 AM.xlsx"
     3 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx"
     4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx"
     5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx"
     6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Data Update - 02.00 PM.xlsx"
     7 = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Master-sheet\07-Test-Master-File.xlsx"
+    8 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\08 Data Update - 06.20 PM.xlsx"
+    9 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 0 Data Update - 10.00 AM.xlsx"
 }
 $BatchNameMap = @{
-    1 = "23:00"
+    1 = "00:05"
     2 = "05:00"
     3 = "11:00"
     4 = "12:00"
     5 = "13:30"
     6 = "14:00"
     7 = "Test"
+    8 = "18.20"
+    9 = "10.00"
+}
+
+# Maximum refresh workers launched by each batch. The machine-wide Excel
+# limit still caps the combined concurrency when scheduled batches overlap.
+$BatchThrottleMap = @{
+    1 = 2
+    2 = 2
+    3 = 2
+    4 = 2
+    5 = 2
+    6 = 2
+    7 = 2
+    8 = 2
+    9 = 2
 }
 
 # ==== NEW: batches that should send email (map batch -> Email_List.xlsx) ====
 $EmailListMap = @{
-    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 11.00 PM Schedule.xlsx"
-    # 2 → no email
+    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 12.05 AM Schedule.xlsx"
+    2 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Mail after Data Process of - 05.00 AM Schedule.xlsx"
     3 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx"
     4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx"
     5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx"
     6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
     #7 = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Email-Master\07 Test-Btach.xlsx"
+    9 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 0 Mail after Data Process of - 10.00 AM Schedule.xlsx"
 }
 # Python executable selector (change to "py" or full path if you prefer)
 $PythonExe = "C:\Users\kapl\AppData\Local\Programs\Python\Python313\python.exe"
@@ -69,17 +90,6 @@ function Write-Log {
     $line = "[$ts] $Message"
     Write-Host $line
     $line | Out-File $RunnerLog -Append -Encoding utf8
-}
-
-# ---- Excel cleanup (unchanged) ----
-function Cleanup-Excel {
-    try {
-        Write-Log "Cleaning up lingering Excel…"
-        Get-Process -Name "EXCEL" -ErrorAction SilentlyContinue | Stop-Process -Force
-        cmd /c "taskkill /f /im excel.exe /t" | Out-Null
-        Start-Sleep -Seconds 2
-        [System.GC]::Collect(); [System.GC]::WaitForPendingFinalizers()
-    } catch { Write-Log "Cleanup warning: $($_.Exception.Message)" }
 }
 
 # ---- Load MySql.Data (Connector/NET) ----
@@ -178,15 +188,16 @@ foreach ($bn in $BatchArray) {
     $batchName   = $BatchNameMap[$bn]
     $runId       = Get-RunId -BatchNumber $bn
     $outCsv      = Join-Path $LogDir "$runId.csv"
+    $traceName   = (($runId -replace '^run-log_', 'refresh-trace_') + '.log')
+    $traceLog    = Join-Path $LogDir $traceName
     $localCopy   = Join-Path $TempDir (Split-Path $masterPath -Leaf)
 
     Write-Log "---- Batch $bn ($batchName) ----"
     Write-Log "Master: $masterPath"
     Write-Log "RunId : $runId"
+    Write-Log "Refresh trace: $traceLog"
 
     try {
-        #Cleanup-Excel
-
         if (Test-Path $localCopy) {
             Remove-Item $localCopy -Force -ErrorAction SilentlyContinue
         }
@@ -196,14 +207,23 @@ foreach ($bn in $BatchArray) {
 
         Push-Location $ScriptsDir
         try {
+            $batchThrottleLimit = if ($BatchThrottleMap.ContainsKey($bn)) {
+                [int]$BatchThrottleMap[$bn]
+            } else {
+                2
+            }
+            Write-Log "Refresh concurrency: batch throttle=$batchThrottleLimit; machine-wide Excel limit=$MachineExcelLimit"
             $args = @{
                 MasterPath    = $localCopy
                 SheetName     = ""
                 PathColumn    = "B"
                 StartRow      = 2
-                ThrottleLimit = 2
+                ThrottleLimit = $batchThrottleLimit
+                MachineExcelLimit = $MachineExcelLimit
+                ExcelSlotWaitTimeoutSec = $ExcelSlotWaitTimeoutSec
                 Batch         = $batchName
                 LogIdentifier = $runId
+                TraceLogPath  = $traceLog
                 FastMode      = $FastMode.IsPresent
                 DbConn        = $DbConn
             }
@@ -270,6 +290,11 @@ foreach ($bn in $BatchArray) {
         } else {
             Write-Log "No email step configured for batch $bn — skipping."
         }
+        if($bn -eq 8) {
+             Write-Log "Found batch $bn now tragger the FTP python script."
+             py .\network_to_ftp_sync_ACTIVE.py
+        }
+
         # ===== END NEW =====
 
         $success++
@@ -280,7 +305,6 @@ foreach ($bn in $BatchArray) {
         try {
             if (Test-Path $localCopy) { Remove-Item $localCopy -Force -ErrorAction SilentlyContinue }
         } catch { Write-Log "Warning removing local copy: $($_.Exception.Message)" }
-        Cleanup-Excel
         Start-Sleep -Seconds 2
     }
 }

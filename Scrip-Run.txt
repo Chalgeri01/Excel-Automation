@@ -6,7 +6,7 @@ C:\Users\kapl\Desktop\Project-Reporting-Automation\scripts\
 
 Run Only Email Batches :-
 Batch-1:-
-py send_reports_configured.py --batch 1 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 11.00 PM Schedule.xlsx"
+py send_reports_configured.py --batch 1 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 12.05 AM Schedule.xlsx"
 
 Batch-3:-
 py send_reports_configured.py --batch 3 --email-list  "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx"

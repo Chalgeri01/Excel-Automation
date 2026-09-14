@@ -1,0 +1,10 @@
+2026-08-31 09:47:16 | INFO | ======================================================================
+2026-08-31 09:47:16 | INFO | PowerQuery Cache Cleanup - Started
+2026-08-31 09:47:16 | INFO | Cache folder: C:\Users\kapl\AppData\Local\Microsoft\Office\16.0\PowerQuery\Cache\Caches
+2026-08-31 09:47:16 | INFO | Delete files older than: 2 days
+2026-08-31 09:47:17 | INFO | ----------------------------------------------------------------------
+2026-08-31 09:47:17 | INFO | Cleanup completed
+2026-08-31 09:47:17 | INFO | Files deleted : 0
+2026-08-31 09:47:17 | INFO | Files skipped : 0
+2026-08-31 09:47:17 | INFO | Errors        : 0
+2026-08-31 09:47:17 | INFO | ======================================================================

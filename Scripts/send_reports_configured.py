@@ -1335,9 +1335,9 @@ def parse_arguments():
     )
     p.add_argument(
         "--batch",
-        type=int,
+        type=str,
         required=True,
-        help="Batch number (1..6 etc.)",
+        help="Batch identifier (for example 1, 1.1, or 1.2)",
     )
     p.add_argument(
         "--email-list",

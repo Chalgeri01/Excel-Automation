@@ -8,7 +8,7 @@ sync_and_cleanup.py
 
 USAGE (examples):
   python sync_and_cleanup.py
-  python sync_and_cleanup.py --source "C:\\Local\\Folder" --dest "\\\\server\\share\\Target" --days 10
+  python sync_and_cleanup.py --source "C:\\Local\\Folder" --dest "\\\\server\\share\\Target" --days 7
   python sync_and_cleanup.py --log "C:\\Logs\\sync.log" --dry-run
 
 NOTE:
@@ -33,13 +33,14 @@ from typing import Optional
 # =========================
 DEFAULT_SOURCE = r"C:\Users\kapl\Desktop\Project-Reporting-Automation\Logginfo"                     # Local folder to copy FROM
 DEFAULT_DEST   = r"\\192.168.1.237\Accounts\Automation_Reports"      # Network folder to copy TO
-DEFAULT_DAYS   = 10                                             # Delete source files older than this (days)
+DEFAULT_DAYS   = 7                                              # Delete source files older than this (days)
 DEFAULT_LOG    = r"C:\ProgramData\ReportRunner\logs\sync.log"   # Log file
 OVERWRITE_DEST = True                                           # Always overwrite at destination
 RETRIES        = 3                                              # Copy retries per file
 RETRY_SLEEP_S  = 1.0                                            # Seconds to wait between retries
 SKIP_IF_SAME   = True                                           # Optimization: skip copy if same size+mtime
 DRY_RUN        = False                                          # If True, only log actions (no copy/delete)
+EXCLUDED_COPY_PREFIXES = ("refresh-trace_",)                    # Keep diagnostic traces out of the destination archive
 
 # =========================
 # Logging setup
@@ -135,6 +136,9 @@ def copy_tree_overwrite(src_root: Path, dst_root: Path, overwrite: bool, skip_if
 
         # Copy files in this directory
         for name in filenames:
+            if name.lower().startswith(tuple(prefix.lower() for prefix in EXCLUDED_COPY_PREFIXES)):
+                logging.info(f"SKIP (excluded prefix): {Path(dirpath) / name}")
+                continue
             s = Path(dirpath) / name
             d = dst_dir / name
             ok = copy_file_with_retries(
@@ -192,7 +196,7 @@ def main():
     parser = argparse.ArgumentParser(description="Copy a local folder to a network folder (overwriting), then delete old files from source.")
     parser.add_argument("--source", "-s", default=DEFAULT_SOURCE, help="Source folder (local)")
     parser.add_argument("--dest", "-d", default=DEFAULT_DEST, help="Destination folder (network)")
-    parser.add_argument("--days", "-n", type=int, default=DEFAULT_DAYS, help="Delete source files older than N days (default: 10)")
+    parser.add_argument("--days", "-n", type=int, default=DEFAULT_DAYS, help="Delete source files older than N days (default: 7)")
     parser.add_argument("--log", "-l", default=DEFAULT_LOG, help="Log file path")
     parser.add_argument("--no-skip-if-same", action="store_true", help="Do not skip copying files that look identical (size/mtime)")
     parser.add_argument("--dry-run", action="store_true", help="Log actions only; do not copy or delete")

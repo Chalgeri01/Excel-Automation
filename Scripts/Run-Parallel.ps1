@@ -64,9 +64,9 @@ if (-not $DbConn) {
 }
 
 # ------------------ derive accepted RunDate(s) from LogIdentifier (overnight-safe) ------------------
-# Expecting format: run-log_YYYY-MM-DD_Batch-N
+# Expecting format: run-log_YYYY-MM-DD_Batch-N (N may be a split ID such as 1.1)
 $BatchLogDate = $null
-if ($LogIdentifier -match 'run-log_(\d{4}-\d{2}-\d{2})_Batch-\d+') { $BatchLogDate = $Matches[1] }
+if ($LogIdentifier -match 'run-log_(\d{4}-\d{2}-\d{2})_Batch-\d+(?:\.\d+)?') { $BatchLogDate = $Matches[1] }
 $AcceptedDates = @()
 if ($BatchLogDate) {
   $d = [datetime]::ParseExact($BatchLogDate,'yyyy-MM-dd',$null)

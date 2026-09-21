@@ -1,5 +1,8 @@
 "C:\Program Files\PowerShell\7\pwsh.exe"
--NoLogo -NoProfile -ExecutionPolicy Bypass -File "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "1,2"
+# Configure separate Task Scheduler actions for each batch:
+-NoLogo -NoProfile -ExecutionPolicy Bypass -File "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "1.1"
+-NoLogo -NoProfile -ExecutionPolicy Bypass -File "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "1.2"
+-NoLogo -NoProfile -ExecutionPolicy Bypass -File "C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts\Scheduled-Runner.ps1" -BatchNumbers "2"
 C:\Users\kapl\Desktop\Project-Reporting-Automation\Scripts
 
 

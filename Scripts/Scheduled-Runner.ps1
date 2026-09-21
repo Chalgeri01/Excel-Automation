@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory=$true)]
-    [string]$BatchNumbers,                # e.g. "1,2" or "3"
+    [string]$BatchNumbers,                # e.g. "1.1", "1.2" or "2"
     [switch]$FastMode,
     [ValidateRange(1,16)][int]$MachineExcelLimit = 3,
     [ValidateRange(1,86400)][int]$ExcelSlotWaitTimeoutSec = 21600,
@@ -17,52 +17,56 @@ if (-not $DbConn) {
 
 # ---- Batch map (extend as needed) ----
 $MasterFileMap = @{
-    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 12.05 AM.xlsx"
-    2 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Data Update - 05.00 AM.xlsx"
-    3 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx"
-    4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx"
-    5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx"
-    6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Data Update - 02.00 PM.xlsx"
-    7 = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Master-sheet\07-Test-Master-File.xlsx"
-    8 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\08 Data Update - 06.20 PM.xlsx"
-    9 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 0 Data Update - 10.00 AM.xlsx"
+    '1.1' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 12.05 AM_V1.xlsx"
+    '1.2' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Data Update - 04.05 AM_V2.xlsx"
+    '2' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Data Update - 05.00 AM.xlsx"
+    '3' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Data Update - 11.00 AM.xlsx"
+    '4' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Data Update - 12.00 PM.xlsx"
+    '5' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Data Update - 01.30 PM.xlsx"
+    '6' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Data Update - 02.00 PM.xlsx"
+    '7' = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Master-sheet\07-Test-Master-File.xlsx"
+    '8' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\08 Data Update - 06.20 PM.xlsx"
+    '9' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 0 Data Update - 10.00 AM.xlsx"
 }
 $BatchNameMap = @{
-    1 = "00:05"
-    2 = "05:00"
-    3 = "11:00"
-    4 = "12:00"
-    5 = "13:30"
-    6 = "14:00"
-    7 = "Test"
-    8 = "18.20"
-    9 = "10.00"
+    '1.1' = "00:05"
+    '1.2' = "03:00"
+    '2' = "05:00"
+    '3' = "11:00"
+    '4' = "12:00"
+    '5' = "13:30"
+    '6' = "14:00"
+    '7' = "Test"
+    '8' = "18.20"
+    '9' = "10.00"
 }
 
 # Maximum refresh workers launched by each batch. The machine-wide Excel
 # limit still caps the combined concurrency when scheduled batches overlap.
 $BatchThrottleMap = @{
-    1 = 2
-    2 = 2
-    3 = 2
-    4 = 2
-    5 = 2
-    6 = 2
-    7 = 2
-    8 = 2
-    9 = 2
+    '1.1' = 3
+    '1.2' = 3
+    '2' = 3
+    '3' = 2
+    '4' = 2
+    '5' = 2
+    '6' = 2
+    '7' = 2
+    '8' = 2
+    '9' = 2
 }
 
 # ==== NEW: batches that should send email (map batch -> Email_List.xlsx) ====
 $EmailListMap = @{
-    1 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 12.05 AM Schedule.xlsx"
-    2 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Mail after Data Process of - 05.00 AM Schedule.xlsx"
-    3 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx"
-    4 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx"
-    5 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx"
-    6 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
+    '1.1' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 12.05 AM Schedule_V1.xlsx"
+    '1.2' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\01 Mail after Data Process of - 04.05 AM Schedule_V2.xlsx"
+    '2' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 Mail after Data Process of - 05.00 AM Schedule.xlsx"
+    '3' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\03 Mail after Data Process of - 11.00 AM Schedule.xlsx"
+    '4' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\04 Mail after Data Process of - 12.01 PM Schedule.xlsx"
+    '5' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\05 Mail after Data Process of - 01.30 PM Schedule.xlsx"
+    '6' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\06 Mail after Data Process of - 02.00 PM Schedule.xlsx"
     #7 = "C:\Users\kapl\Desktop\Project-Reporting-Automation\Email-Master\07 Test-Btach.xlsx"
-    9 = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 0 Mail after Data Process of - 10.00 AM Schedule.xlsx"
+    '9' = "\\192.168.1.237\Accounts\SURESH_KAKEE_AUTOMATION PROJECTS\Automation_Process\02 0 Mail after Data Process of - 10.00 AM Schedule.xlsx"
 }
 # Python executable selector (change to "py" or full path if you prefer)
 $PythonExe = "C:\Users\kapl\AppData\Local\Programs\Python\Python313\python.exe"
@@ -70,11 +74,11 @@ $PythonExe = "C:\Users\kapl\AppData\Local\Programs\Python\Python313\python.exe"
 $EmailMaxParallel = $null      # e.g. 6
 $EmailForceResend = $false     # $true to force resend regardless of DB
 
-# ---- Parse BatchNumbers into array of ints ----
+# ---- Parse BatchNumbers into string identifiers (for example 1.1 or 1.2) ----
 $BatchArray = @()
 foreach ($num in $BatchNumbers.Split(',')) {
     $t = $num.Trim()
-    if ($t -match '^\d+$') { $BatchArray += [int]$t } else { Write-Warning "Skipping invalid batch number: '$num'" }
+    if ($t -match '^\d+(?:\.\d+)?$') { $BatchArray += $t } else { Write-Warning "Skipping invalid batch number: '$num'" }
 }
 if ($BatchArray.Count -eq 0) { throw "No valid batch numbers provided." }
 
@@ -162,11 +166,11 @@ ORDER BY timestamp_utc ASC, id ASC
 # ---- Build LogIdentifier (run_id) with your 6 PM rule for night batches ----
 function Get-RunId {
     param(
-        [int]$BatchNumber,
+        [string]$BatchNumber,
         [datetime]$NowLocal = (Get-Date)
     )
-    # Night windows example: batches 1 & 2 roll filename date after 18:00
-    $fileDate = if ($BatchNumber -in @(1,2) -and $NowLocal.Hour -ge 18) { $NowLocal.AddDays(1) } else { $NowLocal }
+    # Overnight batches roll the logical filename date after 18:00.
+    $fileDate = if ($BatchNumber -in @('1.1','1.2','2') -and $NowLocal.Hour -ge 18) { $NowLocal.AddDays(1) } else { $NowLocal }
     $dateStr  = $fileDate.ToString("yyyy-MM-dd")
     return "run-log_{0}_Batch-{1}" -f $dateStr, $BatchNumber
 }
@@ -290,7 +294,7 @@ foreach ($bn in $BatchArray) {
         } else {
             Write-Log "No email step configured for batch $bn — skipping."
         }
-        if($bn -eq 8) {
+        if($bn -eq '8') {
              Write-Log "Found batch $bn now tragger the FTP python script."
              py .\network_to_ftp_sync_ACTIVE.py
         }
